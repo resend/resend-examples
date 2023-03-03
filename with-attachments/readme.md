@@ -10,7 +10,7 @@ This example show how to send Resend emails with attachments.
 yarn dev
 ```
 
-### .2 Create a `.env` file at the root and add your Resend API
+### 2. Create a `.env` file at the root and add your Resend API
 
 ```bash
 RESEND_API_KEY=re_8m9gwsVG_6n94KaJkJ42Yj6qSeVvLq9xF
