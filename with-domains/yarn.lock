@@ -72,10 +72,10 @@
   resolved "https://registry.yarnpkg.com/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-13.2.3.tgz#cd432f280beb8d8de5b7cd2501e9f502e9f3dd72"
   integrity sha512-aLG2MaFs4y7IwaMTosz2r4mVbqRyCnMoFqOcmfTi7/mAS+G4IMH0vJp4oLdbshqiVoiVuKrAfqtXj55/m7Qu1Q==
 
-"@react-email/render@0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@react-email/render/-/render-0.0.6.tgz#4e47ee6df226c86d548c38f96e34844acb944160"
-  integrity sha512-6zs7WZbd37TcPT1OmMPH/kcBpv0QSi+k3om7LyDnbdIcrbwOO/OstVwUaa/6zgvDvnq9Y2wOosbru7j5kUrW9A==
+"@react-email/render@0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@react-email/render/-/render-0.0.7.tgz#92a14e03a59160c39bceeff50517c7058721ab6f"
+  integrity sha512-hMMhxk6TpOcDC5qnKzXPVJoVGEwfm+U5bGOPH+MyTTlx0F02RLQygcATBKsbP7aI/mvkmBAZoFbgPIHop7ovug==
   dependencies:
     html-to-text "9.0.3"
     pretty "2.0.0"
@@ -138,10 +138,10 @@ asynckit@^0.4.0:
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
   integrity sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==
 
-axios@1.3.4:
-  version "1.3.4"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-1.3.4.tgz#f5760cefd9cfb51fd2481acf88c05f67c4523024"
-  integrity sha512-toYm+Bsyl6VC5wSkfkbbNB6ROv7KY93PEBBL6xyDczaIHasAiv4wPqQ/c4RjoQzipxRD2W5g21cOqQulZ7rHwQ==
+axios@1.3.6:
+  version "1.3.6"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.3.6.tgz#1ace9a9fb994314b5f6327960918406fa92c6646"
+  integrity sha512-PEcdkk7JcdPiMDkvM4K6ZBRYq9keuVJsToxm2zQIM70Qqo2WHTdJZMXcG9X+RmRp2VPNUQC8W1RAGbgt6b1yMg==
   dependencies:
     follow-redirects "^1.15.0"
     form-data "^4.0.0"
@@ -525,13 +525,13 @@ react@18.2.0:
   dependencies:
     loose-envify "^1.1.0"
 
-resend@0.12.0:
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/resend/-/resend-0.12.0.tgz#521691100fb5b8e2e18b64e268c7534b4bf124dc"
-  integrity sha512-BAzro7cQDqlTUc14GGqO4ohCaz30BtkgI3dAb3APo9w3k8La8zpcBD0TFvVxP96zvO4zgZgwtgqoCSNNphLETA==
+resend@0.13.1:
+  version "0.13.1"
+  resolved "https://registry.yarnpkg.com/resend/-/resend-0.13.1.tgz#6e6451f123f1679c377a0639c6026aaf5d1f504c"
+  integrity sha512-Zo2gwA6XocZtpqL/raa3EMlzS3SaotHXY9RKrgkueuXEJFLfTHG6JRY/YOJtMbqwxR37ExBU2qXXt/+pmUBB6g==
   dependencies:
-    "@react-email/render" "0.0.6"
-    axios "1.3.4"
+    "@react-email/render" "0.0.7"
+    axios "1.3.6"
 
 scheduler@^0.23.0:
   version "0.23.0"
