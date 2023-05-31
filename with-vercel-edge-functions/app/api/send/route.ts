@@ -1,3 +1,5 @@
+import { NextResponse } from 'next/server';
+
 export const runtime = 'edge';
 
 const RESEND_API_KEY = 're_123456789';
@@ -19,12 +21,6 @@ export async function GET() {
 
     if (res.ok) {
         const data = await res.json();
-
-        return new Response(JSON.stringify(data), {
-            status: 200,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+        return NextResponse.json(data);
     }
 }
