@@ -1,0 +1,38 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    httparty (0.19.1)
+      mime-types (~> 3.0)
+      multi_xml (>= 0.5.2)
+    mime-types (3.4.1)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2023.0218.1)
+    multi_xml (0.6.0)
+    mustermann (3.0.0)
+      ruby2_keywords (~> 0.0.1)
+    nio4r (2.5.9)
+    puma (6.3.0)
+      nio4r (~> 2.0)
+    rack (2.2.7)
+    rack-protection (3.0.6)
+      rack
+    resend (0.5.0)
+      httparty (~> 0.19.1)
+    ruby2_keywords (0.0.5)
+    sinatra (3.0.6)
+      mustermann (~> 3.0)
+      rack (~> 2.2, >= 2.2.4)
+      rack-protection (= 3.0.6)
+      tilt (~> 2.0)
+    tilt (2.1.0)
+
+PLATFORMS
+  x86_64-linux
+
+DEPENDENCIES
+  puma
+  resend
+  sinatra
+
+BUNDLED WITH
+   2.4.6
