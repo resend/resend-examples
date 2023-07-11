@@ -1,1 +1,1 @@
-export * from "./resend";
+export * from './resend';

@@ -1,10 +1,10 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import { Webhook, WebhookRequiredHeaders } from "svix";
-import { buffer } from "micro";
-import { IncomingMessage } from "http";
-import { webhook } from "../../lib";
-import { WebhookEvent } from "../../types";
-import { sendSlackMessage } from "../../utils";
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { WebhookRequiredHeaders } from 'svix';
+import { buffer } from 'micro';
+import { IncomingMessage } from 'http';
+import { webhook } from '../../lib';
+import { WebhookEvent } from '../../types';
+import { sendSlackMessage } from '../../utils';
 
 export const config = {
   api: {
@@ -16,15 +16,15 @@ const webhooks = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
 
   switch (method) {
-    case "POST": {
+    case 'POST': {
       try {
         const payload = (await buffer(req)).toString();
-        const headers = req.headers as IncomingMessage["headers"] &
+        const headers = req.headers as IncomingMessage['headers'] &
           WebhookRequiredHeaders;
 
         const event = webhook.verify(payload, headers) as WebhookEvent;
 
-        if (event.type === "email.bounced") {
+        if (event.type === 'email.bounced') {
           sendSlackMessage(event);
         }
 
@@ -34,7 +34,7 @@ const webhooks = async (req: NextApiRequest, res: NextApiResponse) => {
       }
     }
     default:
-      res.setHeader("Allow", ["POST"]);
+      res.setHeader('Allow', ['POST']);
       res.status(405).end(`Method ${method} Not Allowed`);
   }
 };
