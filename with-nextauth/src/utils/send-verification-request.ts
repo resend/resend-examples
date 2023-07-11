@@ -5,7 +5,7 @@ export const sendVerificationRequest = async (
   params: SendVerificationRequestParams,
 ) => {
   try {
-    await resend.sendEmail({
+    await resend.emails.send({
       from: 'YOUR EMAIL FROM (eg: team@resend.com)',
       to: params.identifier,
       subject: 'YOUR EMAIL SUBJECT',
