@@ -1,6 +1,6 @@
-# Resend with prevent thread on Gmail
+# Resend with unsubscribe URL header
 
-This example show how to send Resend emails with prevent thread on Gmail.
+This example show how to send Resend emails with unsubscribe URL header.
 
 ## How to run
 
@@ -33,7 +33,7 @@ const data = await resend.emails.send({
   subject: 'Waitlist',
   html: '<h1>Hi</h1>',
   headers: {
-    'X-Entity-Ref-ID': uuid(),
+    'List-Unsubscribe': 'https://example.com/unsubscribe',
   },
 });
 ```
