@@ -1,6 +1,6 @@
-# Resend with attachments
+# Resend with React Email
 
-This example show how to send Resend emails with attachments.
+This example show how to send Resend emails with React Email.
 
 ## How to run
 
@@ -27,23 +27,12 @@ yarn dev
 You can update the `from` and `to` here so send from your own domain and to your email address. The `to` must be a verified `domain` in your account.
 
 ```tsx
+import { EmailTemplate } from '../../transactional/emails/email-template';
+
 const data = await resend.emails.send({
   from: 'bu@resend.dev',
   to: 'bu@resend.com',
   subject: 'Receipt for Your Payment',
-  attachments: [
-    {
-      content: invoiceBuffer,
-      filename: 'invoice.pdf',
-    },
-  ],
-  html: '<h1>Thanks for the payment</h1>',
-  text: 'Thanks for the payment',
+  react: <EmailTemplate name="Bu Kinoshita" />,
 });
-```
-
-### 4. Send a POST request to `/api/send`
-
-```bash
-curl --location --request POST 'http://localhost:3000/api/send'
 ```

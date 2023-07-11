@@ -1,11 +1,11 @@
 export type EmailType =
-  | "email.sent"
-  | "email.delivered"
-  | "email.delivery_delayed"
-  | "email.complained"
-  | "email.bounced"
-  | "email.opened"
-  | "email.clicked";
+  | 'email.sent'
+  | 'email.delivered'
+  | 'email.delivery_delayed'
+  | 'email.complained'
+  | 'email.bounced'
+  | 'email.opened'
+  | 'email.clicked';
 
 export interface WebhookEvent {
   created_at: string;

@@ -1,3 +1,3 @@
-import { Webhook } from "svix";
+import { Webhook } from 'svix';
 
-export const webhook = new Webhook(process.env.RESEND_WEBHOOK_SECRET!);
+export const webhook = new Webhook(process.env.WEBHOOK_SECRET);

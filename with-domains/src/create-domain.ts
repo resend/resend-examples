@@ -1,7 +1,4 @@
-require('dotenv').config();
-
-const { Resend } = require('resend');
-const resend = new Resend(process.env.RESEND_API_KEY);
+import { resend } from "./lib/resend";
 
 async function createDomain() {
   try {
@@ -10,8 +7,7 @@ async function createDomain() {
     });
 
     console.log(data);
-  }
-  catch(error) {
+  } catch (error) {
     console.error(error);
   }
 }

@@ -1,1 +1,1 @@
-export * from "./send-verification-request";
+export * from './send-verification-request';
