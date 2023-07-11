@@ -12,8 +12,8 @@ const send = async (req: NextApiRequest, res: NextApiResponse) => {
         subject: 'Receipt for Your Payment',
         attachments: [
           {
-            path: 'https://resend.com/static/footer-twitter.svg',
-            filename: 'footer-twitter.svg',
+            path: 'path/to/file/invoice.pdf',
+            filename: 'invoice.pdf',
           },
         ],
         html: '<h1>Thanks for the payment</h1>',
