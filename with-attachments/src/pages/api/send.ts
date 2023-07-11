@@ -12,9 +12,9 @@ const send = async (req: NextApiRequest, res: NextApiResponse) => {
         path.join(process.cwd(), "public", "static", "invoice.pdf")
       );
 
-      const data = await resend.sendEmail({
-        from: "bu@resend.dev",
-        to: "bu@resend.com",
+      const data = await resend.emails.send({
+        from: "Acme <onboarding@resend.dev>",
+        to: ["delivered@resend.dev"],
         subject: "Receipt for Your Payment",
         attachments: [
           {
