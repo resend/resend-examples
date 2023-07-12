@@ -34,6 +34,7 @@ const data = await resend.emails.send({
   attachments: [
     {
       content: invoiceBuffer,
+      path: 'path/to/file/invoice.pdf',
       filename: 'invoice.pdf',
     },
   ],
