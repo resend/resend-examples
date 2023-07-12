@@ -2,6 +2,7 @@
   "name": "with-webhooks",
   "description": "Resend with webhooks",
   "version": "0.0.1",
+  "license": "MIT",
   "scripts": {
     "build": "next build",
     "dev": "next dev",

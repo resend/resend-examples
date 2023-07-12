@@ -2,6 +2,7 @@
   "name": "with-domains",
   "description": "Resend with Domains",
   "version": "0.0.1",
+  "license": "MIT",
   "scripts": {
     "build": "next build",
     "dev": "next dev",
