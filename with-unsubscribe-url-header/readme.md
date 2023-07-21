@@ -33,7 +33,7 @@ const data = await resend.emails.send({
   subject: 'Waitlist',
   html: '<h1>Hi</h1>',
   headers: {
-    'List-Unsubscribe': 'https://example.com/unsubscribe',
+    'List-Unsubscribe': '<https://example.com/unsubscribe>',
   },
 });
 ```
