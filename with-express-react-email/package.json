@@ -1,0 +1,29 @@
+{
+  "name": "with-express-react-email",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "ts-node src/server",
+    "lint": "eslint --fix --ext .ts ./src",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "@react-email/render": "0.0.7",
+    "express": "4.18.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "resend": "0.17.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.22.9",
+    "@babel/core": "7.22.9",
+    "@babel/preset-env": "7.22.9",
+    "@babel/preset-react": "7.22.5",
+    "@typescript-eslint/eslint-plugin": "6.2.0",
+    "@typescript-eslint/parser": "6.2.0",
+    "eslint": "8.45.0",
+    "prettier": "3.0.0",
+    "typescript": "5.1.6"
+  }
+}
