@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "dotenv": "^16.0.3",
-    "next": "13.2.3",
+    "next": "13.4.12",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "resend": "latest"
@@ -23,7 +23,7 @@
     "@types/react-dom": "18.0.11",
     "@typescript-eslint/eslint-plugin": "6.0.0",
     "eslint": "8.44.0",
-    "eslint-config-next": "13.4.9",
+    "eslint-config-next": "13.4.12",
     "prettier": "3.0.0",
     "typescript": "4.9.5"
   }
