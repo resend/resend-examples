@@ -17,7 +17,7 @@
     "react-dom": "18.2.0",
     "resend": "latest",
     "slack-notify": "2.0.6",
-    "svix": "0.81.0"
+    "svix": "0.85.1"
   },
   "devDependencies": {
     "@types/node": "18.14.5",
