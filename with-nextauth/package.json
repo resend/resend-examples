@@ -29,7 +29,7 @@
     "@typescript-eslint/eslint-plugin": "6.2.0",
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.12",
-    "prettier": "3.0.0",
+    "prettier": "3.0.1",
     "typescript": "5.1.6"
   }
 }
