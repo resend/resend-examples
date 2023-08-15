@@ -13,18 +13,18 @@ GEM
     nio4r (2.5.9)
     puma (6.3.0)
       nio4r (~> 2.0)
-    rack (2.2.7)
-    rack-protection (3.0.6)
-      rack
+    rack (2.2.8)
+    rack-protection (3.1.0)
+      rack (~> 2.2, >= 2.2.4)
     resend (0.7.1)
       httparty (~> 0.19.1)
     ruby2_keywords (0.0.5)
-    sinatra (3.0.6)
+    sinatra (3.1.0)
       mustermann (~> 3.0)
       rack (~> 2.2, >= 2.2.4)
-      rack-protection (= 3.0.6)
+      rack-protection (= 3.1.0)
       tilt (~> 2.0)
-    tilt (2.1.0)
+    tilt (2.2.0)
 
 PLATFORMS
   x86_64-linux
