@@ -15,7 +15,7 @@
     "@supabase/supabase-js": "2.32.0",
     "jsonwebtoken": "9.0.1",
     "next": "13.4.12",
-    "next-auth": "4.22.3",
+    "next-auth": "4.23.0",
     "nodemailer": "6.9.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
