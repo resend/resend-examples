@@ -11,7 +11,7 @@
   "dependencies": {
     "@react-email/render": "0.0.7",
     "express": "4.18.2",
-    "resend": "0.17.2"
+    "resend": "1.0.0"
   },
   "devDependencies": {
     "@babel/cli": "7.22.15",
