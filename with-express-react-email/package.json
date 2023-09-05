@@ -14,10 +14,10 @@
     "resend": "0.17.2"
   },
   "devDependencies": {
-    "@babel/cli": "7.22.10",
-    "@babel/core": "7.22.10",
-    "@babel/preset-env": "7.22.10",
-    "@babel/preset-react": "7.22.5",
+    "@babel/cli": "7.22.15",
+    "@babel/core": "7.22.15",
+    "@babel/preset-env": "7.22.15",
+    "@babel/preset-react": "7.22.15",
     "@typescript-eslint/eslint-plugin": "6.4.0",
     "@typescript-eslint/parser": "6.4.0",
     "eslint": "8.47.0",
