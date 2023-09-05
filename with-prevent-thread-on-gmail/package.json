@@ -22,7 +22,7 @@
     "@types/node": "18.17.5",
     "@types/react": "18.2.20",
     "@types/react-dom": "18.2.7",
-    "@types/uuid": "9.0.2",
+    "@types/uuid": "9.0.3",
     "@typescript-eslint/eslint-plugin": "6.4.0",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.16",
