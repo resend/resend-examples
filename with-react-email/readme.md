@@ -7,7 +7,7 @@ This example show how to send Resend emails with React Email.
 ### 1. Install the dependencies
 
 ```bash
-yarn dev
+yarn install
 ```
 
 ### 2. Create a `.env` file at the root and add your Resend API
