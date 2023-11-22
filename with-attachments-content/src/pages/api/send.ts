@@ -9,7 +9,7 @@ const send = async (req: NextApiRequest, res: NextApiResponse) => {
     case 'POST': {
       const data = await resend.emails.send({
         from: 'Acme <onboarding@resend.dev>',
-        to: ['zno.rocha@gmail.com'],
+        to: ['delivered@resend.dev'],
         subject: 'Email with attachment',
         html: '<p>See attachment</p>',
         attachments: [
