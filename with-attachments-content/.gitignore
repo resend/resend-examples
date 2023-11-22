@@ -1,0 +1,11 @@
+.next
+node_modules
+.env
+yarn-error.log
+.DS_Store
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
