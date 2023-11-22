@@ -7,14 +7,14 @@ const send = async (req: NextApiRequest, res: NextApiResponse) => {
 
   switch (method) {
     case 'POST': {
-      const data = await resend.emails.send({
+      const { data } = await resend.emails.send({
         from: 'Acme <onboarding@resend.dev>',
         to: ['delivered@resend.dev'],
         subject: 'Email with attachment',
         html: '<p>See attachment</p>',
         attachments: [
           {
-            content: Buffer.from(content, 'utf8'),
+            content,
             filename,
           },
         ],
