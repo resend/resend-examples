@@ -34,7 +34,7 @@ const data = await resend.emails.send({
   html: '<p>See attachment</p>',
   attachments: [
     {
-      content: Buffer.from(content, 'utf8'),
+      content,
       filename,
     },
   ],
