@@ -1,6 +1,6 @@
 # Resend with attachments
 
-This example show how to send Resend emails with attachments.
+This example show how to send Resend emails with attachments using Buffer content.
 
 ## How to run
 
@@ -28,23 +28,19 @@ You can update the `from` and `to` here so send from your own domain and to your
 
 ```tsx
 const data = await resend.emails.send({
-  from: 'bu@resend.dev',
-  to: 'bu@resend.com',
-  subject: 'Receipt for Your Payment',
+  from: 'Acme <onboarding@resend.dev>',
+  to: ['delivered@resend.dev'],
+  subject: 'Email with attachment',
+  html: '<p>See attachment</p>',
   attachments: [
     {
-      content: invoiceBuffer,
-      path: 'path/to/file/invoice.pdf',
-      filename: 'invoice.pdf',
+      content: Buffer.from(content, 'utf8'),
+      filename,
     },
   ],
-  html: '<h1>Thanks for the payment</h1>',
-  text: 'Thanks for the payment',
 });
 ```
 
-### 4. Send a POST request to `/api/send`
+### 4. Upload attachment and send email
 
-```bash
-curl --location --request POST 'http://localhost:3000/api/send'
-```
+Go to `http://localhost:3000`, upload an image, and submit the form.
