@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@next-auth/supabase-adapter": "0.2.1",
-    "@supabase/supabase-js": "2.33.1",
+    "@supabase/supabase-js": "2.39.3",
     "jsonwebtoken": "9.0.1",
     "next": "13.4.19",
     "next-auth": "4.24.5",
