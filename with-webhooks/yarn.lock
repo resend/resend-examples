@@ -2953,10 +2953,10 @@ signal-exit@^4.0.1:
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-4.1.0.tgz#952188c1cbd546070e2dd20d0f41c0ae0530cb04"
   integrity sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==
 
-slack-notify@2.0.6:
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/slack-notify/-/slack-notify-2.0.6.tgz#03052d6eebfd72e76a76e11feff7fa6bd8224f6c"
-  integrity sha512-9JJGBzdODgcIgtx5unQZX9yHx9ckM5kXkSJHhU//Eh1rj7vhAK6L89ElXU5ftprID2qbcMADPuzyu4XEp/142Q==
+slack-notify@2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/slack-notify/-/slack-notify-2.0.7.tgz#8301b14a8602ff8660086dd59e19a3fb9b9a7448"
+  integrity sha512-DZ4J3RVszHUaJf5zXtAocxEhZRAvwWoswB6a/8sAG/QMWkuZdvk3e8d2YQQlPJNYNSbfak+rCtn3zrZ5UmMnYg==
 
 slash@^3.0.0:
   version "3.0.0"
@@ -2984,6 +2984,7 @@ streamsearch@^1.1.0:
   integrity sha512-Mcc5wHehp9aXz1ax6bZUyY5afg9u2rv5cqQI3mRrYkGC8rW2hM02jWuwjtL++LS5qinSyhj2QfLyNsuc+VsExg==
 
 "string-width-cjs@npm:string-width@^4.2.0", string-width@^4.1.0:
+  name string-width-cjs
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
