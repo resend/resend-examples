@@ -16,13 +16,13 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "resend": "latest",
-    "uuid": "9.0.0"
+    "uuid": "9.0.1"
   },
   "devDependencies": {
     "@types/node": "18.19.15",
     "@types/react": "18.2.55",
     "@types/react-dom": "18.2.19",
-    "@types/uuid": "9.0.3",
+    "@types/uuid": "9.0.8",
     "@typescript-eslint/eslint-plugin": "6.21.0",
     "eslint": "8.56.0",
     "eslint-config-next": "14.1.0",
