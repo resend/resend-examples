@@ -38,8 +38,7 @@ const data = await resend.emails.send({
     },
   ],
   headers: {
-    'Content-Disposition': 'attachment; filename="invite.ics"',
-    'Content-Type': 'text/calendar',
+    'Content-Disposition': 'attachment; filename="invite.ics"'
   },
   html: '<h1>Thanks for the invite</h1>',
 });
