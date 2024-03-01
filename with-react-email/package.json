@@ -12,7 +12,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "next": "14.1.0",
+    "next": "14.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "resend": "latest"
@@ -23,7 +23,7 @@
     "@types/react-dom": "18.2.19",
     "@typescript-eslint/eslint-plugin": "7.0.2",
     "eslint": "8.56.0",
-    "eslint-config-next": "14.1.0",
+    "eslint-config-next": "14.1.1",
     "prettier": "3.2.5",
     "typescript": "5.3.3"
   }
