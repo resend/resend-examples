@@ -38,7 +38,7 @@ const send = async (req: NextApiRequest, res: NextApiResponse) => {
             filename: 'invite.ics',
             // Ignoring until we release a new SDK version with the updated types
             // @ts-ignore
-            contentType: 'text/calendar; charset="UTF-8"; method=REQUEST',
+            content_type: 'text/calendar; charset="UTF-8"; method=REQUEST',
           },
         ],
         headers: {
