@@ -28,7 +28,7 @@ const send = async (req: NextApiRequest, res: NextApiResponse) => {
         url: 'http://meet.google.com/',
       });
 
-      const { data } = await resend.emails.send({
+      const { data, error } = await resend.emails.send({
         from: 'Acme <onboarding@resend.dev>',
         to: ['delivered@resend.dev'],
         subject: '30 Minute Meeting',
@@ -46,6 +46,10 @@ const send = async (req: NextApiRequest, res: NextApiResponse) => {
         },
         html: '<h1>Thanks for the invite</h1>',
       });
+
+      if (error) {
+        return res.status(500).send({ error });
+      }
 
       return res.status(200).send({ data: data.id });
     }
