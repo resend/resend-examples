@@ -10,8 +10,8 @@ const send = async (req: NextApiRequest, res: NextApiResponse) => {
       const { data } = await resend.emails.send({
         from: 'Acme <onboarding@resend.dev>',
         to: ['delivered@resend.dev'],
-        subject: 'Email with attachment',
-        html: '<p>See attachment</p>',
+        subject: 'Receipt for your payment',
+        html: '<p>Thanks for the payment</p>',
         attachments: [
           {
             content,
