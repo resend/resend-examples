@@ -7,17 +7,16 @@ const send = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case 'GET': {
       const data = await resend.emails.send({
-        from: "Acme <onboarding@resend.dev>",
-        to: ["delivered@resend.dev"],
-        subject: 'Receipt for Your Payment',
+        from: 'Acme <onboarding@resend.dev>',
+        to: ['delivered@resend.dev'],
+        subject: 'Receipt for your payment',
+        html: '<p>Thanks for the payment</p>',
         attachments: [
           {
-            path: 'path/to/file/invoice.pdf',
-            filename: 'invoice.pdf',
+            path: 'https://resend.com/docs/sample/invoice.pdf',
+            filename: 'sample-invoice.pdf',
           },
         ],
-        html: '<h1>Thanks for the payment</h1>',
-        text: 'Thanks for the payment',
       });
 
       return res.status(200).send({ data: data.id });

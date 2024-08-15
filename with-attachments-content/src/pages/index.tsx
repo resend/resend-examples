@@ -51,7 +51,7 @@ export const Index: React.FC = () => {
         type="file"
         name="file"
         onChange={onAddFileAction}
-        accept="image/*"
+        accept="image/*,.pdf"
       />
       <input type="submit" value="Send Email" />
     </form>
