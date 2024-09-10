@@ -2,7 +2,9 @@ import asyncio
 import time
 import resend
 
-async def send_email(n):
+def send_email(n):
+    start_time = time.time()
+
     params: resend.Emails.SendParams = {
         "from": "onboarding@resend.dev",
         "to": ["delivered@resend.dev"],
@@ -11,19 +13,18 @@ async def send_email(n):
     }
 
     email: resend.Email = resend.Emails.send(params)
-    print("Email ID: #{} processed - #{}".format(email["id"], n))
+    print("Email ID: #{} processed in #{}".format(email["id"], time.time() - start_time))
 
 async def send_in_parallel():
-    tasks = [send_email(i) for i in range(1, 5)]
-
     start_time = time.time()
-    for c in asyncio.as_completed(tasks):
-        result = await c
-        end_time = time.time()
-        print(end_time - start_time, result)
+
+    await asyncio.gather(
+        asyncio.to_thread(send_email, 1),
+        asyncio.to_thread(send_email, 2),
+        asyncio.to_thread(send_email, 3),
+        asyncio.to_thread(send_email, 4))
 
     print(f"Total time {time.time() - start_time}")
-
 
 if __name__ == "__main__":
     loop = asyncio.new_event_loop()
