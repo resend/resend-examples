@@ -13,7 +13,7 @@ const send = async (req: NextApiRequest, res: NextApiResponse) => {
         html: '<p>Thanks for the payment</p>',
         attachments: [
           {
-            path: 'https://resend.com/docs/sample/invoice.pdf',
+            path: 'https://resend.com/static/sample/invoice.pdf',
             filename: 'sample-invoice.pdf',
           },
         ],
