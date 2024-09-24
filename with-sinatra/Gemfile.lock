@@ -2,11 +2,15 @@ GEM
   remote: https://rubygems.org/
   specs:
     base64 (0.2.0)
-    httparty (0.21.0)
+    bigdecimal (3.1.8)
+    csv (0.1.0)
+    httparty (0.22.0)
+      csv
       mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
     mini_mime (1.1.5)
-    multi_xml (0.6.0)
+    multi_xml (0.7.1)
+      bigdecimal (~> 3.1)
     mustermann (3.0.0)
       ruby2_keywords (~> 0.0.1)
     nio4r (2.7.0)
@@ -18,8 +22,8 @@ GEM
       rack (>= 3.0.0, < 4)
     rack-session (2.0.0)
       rack (>= 3.0.0)
-    resend (0.10.0)
-      httparty (>= 0.19.1)
+    resend (0.13.0)
+      httparty (>= 0.21.0)
     ruby2_keywords (0.0.5)
     sinatra (4.0.0)
       mustermann (~> 3.0)
