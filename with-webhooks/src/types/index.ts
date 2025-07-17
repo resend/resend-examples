@@ -5,7 +5,8 @@ export type EmailType =
   | 'email.complained'
   | 'email.bounced'
   | 'email.opened'
-  | 'email.clicked';
+  | 'email.clicked'
+  | 'email.failed';
 
 export interface WebhookEvent {
   created_at: string;
