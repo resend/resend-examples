@@ -24,7 +24,7 @@ yarn dev
 
 ### 4. Update the `from` and `to` in the `send.ts`
 
-You can update the `from` and `to` here so send from your own domain and to your email address. The `to` must be a verified `domain` in your account.
+You can update the `from` and `to` here so send from your own domain and to your email address. The `from` must be a verified `domain` in your account.
 
 ```tsx
 const data = await resend.emails.send({
