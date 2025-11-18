@@ -13,15 +13,15 @@
   },
   "dependencies": {
     "next": "14.2.30",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
     "resend": "latest",
     "uuid": "9.0.1"
   },
   "devDependencies": {
     "@types/node": "20.11.20",
-    "@types/react": "18.2.61",
-    "@types/react-dom": "18.2.19",
+    "@types/react": "18.3.27",
+    "@types/react-dom": "18.3.7",
     "@types/uuid": "9.0.8",
     "@typescript-eslint/eslint-plugin": "7.1.0",
     "eslint": "8.56.0",
