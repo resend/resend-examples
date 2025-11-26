@@ -7,29 +7,30 @@ import {
   Preview,
   Text,
 } from '@react-email/components';
-import * as React from 'react';
 
 interface WaitlistEmailProps {
   name: string;
 }
 
-export const WaitlistEmail: React.FC<Readonly<WaitlistEmailProps>> = ({
-  name,
-}) => (
-  <Html>
-    <Head />
-    <Preview>Thank you for joining our waitlist and for your patience</Preview>
-    <Body style={main}>
-      <Container style={container}>
-        <Heading style={h1}>Coming Soon.</Heading>
-        <Text style={text}>
-          Thank you {name} for joining our waitlist and for your patience. We
-          will send you a note when we have something new to share.
-        </Text>
-      </Container>
-    </Body>
-  </Html>
-);
+export function WaitlistEmail({ name }: WaitlistEmailProps) {
+  return (
+    <Html>
+      <Head />
+      <Preview>
+        Thank you for joining our waitlist and for your patience
+      </Preview>
+      <Body style={main}>
+        <Container style={container}>
+          <Heading style={h1}>Coming Soon.</Heading>
+          <Text style={text}>
+            Thank you {name} for joining our waitlist and for your patience. We
+            will send you a note when we have something new to share.
+          </Text>
+        </Container>
+      </Body>
+    </Html>
+  );
+}
 
 export default WaitlistEmail;
 
