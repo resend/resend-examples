@@ -1,0 +1,28 @@
+# next.js
+.env*
+.next
+next-env.d.ts
+/.next/
+/out/
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# env files (can opt-in for committing if needed)
+.env*
+!.env.example
+
+# misc
+.DS_Store
+*.pem
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
