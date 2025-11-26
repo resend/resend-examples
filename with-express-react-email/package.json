@@ -9,7 +9,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "@react-email/render": "0.0.12",
+    "@react-email/render": "0.0.17",
     "express": "4.20.0",
     "resend": "3.2.0"
   },
