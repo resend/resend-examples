@@ -7,7 +7,7 @@ This example show how to send Resend emails with attachments using Buffer conten
 ### 1. Install the dependencies
 
 ```bash
-yarn dev
+yarn install
 ```
 
 ### 2. Create a `.env` file at the root and add your Resend API
@@ -41,6 +41,6 @@ const data = await resend.emails.send({
 });
 ```
 
-### 4. Upload attachment and send email
+### 5. Upload attachment and send email
 
 Go to `http://localhost:3000`, upload an image, and submit the form.

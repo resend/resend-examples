@@ -1,8 +1,10 @@
-import * as React from 'react';
+'use client';
 
-export const Index: React.FC = () => {
-  const [content, setContent] = React.useState(null);
-  const [filename, setFilename] = React.useState('');
+import { useState } from 'react';
+
+export default function HomePage() {
+  const [content, setContent] = useState(null);
+  const [filename, setFilename] = useState('');
 
   const onSubmit = async (e: React.FormEvent) => {
     try {
@@ -20,7 +22,7 @@ export const Index: React.FC = () => {
       });
 
       alert('Request sent');
-    } catch (e) {
+    } catch {
       alert('Something went wrong');
     }
   };
@@ -56,6 +58,4 @@ export const Index: React.FC = () => {
       <input type="submit" value="Send Email" />
     </form>
   );
-};
-
-export default Index;
+}
