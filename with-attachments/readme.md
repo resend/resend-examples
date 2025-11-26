@@ -22,7 +22,7 @@ RESEND_API_KEY=re_8m9gwsVG_6n94KaJkJ42Yj6qSeVvLq9xF
 yarn dev
 ```
 
-### 4. Update the `from` and `to` in the `send.ts`
+### 4. Update the `from` and `to` in the `app/api/send/route.ts`
 
 You can update the `from` and `to` here so sending is done from your own domain and to your email address. The `to` must be a verified domain in your account.
 
