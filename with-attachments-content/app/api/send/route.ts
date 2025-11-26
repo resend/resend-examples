@@ -1,7 +1,7 @@
 import { resend } from '../../../lib/resend';
 
 export async function POST(request: Request) {
-  const { filename, content } = await request.json() as {
+  const { filename, content } = (await request.json()) as {
     filename: string;
     content: string;
   };
