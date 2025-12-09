@@ -10,7 +10,7 @@ This example show how to send Resend emails with Express and React Email.
 yarn
 ```
 
-### 2. Create a `.env` file at the root and add your Resend API
+### 2. Create a `.env` file at the root and add your Resend API Key
 
 ```bash
 RESEND_API_KEY=re_8m9gwsVG_6n94KaJkJ42Yj6qSeVvLq9xF
@@ -28,14 +28,14 @@ You can update the `from` and `to` here so send from your own domain and to your
 
 ```tsx
 const data = await resend.emails.send({
-  from: 'Acme <onboarding@resend.dev>',
-  to: ['delivered@resend.dev'],
+  from: 'Acme <waitlist@acme.dev>',
+  to: ['user@example.com'],
   subject: 'Waitlist',
-  html: '<h1>Hi</h1>',
-  headers: {
-    'X-Entity-Ref-ID': uuid(),
-  },
+  react: <WaitlistEmail name="Bu" />,
 });
 ```
 
-_Note_: `babel-node`` is not meant for production use. It's recommended to precompile your files and run the compiled resources in production.
+### 5. Open URL in your browser
+
+Go to http://localhost:3000/send
+
