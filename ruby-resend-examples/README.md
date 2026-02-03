@@ -37,9 +37,39 @@ ruby examples/batch_send.rb
 ruby examples/with_attachments.rb
 ```
 
+### With CID (Inline) Attachments
+```bash
+ruby examples/with_cid_attachments.rb
+```
+
 ### Scheduled Sending
 ```bash
 ruby examples/scheduled_send.rb
+```
+
+### Using Templates
+```bash
+ruby examples/with_template.rb
+```
+
+### Prevent Gmail Threading
+```bash
+ruby examples/prevent_threading.rb
+```
+
+### Audiences & Contacts
+```bash
+ruby examples/audiences.rb
+```
+
+### Domain Management
+```bash
+ruby examples/domains.rb
+```
+
+### Inbound Email
+```bash
+ruby examples/inbound.rb
 ```
 
 ### Sinatra Application
@@ -87,13 +117,19 @@ puts "Email ID: #{result["id"]}"
 ```
 ruby-resend-examples/
 ├── examples/
-│   ├── basic_send.rb       # Simple email sending
-│   ├── batch_send.rb       # Multiple emails at once
-│   ├── with_attachments.rb # Emails with files
-│   └── scheduled_send.rb   # Future delivery
+│   ├── basic_send.rb          # Simple email sending
+│   ├── batch_send.rb          # Multiple emails at once
+│   ├── with_attachments.rb    # Emails with files
+│   ├── with_cid_attachments.rb # Inline images
+│   ├── scheduled_send.rb      # Future delivery
+│   ├── with_template.rb       # Using Resend templates
+│   ├── prevent_threading.rb   # Prevent Gmail threading
+│   ├── audiences.rb           # Manage contacts
+│   ├── domains.rb             # Manage domains
+│   └── inbound.rb             # Handle inbound emails
 ├── sinatra_app/
-│   └── app.rb              # Sinatra web app
-├── rails_app/              # Rails API app
+│   └── app.rb                 # Sinatra web app
+├── rails_app/                 # Rails API app
 │   ├── app/controllers/
 │   ├── config/
 │   ├── Gemfile
@@ -101,27 +137,6 @@ ruby-resend-examples/
 ├── Gemfile
 ├── .env.example
 └── README.md
-```
-
-## Rails Integration
-
-For Rails applications, you can use the Resend gem directly or configure it as a delivery method:
-
-```ruby
-# config/initializers/resend.rb
-Resend.api_key = Rails.application.credentials.resend_api_key
-
-# In a mailer
-class UserMailer < ApplicationMailer
-  def welcome(user)
-    Resend::Emails.send({
-      from: "Acme <hello@acme.com>",
-      to: [user.email],
-      subject: "Welcome!",
-      html: render_to_string(template: "user_mailer/welcome")
-    })
-  end
-end
 ```
 
 ## Resources

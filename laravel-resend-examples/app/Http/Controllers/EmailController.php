@@ -137,4 +137,136 @@ class EmailController extends Controller
             'ids' => collect($result->data)->pluck('id'),
         ]);
     }
+
+    /**
+     * Send email with attachment
+     */
+    public function sendWithAttachment(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'attachment' => 'required|file|max:10240', // 10MB max
+        ]);
+
+        $file = $request->file('attachment');
+        $content = base64_encode(file_get_contents($file->getRealPath()));
+
+        $result = Resend::emails()->send([
+            'from' => config('mail.from.address'),
+            'to' => [$request->email],
+            'subject' => 'Email with Attachment',
+            'html' => '<p>Please find the attached file.</p>',
+            'attachments' => [
+                [
+                    'filename' => $file->getClientOriginalName(),
+                    'content' => $content,
+                ],
+            ],
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'id' => $result->id,
+        ]);
+    }
+
+    /**
+     * Send email with CID (inline) attachment
+     */
+    public function sendWithCidAttachment(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        // Placeholder image (in real app, load from storage)
+        $placeholderImage = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAFBQIAX8jx0gAAAABJRU5ErkJggg==';
+
+        $result = Resend::emails()->send([
+            'from' => config('mail.from.address'),
+            'to' => [$request->email],
+            'subject' => 'Email with Inline Image - Laravel Example',
+            'html' => '
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                    <div style="text-align: center; padding: 20px; background: #f5f5f5;">
+                        <img src="cid:logo" alt="Company Logo" width="100" height="100" />
+                    </div>
+                    <div style="padding: 20px;">
+                        <h1 style="color: #333;">Inline Image Example</h1>
+                        <p style="color: #666;">
+                            The image above is embedded using a <strong>Content-ID (CID)</strong> reference.
+                        </p>
+                    </div>
+                </div>
+            ',
+            'attachments' => [
+                [
+                    'filename' => 'logo.png',
+                    'content' => $placeholderImage,
+                    'content_id' => 'logo',
+                ],
+            ],
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'id' => $result->id,
+        ]);
+    }
+
+    /**
+     * Send email using a Resend template
+     */
+    public function sendWithTemplate(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'template_id' => 'required|string',
+        ]);
+
+        $result = Resend::emails()->send([
+            'from' => config('mail.from.address'),
+            'to' => [$request->email],
+            'subject' => 'Email from Template',
+            'template_id' => $request->template_id,
+            'template_data' => [
+                'name' => $request->input('name', 'User'),
+                'company' => $request->input('company', 'Acme Inc'),
+            ],
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'id' => $result->id,
+        ]);
+    }
+
+    /**
+     * Send email that won't be threaded in Gmail
+     */
+    public function sendPreventThreading(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'subject' => 'required|string',
+            'message' => 'required|string',
+        ]);
+
+        $result = Resend::emails()->send([
+            'from' => config('mail.from.address'),
+            'to' => [$request->email],
+            'subject' => $request->subject,
+            'html' => "<p>{$request->message}</p>",
+            'headers' => [
+                // Unique ID prevents Gmail from threading
+                'X-Entity-Ref-ID' => (string) \Illuminate\Support\Str::uuid(),
+            ],
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'id' => $result->id,
+            'prevented_threading' => true,
+        ]);
+    }
 }

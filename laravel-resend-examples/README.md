@@ -1,6 +1,6 @@
 # Laravel + Resend Examples
 
-Comprehensive examples for sending emails with [Resend](https://resend.com) using Laravel 11.
+Comprehensive examples for sending emails with [Resend](https://resend.com) using Laravel.
 
 ## Prerequisites
 
@@ -25,89 +25,100 @@ php artisan key:generate
 
 ## Configuration
 
-The Resend Laravel package automatically registers itself. Configure it in `.env`:
+The Resend package is configured in `config/resend.php`. Set these environment variables:
 
 ```env
 MAIL_MAILER=resend
 RESEND_API_KEY=re_xxxxxxxxx
+RESEND_WEBHOOK_SECRET=whsec_xxxxxxxxx
+MAIL_FROM_ADDRESS=onboarding@resend.dev
+MAIL_FROM_NAME=Acme
 ```
 
-## Examples
+## API Endpoints
 
-### Using Laravel Mail Facade (Recommended)
+### Email Sending
 
-```php
-use App\Mail\WelcomeMail;
-use Illuminate\Support\Facades\Mail;
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/send/welcome` | Send welcome email using Laravel Mail |
+| POST | `/api/send/direct` | Send email directly via Resend |
+| POST | `/api/send/scheduled` | Send scheduled email |
+| POST | `/api/send/attachment` | Send email with attachment |
+| POST | `/api/send/cid` | Send email with inline image |
+| POST | `/api/send/template` | Send email using Resend template |
+| POST | `/api/send/prevent-threading` | Send email without Gmail threading |
+| POST | `/api/contact` | Contact form (batch send) |
 
-// Send a Mailable
-Mail::to('delivered@resend.dev')
-    ->send(new WelcomeMail('John Doe'));
+### Webhooks
 
-// Queue for async sending
-Mail::to('delivered@resend.dev')
-    ->queue(new WelcomeMail('John Doe'));
-```
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/webhook` | Handle Resend webhook events |
 
-### Using Resend Facade Directly
+### Audiences & Contacts
 
-```php
-use Resend\Laravel\Facades\Resend;
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/audiences` | List all audiences |
+| POST | `/api/audiences` | Create audience |
+| GET | `/api/audiences/{id}` | Get audience |
+| DELETE | `/api/audiences/{id}` | Delete audience |
+| GET | `/api/audiences/{id}/contacts` | List contacts |
+| POST | `/api/audiences/{id}/contacts` | Add contact |
+| PATCH | `/api/audiences/{id}/contacts/{contactId}` | Update contact |
+| DELETE | `/api/audiences/{id}/contacts/{contactId}` | Remove contact |
 
-// Basic send
-$result = Resend::emails()->send([
-    'from' => 'Acme <onboarding@resend.dev>',
-    'to' => ['delivered@resend.dev'],
-    'subject' => 'Hello',
-    'html' => '<p>Hello World</p>',
-]);
+### Domains
 
-// Scheduled send
-$result = Resend::emails()->send([
-    'from' => 'Acme <onboarding@resend.dev>',
-    'to' => ['delivered@resend.dev'],
-    'subject' => 'Reminder',
-    'html' => '<p>This is your reminder!</p>',
-    'scheduled_at' => '2026-02-03T10:00:00Z',
-]);
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/domains` | List all domains |
+| POST | `/api/domains` | Create domain |
+| GET | `/api/domains/{id}` | Get domain with DNS records |
+| POST | `/api/domains/{id}/verify` | Verify domain |
+| DELETE | `/api/domains/{id}` | Delete domain |
 
-// Batch send
-$result = Resend::batch()->send([
-    ['from' => '...', 'to' => ['delivered+1@resend.dev'], ...],
-    ['from' => '...', 'to' => ['delivered+2@resend.dev'], ...],
-]);
-```
+## Usage Examples
 
-### Artisan Commands
-
+### Send Welcome Email
 ```bash
-# Send a test email
-php artisan email:send-test delivered@resend.dev
-
-# Use direct Resend method
-php artisan email:send-test delivered@resend.dev --method=direct
-```
-
-### API Endpoints
-
-```bash
-# Start the server
-php artisan serve
-
-# Send welcome email
 curl -X POST http://localhost:8000/api/send/welcome \
   -H "Content-Type: application/json" \
   -d '{"email": "delivered@resend.dev", "name": "John"}'
+```
 
-# Send direct email
+### Send Direct Email
+```bash
 curl -X POST http://localhost:8000/api/send/direct \
   -H "Content-Type: application/json" \
-  -d '{"email": "delivered@resend.dev", "subject": "Hello", "message": "Hi there!"}'
+  -d '{"email": "delivered@resend.dev", "subject": "Hello", "message": "Hi from Laravel!"}'
+```
 
-# Submit contact form (batch)
-curl -X POST http://localhost:8000/api/contact \
+### Send Scheduled Email
+```bash
+curl -X POST http://localhost:8000/api/send/scheduled \
   -H "Content-Type: application/json" \
-  -d '{"name": "John", "email": "delivered@resend.dev", "message": "Hello!"}'
+  -d '{"email": "delivered@resend.dev", "scheduled_at": "2024-12-25T10:00:00Z"}'
+```
+
+### Send with Inline Image
+```bash
+curl -X POST http://localhost:8000/api/send/cid \
+  -H "Content-Type: application/json" \
+  -d '{"email": "delivered@resend.dev"}'
+```
+
+### Prevent Gmail Threading
+```bash
+curl -X POST http://localhost:8000/api/send/prevent-threading \
+  -H "Content-Type: application/json" \
+  -d '{"email": "delivered@resend.dev", "subject": "Order Update", "message": "Your order shipped!"}'
+```
+
+### Artisan Command
+```bash
+php artisan email:send delivered@resend.dev "John Doe"
 ```
 
 ## Project Structure
@@ -116,28 +127,77 @@ curl -X POST http://localhost:8000/api/contact \
 laravel-resend-examples/
 ├── app/
 │   ├── Console/Commands/
-│   │   └── SendTestEmail.php     # Artisan command
+│   │   └── SendTestEmail.php
 │   ├── Http/Controllers/
-│   │   └── EmailController.php   # API endpoints
+│   │   ├── EmailController.php
+│   │   ├── WebhookController.php
+│   │   ├── AudienceController.php
+│   │   └── DomainController.php
 │   └── Mail/
-│       ├── WelcomeMail.php       # Welcome mailable
-│       └── ContactFormMail.php   # Contact notification
+│       ├── WelcomeMail.php
+│       └── ContactFormMail.php
 ├── config/
-│   └── resend.php                # Resend config
+│   └── resend.php
 ├── resources/views/emails/
-│   ├── welcome.blade.php         # Welcome template
-│   └── contact-form.blade.php    # Contact template
+│   ├── welcome.blade.php
+│   └── contact-form.blade.php
 ├── routes/
-│   └── api.php                   # API routes
+│   └── api.php
 ├── composer.json
+├── .env.example
 └── README.md
+```
+
+## Quick Code Examples
+
+### Using Laravel Mail Facade
+```php
+use App\Mail\WelcomeMail;
+use Illuminate\Support\Facades\Mail;
+
+Mail::to('user@example.com')
+    ->send(new WelcomeMail('John'));
+```
+
+### Using Resend Facade Directly
+```php
+use Resend\Laravel\Facades\Resend;
+
+$result = Resend::emails()->send([
+    'from' => 'Acme <onboarding@resend.dev>',
+    'to' => ['user@example.com'],
+    'subject' => 'Hello',
+    'html' => '<p>Hello World</p>',
+]);
+
+echo $result->id;
+```
+
+### Batch Sending
+```php
+use Resend\Laravel\Facades\Resend;
+
+$result = Resend::batch()->send([
+    [
+        'from' => 'Acme <onboarding@resend.dev>',
+        'to' => ['user1@example.com'],
+        'subject' => 'Hello User 1',
+        'html' => '<p>Hello!</p>',
+    ],
+    [
+        'from' => 'Acme <onboarding@resend.dev>',
+        'to' => ['user2@example.com'],
+        'subject' => 'Hello User 2',
+        'html' => '<p>Hello!</p>',
+    ],
+]);
 ```
 
 ## Resources
 
 - [Resend Laravel Package](https://github.com/resend/resend-laravel)
-- [Laravel Mail Documentation](https://laravel.com/docs/mail)
 - [Resend Documentation](https://resend.com/docs)
+- [API Reference](https://resend.com/docs/api-reference)
 
 ## License
 

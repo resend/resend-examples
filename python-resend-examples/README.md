@@ -11,7 +11,7 @@ Comprehensive examples for sending emails with [Resend](https://resend.com) usin
 ## Installation
 
 ```bash
-# Create virtual environment
+# Create virtual environment (optional)
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
@@ -41,9 +41,39 @@ python examples/batch_send.py
 python examples/with_attachments.py
 ```
 
+### With CID (Inline) Attachments
+```bash
+python examples/with_cid_attachments.py
+```
+
 ### Scheduled Sending
 ```bash
 python examples/scheduled_send.py
+```
+
+### Using Templates
+```bash
+python examples/with_template.py
+```
+
+### Prevent Gmail Threading
+```bash
+python examples/prevent_threading.py
+```
+
+### Audiences & Contacts
+```bash
+python examples/audiences.py
+```
+
+### Domain Management
+```bash
+python examples/domains.py
+```
+
+### Inbound Email
+```bash
+python examples/inbound.py
 ```
 
 ### Flask Application
@@ -53,14 +83,17 @@ python examples/flask_app.py
 # Then in another terminal:
 curl -X POST http://localhost:5000/send \
   -H "Content-Type: application/json" \
-  -d '{"to": "delivered@resend.dev", "subject": "Hello", "message": "Hi!"}'
+  -d '{"to": "delivered@resend.dev", "subject": "Hello", "message": "Hi from Flask!"}'
 ```
 
 ### FastAPI Application
 ```bash
-uvicorn examples.fastapi_app:app --reload
+python examples/fastapi_app.py
 
-# Visit http://localhost:8000/docs for interactive API docs
+# Then in another terminal:
+curl -X POST http://localhost:8000/send \
+  -H "Content-Type: application/json" \
+  -d '{"to": "delivered@resend.dev", "subject": "Hello", "message": "Hi from FastAPI!"}'
 ```
 
 ## Quick Usage
@@ -70,7 +103,6 @@ import resend
 
 resend.api_key = "re_xxxxxxxxx"
 
-# Send a basic email
 result = resend.Emails.send({
     "from": "Acme <onboarding@resend.dev>",
     "to": ["delivered@resend.dev"],
@@ -86,12 +118,18 @@ print(f"Email ID: {result['id']}")
 ```
 python-resend-examples/
 ├── examples/
-│   ├── basic_send.py       # Simple email sending
-│   ├── batch_send.py       # Multiple emails at once
-│   ├── with_attachments.py # Emails with files
-│   ├── scheduled_send.py   # Future delivery
-│   ├── flask_app.py        # Flask web app
-│   └── fastapi_app.py      # FastAPI web app
+│   ├── basic_send.py          # Simple email sending
+│   ├── batch_send.py          # Multiple emails at once
+│   ├── with_attachments.py    # Emails with files
+│   ├── with_cid_attachments.py # Inline images
+│   ├── scheduled_send.py      # Future delivery
+│   ├── with_template.py       # Using Resend templates
+│   ├── prevent_threading.py   # Prevent Gmail threading
+│   ├── audiences.py           # Manage contacts
+│   ├── domains.py             # Manage domains
+│   ├── inbound.py             # Handle inbound emails
+│   ├── flask_app.py           # Flask web application
+│   └── fastapi_app.py         # FastAPI web application
 ├── requirements.txt
 ├── .env.example
 └── README.md
