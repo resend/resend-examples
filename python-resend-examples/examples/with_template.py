@@ -28,12 +28,14 @@ result = resend.Emails.send({
     "to": ["delivered@resend.dev"],
     "subject": "Email from Template - Python Example",
     # Use a template instead of html/text
-    "template_id": template_id,
-    # Pass dynamic data to the template
-    "template_data": {
-        "name": "John Doe",
-        "company": "Acme Inc",
-        "action_url": "https://example.com/dashboard",
+    "template": {
+        "id": template_id,
+        # Variables must match EXACTLY (case-sensitive!)
+        "variables": {
+            "name": "John Doe",
+            "company": "Acme Inc",
+            "action_url": "https://example.com/dashboard",
+        },
     },
 })
 

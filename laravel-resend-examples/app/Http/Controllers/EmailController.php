@@ -228,10 +228,13 @@ class EmailController extends Controller
             'from' => config('mail.from.address'),
             'to' => [$request->email],
             'subject' => 'Email from Template',
-            'template_id' => $request->template_id,
-            'template_data' => [
-                'name' => $request->input('name', 'User'),
-                'company' => $request->input('company', 'Acme Inc'),
+            'template' => [
+                'id' => $request->template_id,
+                // Variables must match EXACTLY (case-sensitive!)
+                'variables' => [
+                    'name' => $request->input('name', 'User'),
+                    'company' => $request->input('company', 'Acme Inc'),
+                ],
             ],
         ]);
 

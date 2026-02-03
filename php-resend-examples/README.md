@@ -74,7 +74,8 @@ php src/inbound/webhook.php
 
 ### Slim Web Application
 ```bash
-php -S localhost:8080 src/slim_app.php
+# From the php-resend-examples directory
+php -S localhost:8080 -t . src/slim_app.php
 
 # Then in another terminal:
 curl -X POST http://localhost:8080/send \
