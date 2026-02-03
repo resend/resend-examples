@@ -101,7 +101,7 @@ export async function submitContactForm(
     return {
       success: true,
       error: null,
-      ids: data,
+      ids: data?.data ?? null,
     };
   } catch (err) {
     console.error('Unexpected error:', err);

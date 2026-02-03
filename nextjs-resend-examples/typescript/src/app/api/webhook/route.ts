@@ -93,7 +93,7 @@ export async function POST(request: Request) {
               });
             console.log(
               'Attachments:',
-              attachments?.map((a) => a.filename),
+              attachments?.data?.map((a: { filename?: string }) => a.filename),
             );
           }
 

@@ -90,9 +90,9 @@ export async function POST(request: Request) {
           filename: 'logo.png',
           // Base64-encoded image content
           content: placeholderImage,
-          // The content_id that matches the cid: reference in HTML
+          // The contentId that matches the cid: reference in HTML
           // This is what makes it an inline image vs regular attachment
-          content_id: 'logo',
+          contentId: 'logo',
         },
       ],
     });

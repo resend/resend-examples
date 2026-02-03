@@ -44,6 +44,7 @@ export async function POST(request: Request) {
       from: process.env.EMAIL_FROM || 'Acme <onboarding@resend.dev>',
       to: [to],
       subject: subject,
+      html: '', // Will be overwritten below
     };
 
     // Option 1: Use React Email template
