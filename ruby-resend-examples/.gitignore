@@ -1,0 +1,27 @@
+# Bundler
+/.bundle/
+/vendor/bundle
+Gemfile.lock
+
+# Environment
+.env
+
+# Ruby
+*.gem
+*.rbc
+/.config
+/coverage/
+/InstalledFiles
+/pkg/
+/spec/reports/
+/tmp/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
