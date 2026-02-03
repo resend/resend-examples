@@ -15,10 +15,10 @@
  * @see https://resend.com/docs/send-with-attachments#inline-attachments
  */
 
-import { useState } from 'react';
 import { CodeBlock } from '@/components/code-block';
 import { PageHeader } from '@/components/page-header';
 import { ResultDisplay } from '@/components/result-display';
+import { useState } from 'react';
 
 export default function CidAttachmentsPage() {
   const [to, setTo] = useState('delivered@resend.dev');
@@ -63,7 +63,7 @@ const logoContent = readFileSync('./logo.png').toString('base64');
 
 const { data, error } = await resend.emails.send({
   from: 'Acme <onboarding@resend.dev>',
-  to: ['user@example.com'],
+  to: ['delivered@resend.dev'],
   subject: 'Email with Inline Image',
   html: \`
     <div>

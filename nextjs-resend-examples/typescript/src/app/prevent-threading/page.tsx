@@ -15,10 +15,10 @@
  * @see https://resend.com/docs/knowledge-base/how-to-prevent-threading
  */
 
-import { useState } from 'react';
 import { CodeBlock } from '@/components/code-block';
 import { PageHeader } from '@/components/page-header';
 import { ResultDisplay } from '@/components/result-display';
+import { useState } from 'react';
 
 export default function PreventThreadingPage() {
   const [to, setTo] = useState('delivered@resend.dev');
@@ -67,7 +67,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 // This is the most reliable way to prevent threading
 const { data, error } = await resend.emails.send({
   from: 'Acme <notifications@resend.dev>',
-  to: ['user@example.com'],
+  to: ['delivered@resend.dev'],
   subject: 'Your Daily Report', // Same subject is OK!
   html: '<p>Your daily report content...</p>',
   headers: {
@@ -80,7 +80,7 @@ const { data, error } = await resend.emails.send({
 // Works but clutters the subject line
 const { data, error } = await resend.emails.send({
   from: 'Acme <notifications@resend.dev>',
-  to: ['user@example.com'],
+  to: ['delivered@resend.dev'],
   subject: \`Your Daily Report - \${new Date().toLocaleDateString()}\`,
   html: '<p>Your daily report content...</p>',
 });`;

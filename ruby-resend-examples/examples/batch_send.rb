@@ -20,7 +20,7 @@ require "dotenv/load"
 Resend.api_key = ENV.fetch("RESEND_API_KEY")
 
 from_email = ENV.fetch("EMAIL_FROM", "Acme <onboarding@resend.dev>")
-contact_email = ENV.fetch("CONTACT_EMAIL", "team@example.com")
+contact_email = ENV.fetch("CONTACT_EMAIL", "delivered@resend.dev")
 
 begin
   # Batch send: multiple emails in one API call
@@ -28,7 +28,7 @@ begin
     # Email 1: Confirmation to user
     {
       from: from_email,
-      to: ["user@example.com"],
+      to: ["delivered@resend.dev"],
       subject: "We received your message",
       html: "<h1>Thanks for reaching out!</h1><p>We'll get back to you soon.</p>"
     },
@@ -37,7 +37,7 @@ begin
       from: from_email,
       to: [contact_email],
       subject: "New contact form submission",
-      html: "<h1>New message received</h1><p>From: user@example.com</p>"
+      html: "<h1>New message received</h1><p>From: delivered@resend.dev</p>"
     }
   ])
 

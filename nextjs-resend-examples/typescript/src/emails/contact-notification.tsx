@@ -6,16 +6,16 @@
  */
 
 import {
-  Body,
-  Container,
-  Head,
-  Heading,
-  Hr,
-  Html,
-  Link,
-  Preview,
-  Tailwind,
-  Text,
+    Body,
+    Container,
+    Head,
+    Heading,
+    Hr,
+    Html,
+    Link,
+    Preview,
+    Tailwind,
+    Text,
 } from '@react-email/components';
 
 interface ContactNotificationEmailProps {
@@ -98,7 +98,7 @@ export function ContactNotificationEmail({
 
 ContactNotificationEmail.PreviewProps = {
   name: 'Jane Smith',
-  email: 'jane@example.com',
+  email: 'delivered@resend.dev',
   message:
     "Hi, I'm interested in learning more about your enterprise plan. Can we schedule a call?\n\nI'm particularly interested in:\n- Custom integrations\n- Priority support\n- Volume pricing",
   submittedAt: 'February 2, 2026 at 10:30 AM',

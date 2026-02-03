@@ -49,7 +49,7 @@ ruby sinatra_app/app.rb
 # Then in another terminal:
 curl -X POST http://localhost:4567/send \
   -H "Content-Type: application/json" \
-  -d '{"to": "user@example.com", "subject": "Hello", "message": "Hi!"}'
+  -d '{"to": "delivered@resend.dev", "subject": "Hello", "message": "Hi!"}'
 ```
 
 ## Quick Usage
@@ -62,7 +62,7 @@ Resend.api_key = "re_xxxxxxxxx"
 # Send a basic email
 result = Resend::Emails.send({
   from: "Acme <onboarding@resend.dev>",
-  to: ["user@example.com"],
+  to: ["delivered@resend.dev"],
   subject: "Hello",
   html: "<p>Hello World</p>"
 })

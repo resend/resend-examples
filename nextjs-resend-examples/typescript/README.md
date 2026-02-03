@@ -133,7 +133,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 const { data, error } = await resend.emails.send({
   from: 'Acme <onboarding@resend.dev>',
-  to: ['user@example.com'],
+  to: ['delivered@resend.dev'],
   subject: 'Hello World',
   html: '<p>Hello from Resend!</p>',
 });
@@ -152,15 +152,15 @@ export async function submitContactForm(formData: FormData) {
   const { data, error } = await resend.batch.send([
     // Email to user
     {
-      from: "Acme <support@acme.com>",
+      from: "Acme <onboarding@resend.dev>",
       to: [formData.get("email")],
       subject: "We received your message",
       react: ConfirmationEmail({ ... }),
     },
     // Email to team
     {
-      from: "Acme <support@acme.com>",
-      to: ["team@acme.com"],
+      from: "Acme <onboarding@resend.dev>",
+      to: ["onboarding@resend.dev"],
       subject: "New contact form submission",
       react: NotificationEmail({ ... }),
     },

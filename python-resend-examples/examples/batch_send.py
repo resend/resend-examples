@@ -25,7 +25,7 @@ resend.api_key = os.environ["RESEND_API_KEY"]
 def main():
     """Send batch emails (e.g., for contact forms)."""
     from_email = os.environ.get("EMAIL_FROM", "Acme <onboarding@resend.dev>")
-    contact_email = os.environ.get("CONTACT_EMAIL", "team@example.com")
+    contact_email = os.environ.get("CONTACT_EMAIL", "delivered@resend.dev")
 
     try:
         # Batch send: multiple emails in one API call
@@ -33,7 +33,7 @@ def main():
             # Email 1: Confirmation to user
             {
                 "from": from_email,
-                "to": ["user@example.com"],
+                "to": ["delivered@resend.dev"],
                 "subject": "We received your message",
                 "html": "<h1>Thanks for reaching out!</h1><p>We'll get back to you soon.</p>",
             },
@@ -42,7 +42,7 @@ def main():
                 "from": from_email,
                 "to": [contact_email],
                 "subject": "New contact form submission",
-                "html": "<h1>New message received</h1><p>From: user@example.com</p>",
+                "html": "<h1>New message received</h1><p>From: delivered@resend.dev</p>",
             },
         ])
 

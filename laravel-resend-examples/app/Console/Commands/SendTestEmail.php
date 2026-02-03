@@ -13,8 +13,8 @@ use Resend\Laravel\Facades\Resend;
  * Artisan command to send test emails from the command line.
  *
  * Usage:
- *   php artisan email:send-test user@example.com
- *   php artisan email:send-test user@example.com --method=direct
+ *   php artisan email:send-test delivered@resend.dev
+ *   php artisan email:send-test delivered@resend.dev --method=direct
  */
 class SendTestEmail extends Command
 {

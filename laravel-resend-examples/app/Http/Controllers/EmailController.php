@@ -121,7 +121,7 @@ class EmailController extends Controller
             // Notification to team
             [
                 'from' => config('mail.from.address'),
-                'to' => [config('app.contact_email', 'team@example.com')],
+                'to' => [config('app.contact_email', 'delivered@resend.dev')],
                 'subject' => "New message from {$request->name}",
                 'html' => view('emails.contact-form', [
                     'senderName' => $request->name,

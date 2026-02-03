@@ -15,10 +15,10 @@
  * @see https://react.email
  */
 
-import { useState } from 'react';
 import { CodeBlock } from '@/components/code-block';
 import { PageHeader } from '@/components/page-header';
 import { ResultDisplay } from '@/components/result-display';
+import { useState } from 'react';
 
 export default function ReactEmailPage() {
   const [to, setTo] = useState('delivered@resend.dev');
@@ -104,7 +104,7 @@ import { WelcomeEmail } from '@/emails/welcome';
 
 const { data, error } = await resend.emails.send({
   from: 'Acme <onboarding@resend.dev>',
-  to: ['user@example.com'],
+  to: ['delivered@resend.dev'],
   subject: 'Welcome to Acme!',
   // Pass the React component directly!
   react: WelcomeEmail({ name: 'John', actionUrl: '/dashboard' }),

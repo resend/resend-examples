@@ -6,10 +6,10 @@
  * Demonstrates the simplest way to send an email using Resend.
  */
 
-import { useState } from 'react';
 import { CodeBlock } from '@/components/code-block';
 import { PageHeader } from '@/components/page-header';
 import { ResultDisplay } from '@/components/result-display';
+import { useState } from 'react';
 
 export default function SendEmailPage() {
   const [to, setTo] = useState('delivered@resend.dev');
@@ -77,7 +77,7 @@ const { data, error } = await resend.emails.send({
             onChange={(e) => setTo(e.target.value)}
             required
             className="w-full px-3 py-2 border border-[var(--border)] rounded-md bg-[var(--background)]"
-            placeholder="recipient@example.com"
+            placeholder="delivered@resend.dev"
           />
           <p className="text-xs text-[var(--muted-foreground)] mt-1">
             Use delivered@resend.dev for testing

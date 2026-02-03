@@ -15,7 +15,7 @@ use Illuminate\Queue\SerializesModels;
  * Uses Laravel's built-in Mail system with Resend as the driver.
  *
  * Usage:
- *   Mail::to('user@example.com')->send(new WelcomeMail($user));
+ *   Mail::to('delivered@resend.dev')->send(new WelcomeMail($user));
  */
 class WelcomeMail extends Mailable
 {

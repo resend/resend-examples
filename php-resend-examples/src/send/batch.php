@@ -30,16 +30,16 @@ try {
         // Email 1: Confirmation to user
         [
             'from' => $_ENV['EMAIL_FROM'] ?? 'Acme <onboarding@resend.dev>',
-            'to' => ['user@example.com'],
+            'to' => ['delivered@resend.dev'],
             'subject' => 'We received your message',
             'html' => '<h1>Thanks for reaching out!</h1><p>We\'ll get back to you soon.</p>',
         ],
         // Email 2: Notification to team
         [
             'from' => $_ENV['EMAIL_FROM'] ?? 'Acme <onboarding@resend.dev>',
-            'to' => [$_ENV['CONTACT_EMAIL'] ?? 'team@example.com'],
+            'to' => [$_ENV['CONTACT_EMAIL'] ?? 'delivered@resend.dev'],
             'subject' => 'New contact form submission',
-            'html' => '<h1>New message received</h1><p>From: user@example.com</p>',
+            'html' => '<h1>New message received</h1><p>From: delivered@resend.dev</p>',
         ],
     ]);
 

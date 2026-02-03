@@ -24,8 +24,8 @@ if (!process.env.RESEND_API_KEY) {
  * import { resend } from '@/lib/resend';
  *
  * const { data, error } = await resend.emails.send({
- *   from: 'you@example.com',
- *   to: 'user@example.com',
+ *   from: 'delivered@resend.dev',
+ *   to: 'delivered@resend.dev',
  *   subject: 'Hello',
  *   html: '<p>Hello World</p>'
  * });

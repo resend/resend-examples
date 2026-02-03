@@ -8,7 +8,7 @@ const { data } = await resend.contacts.list({ audienceId: 'aud_123' });
 // Create contact
 await resend.contacts.create({
   audienceId: 'aud_123',
-  email: 'user@example.com',
+  email: 'delivered@resend.dev',
   firstName: 'John',
 });`;
 

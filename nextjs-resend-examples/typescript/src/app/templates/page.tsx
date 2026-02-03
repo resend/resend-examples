@@ -15,10 +15,10 @@
  * @see https://resend.com/docs/dashboard/templates/introduction
  */
 
-import { useState } from 'react';
 import { CodeBlock } from '@/components/code-block';
 import { PageHeader } from '@/components/page-header';
 import { ResultDisplay } from '@/components/result-display';
+import { useState } from 'react';
 
 export default function TemplatesPage() {
   const [to, setTo] = useState('delivered@resend.dev');
@@ -78,7 +78,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 // Send email using a Resend template
 const { data, error } = await resend.emails.send({
   from: 'Acme <onboarding@resend.dev>',
-  to: ['user@example.com'],
+  to: ['delivered@resend.dev'],
   subject: 'Your Order Confirmation',
   // Use template instead of html/text/react
   template: {

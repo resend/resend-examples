@@ -25,7 +25,7 @@ const { data: contacts } = await resend.contacts.list({
 // Create a new contact
 const { data: contact } = await resend.contacts.create({
   audienceId: 'aud_123',
-  email: 'user@example.com',
+  email: 'delivered@resend.dev',
   firstName: 'John',
   lastName: 'Doe',
   unsubscribed: false,

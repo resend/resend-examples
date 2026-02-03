@@ -14,10 +14,10 @@
  * @see https://resend.com/docs/send-with-attachments
  */
 
-import { useState } from 'react';
 import { CodeBlock } from '@/components/code-block';
 import { PageHeader } from '@/components/page-header';
 import { ResultDisplay } from '@/components/result-display';
+import { useState } from 'react';
 
 export default function AttachmentsPage() {
   const [to, setTo] = useState('delivered@resend.dev');
@@ -59,7 +59,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 // Method 1: Attachment from URL
 const { data, error } = await resend.emails.send({
   from: 'Acme <onboarding@resend.dev>',
-  to: ['user@example.com'],
+  to: ['delivered@resend.dev'],
   subject: 'Your invoice is attached',
   html: '<p>Please find your invoice attached.</p>',
   attachments: [
@@ -73,7 +73,7 @@ const { data, error } = await resend.emails.send({
 // Method 2: Attachment from base64 content
 const { data, error } = await resend.emails.send({
   from: 'Acme <onboarding@resend.dev>',
-  to: ['user@example.com'],
+  to: ['delivered@resend.dev'],
   subject: 'Your report is attached',
   html: '<p>Please find your report attached.</p>',
   attachments: [

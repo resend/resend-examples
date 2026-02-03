@@ -53,7 +53,7 @@ python examples/flask_app.py
 # Then in another terminal:
 curl -X POST http://localhost:5000/send \
   -H "Content-Type: application/json" \
-  -d '{"to": "user@example.com", "subject": "Hello", "message": "Hi!"}'
+  -d '{"to": "delivered@resend.dev", "subject": "Hello", "message": "Hi!"}'
 ```
 
 ### FastAPI Application
@@ -73,7 +73,7 @@ resend.api_key = "re_xxxxxxxxx"
 # Send a basic email
 result = resend.Emails.send({
     "from": "Acme <onboarding@resend.dev>",
-    "to": ["user@example.com"],
+    "to": ["delivered@resend.dev"],
     "subject": "Hello",
     "html": "<p>Hello World</p>",
 })

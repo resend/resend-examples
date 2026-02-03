@@ -43,7 +43,7 @@ try {
 
     // Create a new contact (example)
     // $newContact = $resend->contacts->create($audienceId, [
-    //     'email' => 'newuser@example.com',
+    //     'email' => 'newdelivered@resend.dev',
     //     'first_name' => 'John',
     //     'last_name' => 'Doe',
     //     'unsubscribed' => false,

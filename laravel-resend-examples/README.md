@@ -41,11 +41,11 @@ use App\Mail\WelcomeMail;
 use Illuminate\Support\Facades\Mail;
 
 // Send a Mailable
-Mail::to('user@example.com')
+Mail::to('delivered@resend.dev')
     ->send(new WelcomeMail('John Doe'));
 
 // Queue for async sending
-Mail::to('user@example.com')
+Mail::to('delivered@resend.dev')
     ->queue(new WelcomeMail('John Doe'));
 ```
 
@@ -57,7 +57,7 @@ use Resend\Laravel\Facades\Resend;
 // Basic send
 $result = Resend::emails()->send([
     'from' => 'Acme <onboarding@resend.dev>',
-    'to' => ['user@example.com'],
+    'to' => ['delivered@resend.dev'],
     'subject' => 'Hello',
     'html' => '<p>Hello World</p>',
 ]);
@@ -65,7 +65,7 @@ $result = Resend::emails()->send([
 // Scheduled send
 $result = Resend::emails()->send([
     'from' => 'Acme <onboarding@resend.dev>',
-    'to' => ['user@example.com'],
+    'to' => ['delivered@resend.dev'],
     'subject' => 'Reminder',
     'html' => '<p>This is your reminder!</p>',
     'scheduled_at' => '2026-02-03T10:00:00Z',
@@ -73,8 +73,8 @@ $result = Resend::emails()->send([
 
 // Batch send
 $result = Resend::batch()->send([
-    ['from' => '...', 'to' => ['user1@example.com'], ...],
-    ['from' => '...', 'to' => ['user2@example.com'], ...],
+    ['from' => '...', 'to' => ['delivered+1@resend.dev'], ...],
+    ['from' => '...', 'to' => ['delivered+2@resend.dev'], ...],
 ]);
 ```
 
@@ -82,10 +82,10 @@ $result = Resend::batch()->send([
 
 ```bash
 # Send a test email
-php artisan email:send-test user@example.com
+php artisan email:send-test delivered@resend.dev
 
 # Use direct Resend method
-php artisan email:send-test user@example.com --method=direct
+php artisan email:send-test delivered@resend.dev --method=direct
 ```
 
 ### API Endpoints
@@ -97,17 +97,17 @@ php artisan serve
 # Send welcome email
 curl -X POST http://localhost:8000/api/send/welcome \
   -H "Content-Type: application/json" \
-  -d '{"email": "user@example.com", "name": "John"}'
+  -d '{"email": "delivered@resend.dev", "name": "John"}'
 
 # Send direct email
 curl -X POST http://localhost:8000/api/send/direct \
   -H "Content-Type: application/json" \
-  -d '{"email": "user@example.com", "subject": "Hello", "message": "Hi there!"}'
+  -d '{"email": "delivered@resend.dev", "subject": "Hello", "message": "Hi there!"}'
 
 # Submit contact form (batch)
 curl -X POST http://localhost:8000/api/contact \
   -H "Content-Type: application/json" \
-  -d '{"name": "John", "email": "john@example.com", "message": "Hello!"}'
+  -d '{"name": "John", "email": "delivered@resend.dev", "message": "Hello!"}'
 ```
 
 ## Project Structure

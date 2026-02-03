@@ -50,7 +50,7 @@ export function ContactForm() {
             type="email"
             required
             className="w-full px-3 py-2 border border-[var(--border)] rounded-md bg-[var(--background)]"
-            placeholder="john@example.com"
+            placeholder="delivered@resend.dev"
           />
           <p className="text-xs text-[var(--muted-foreground)] mt-1">
             You&apos;ll receive a confirmation email at this address
