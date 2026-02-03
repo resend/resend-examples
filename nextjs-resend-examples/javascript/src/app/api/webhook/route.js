@@ -6,8 +6,8 @@
  * @see https://resend.com/docs/dashboard/webhooks/introduction
  */
 
-import { NextResponse } from 'next/server';
 import { resend } from '@/lib/resend';
+import { NextResponse } from 'next/server';
 
 export async function POST(request) {
   try {
@@ -37,11 +37,11 @@ export async function POST(request) {
       event = resend.webhooks.verify({
         payload,
         headers: {
-          'svix-id': svixId,
-          'svix-timestamp': svixTimestamp,
-          'svix-signature': svixSignature,
+          'id': svixId,
+          'timestamp': svixTimestamp,
+          'signature': svixSignature,
         },
-        secret: webhookSecret,
+        webhookSecret: webhookSecret,
       });
     } catch (err) {
       return NextResponse.json(
