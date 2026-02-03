@@ -11,6 +11,7 @@ Then visit:
     - POST http://localhost:5000/webhook
 """
 
+import logging
 import os
 import resend
 from flask import Flask, request, jsonify
@@ -50,8 +51,9 @@ def send_email():
             "id": result["id"],
         })
 
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+    except Exception:
+        app.logger.exception("Error sending email")
+        return jsonify({"error": "Failed to send email"}), 500
 
 
 @app.route("/webhook", methods=["POST"])
@@ -100,8 +102,9 @@ def handle_webhook():
 
         return jsonify({"received": True, "type": event_type})
 
-    except Exception as e:
-        return jsonify({"error": str(e)}), 400
+    except Exception:
+        app.logger.exception("Error processing webhook")
+        return jsonify({"error": "Failed to process webhook"}), 400
 
 
 @app.route("/health")
@@ -175,8 +178,9 @@ def double_optin_subscribe():
             "email_id": result["id"],
         })
 
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+    except Exception:
+        app.logger.exception("Error processing subscription")
+        return jsonify({"error": "Failed to process subscription"}), 500
 
 
 @app.route("/double-optin/webhook", methods=["POST"])
@@ -247,9 +251,11 @@ def double_optin_webhook():
             "contact_id": contact["id"],
         })
 
-    except Exception as e:
-        return jsonify({"error": str(e)}), 400
+    except Exception:
+        app.logger.exception("Error processing double opt-in webhook")
+        return jsonify({"error": "Failed to process webhook"}), 400
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    debug = os.environ.get("FLASK_DEBUG", "0") == "1"
+    app.run(debug=debug, port=5000)
