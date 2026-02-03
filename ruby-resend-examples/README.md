@@ -52,6 +52,18 @@ curl -X POST http://localhost:4567/send \
   -d '{"to": "delivered@resend.dev", "subject": "Hello", "message": "Hi!"}'
 ```
 
+### Rails Application
+```bash
+cd rails_app
+bundle install
+bin/rails server -p 3000
+
+# Then in another terminal:
+curl -X POST http://localhost:3000/send \
+  -H "Content-Type: application/json" \
+  -d '{"to": "delivered@resend.dev", "subject": "Hello", "message": "Hi from Rails!"}'
+```
+
 ## Quick Usage
 
 ```ruby
@@ -81,6 +93,11 @@ ruby-resend-examples/
 │   └── scheduled_send.rb   # Future delivery
 ├── sinatra_app/
 │   └── app.rb              # Sinatra web app
+├── rails_app/              # Rails API app
+│   ├── app/controllers/
+│   ├── config/
+│   ├── Gemfile
+│   └── README.md
 ├── Gemfile
 ├── .env.example
 └── README.md
