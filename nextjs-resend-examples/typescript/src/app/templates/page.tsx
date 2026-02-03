@@ -15,10 +15,10 @@
  * @see https://resend.com/docs/dashboard/templates/introduction
  */
 
+import { useState } from 'react';
 import { CodeBlock } from '@/components/code-block';
 import { PageHeader } from '@/components/page-header';
 import { ResultDisplay } from '@/components/result-display';
-import { useState } from 'react';
 
 export default function TemplatesPage() {
   const [to, setTo] = useState('delivered@resend.dev');

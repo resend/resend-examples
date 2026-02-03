@@ -6,10 +6,10 @@
  * Demonstrates the simplest way to send an email using Resend.
  */
 
+import { useState } from 'react';
 import { CodeBlock } from '@/components/code-block';
 import { PageHeader } from '@/components/page-header';
 import { ResultDisplay } from '@/components/result-display';
-import { useState } from 'react';
 
 export default function SendEmailPage() {
   const [to, setTo] = useState('delivered@resend.dev');
