@@ -36,7 +36,7 @@ puts
 puts "Adding contact to audience..."
 contact = Resend::Contacts.create({
   audience_id: audience_id,
-  email: "newuser@example.com",
+  email: "clicked@resend.dev",
   first_name: "Jane",
   last_name: "Doe",
   unsubscribed: false

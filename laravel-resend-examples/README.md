@@ -49,6 +49,8 @@ MAIL_FROM_NAME=Acme
 | POST | `/api/send/template` | Send email using Resend template |
 | POST | `/api/send/prevent-threading` | Send email without Gmail threading |
 | POST | `/api/contact` | Contact form (batch send) |
+| POST | `/api/double-optin/subscribe` | Double opt-in subscribe |
+| POST | `/api/double-optin/webhook` | Double opt-in confirmation webhook |
 
 ### Webhooks
 
@@ -155,7 +157,7 @@ laravel-resend-examples/
 use App\Mail\WelcomeMail;
 use Illuminate\Support\Facades\Mail;
 
-Mail::to('user@example.com')
+Mail::to('onboarding@resend.dev')
     ->send(new WelcomeMail('John'));
 ```
 
@@ -165,7 +167,7 @@ use Resend\Laravel\Facades\Resend;
 
 $result = Resend::emails()->send([
     'from' => 'Acme <onboarding@resend.dev>',
-    'to' => ['user@example.com'],
+    'to' => ['onboarding@resend.dev'],
     'subject' => 'Hello',
     'html' => '<p>Hello World</p>',
 ]);

@@ -72,6 +72,15 @@ ruby examples/domains.rb
 ruby examples/inbound.rb
 ```
 
+### Double Opt-In
+```bash
+# Subscribe (creates contact + sends confirmation)
+ruby examples/double_optin/subscribe.rb onboarding@resend.dev "John Doe"
+
+# Webhook handler (confirms subscription on click)
+# See sinatra_app/app.rb for web endpoint
+```
+
 ### Sinatra Application
 ```bash
 ruby sinatra_app/app.rb

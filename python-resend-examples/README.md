@@ -76,6 +76,14 @@ python examples/domains.py
 python examples/inbound.py
 ```
 
+### Double Opt-In
+```bash
+# Subscribe (creates contact + sends confirmation)
+python examples/double_optin_subscribe.py onboarding@resend.dev "John Doe"
+
+# Webhook handler - see flask_app.py for web endpoint
+```
+
 ### Flask Application
 ```bash
 python examples/flask_app.py

@@ -72,6 +72,15 @@ php src/domains/create.php
 php src/inbound/webhook.php
 ```
 
+### Double Opt-In
+```bash
+# Subscribe (creates contact + sends confirmation)
+php src/double-optin/subscribe.php onboarding@resend.dev "John Doe"
+
+# Webhook handler - deploy to public URL
+php src/double-optin/webhook.php
+```
+
 ### Slim Web Application
 ```bash
 # From the php-resend-examples directory
