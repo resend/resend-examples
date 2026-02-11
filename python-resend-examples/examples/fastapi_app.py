@@ -234,7 +234,8 @@ async def double_optin_webhook(request: Request):
             "unsubscribed": False,
         })
 
-        logger.info(f"Contact confirmed: {recipient_email}")
+        safe_email = recipient_email.replace("\r", "").replace("\n", "")
+        logger.info(f"Contact confirmed: {safe_email}")
 
         return {
             "received": True,
