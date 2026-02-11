@@ -10,10 +10,10 @@
  * 4. User clicks link → webhook fires → contact confirmed
  */
 
+import { useState } from 'react';
 import { CodeBlock } from '@/components/code-block';
 import { PageHeader } from '@/components/page-header';
 import { ResultDisplay } from '@/components/result-display';
-import { useState } from 'react';
 
 export default function DoubleOptinPage() {
   const [email, setEmail] = useState('');

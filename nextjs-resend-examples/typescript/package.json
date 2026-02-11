@@ -11,24 +11,22 @@
     "email:dev": "email dev --dir src/emails"
   },
   "dependencies": {
-    "@react-email/components": "^0.0.31",
-    "better-auth": "^1.0.0",
-    "next": "^15.1.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "resend": "^6.9.1"
+    "@react-email/components": "1.0.7",
+    "better-auth": "1.0.0",
+    "next": "16.1.6",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "resend": "6.9.1"
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.13",
-    "@tailwindcss/postcss": "^4.0.0",
-    "@types/node": "^22.0.0",
-    "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
-    "eslint": "^9.0.0",
-    "eslint-config-next": "^15.1.0",
-    "react-email": "^3.0.7",
-    "tailwindcss": "^4.0.0",
-    "typescript": "^5.7.0"
+    "@tailwindcss/postcss": "4.1.18",
+    "@types/node": "22.0.0",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "react-email": "3.0.7",
+    "tailwindcss": "4.1.18",
+    "typescript": "5.7.0"
   },
   "engines": {
     "node": ">=22.0.0"
