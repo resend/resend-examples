@@ -7,7 +7,7 @@ gem "rails", "~> 8.0"
 gem "puma", "~> 6.4"
 
 # Resend SDK
-gem "resend", "~> 0.13"
+gem "resend", "~> 1.0"
 
 # Environment variables
 gem "dotenv-rails", "~> 3.0"

@@ -11,6 +11,8 @@ Then visit:
     - POST http://localhost:5000/webhook
 """
 
+import json
+import json
 import logging
 import os
 import resend
@@ -75,15 +77,17 @@ def handle_webhook():
 
     try:
         # Verify webhook signature
-        event = resend.Webhooks.verify(
-            payload=payload,
-            headers={
-                "svix-id": svix_id,
-                "svix-timestamp": svix_timestamp,
-                "svix-signature": svix_signature,
+        resend.Webhooks.verify({
+            "payload": payload,
+            "headers": {
+                "id": svix_id,
+                "timestamp": svix_timestamp,
+                "signature": svix_signature,
             },
-            secret=webhook_secret,
-        )
+            "webhook_secret": webhook_secret,
+        })
+
+        event = json.loads(payload)
 
         # Handle different event types
         event_type = event.get("type")
@@ -200,15 +204,17 @@ def double_optin_webhook():
         return jsonify({"error": "Webhook secret not configured"}), 500
 
     try:
-        event = resend.Webhooks.verify(
-            payload=payload,
-            headers={
-                "svix-id": svix_id,
-                "svix-timestamp": svix_timestamp,
-                "svix-signature": svix_signature,
+        resend.Webhooks.verify({
+            "payload": payload,
+            "headers": {
+                "id": svix_id,
+                "timestamp": svix_timestamp,
+                "signature": svix_signature,
             },
-            secret=webhook_secret,
-        )
+            "webhook_secret": webhook_secret,
+        })
+
+        event = json.loads(payload)
 
         # Only process email.clicked events
         if event.get("type") != "email.clicked":

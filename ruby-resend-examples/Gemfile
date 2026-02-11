@@ -3,7 +3,7 @@ source "https://rubygems.org"
 ruby ">= 3.1"
 
 # Resend SDK
-gem "resend", "~> 0.13"
+gem "resend", "~> 1.0"
 
 # Environment variables
 gem "dotenv", "~> 3.0"

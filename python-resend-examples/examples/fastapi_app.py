@@ -12,6 +12,7 @@ Then visit:
     - GET http://localhost:8000/docs (OpenAPI docs)
 """
 
+import json
 import logging
 import os
 import resend
@@ -80,16 +81,17 @@ async def handle_webhook(request: Request):
         raise HTTPException(status_code=500, detail="Webhook secret not configured")
 
     try:
-        event = resend.Webhooks.verify(
-            payload=payload_str,
-            headers={
-                "svix-id": svix_id,
-                "svix-timestamp": svix_timestamp,
-                "svix-signature": svix_signature,
+        resend.Webhooks.verify({
+            "payload": payload_str,
+            "headers": {
+                "id": svix_id,
+                "timestamp": svix_timestamp,
+                "signature": svix_signature,
             },
-            secret=webhook_secret,
-        )
+            "webhook_secret": webhook_secret,
+        })
 
+        event = json.loads(payload_str)
         event_type = event.get("type")
         print(f"Received webhook event: {event_type}")
 
@@ -189,15 +191,17 @@ async def double_optin_webhook(request: Request):
         raise HTTPException(status_code=500, detail="Webhook secret not configured")
 
     try:
-        event = resend.Webhooks.verify(
-            payload=payload_str,
-            headers={
-                "svix-id": svix_id,
-                "svix-timestamp": svix_timestamp,
-                "svix-signature": svix_signature,
+        resend.Webhooks.verify({
+            "payload": payload_str,
+            "headers": {
+                "id": svix_id,
+                "timestamp": svix_timestamp,
+                "signature": svix_signature,
             },
-            secret=webhook_secret,
-        )
+            "webhook_secret": webhook_secret,
+        })
+
+        event = json.loads(payload_str)
 
         # Only process email.clicked events
         if event.get("type") != "email.clicked":

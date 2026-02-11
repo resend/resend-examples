@@ -87,6 +87,7 @@ if __name__ == "__main__":
 
     print("Example Flask integration:")
     print("""
+import json
 from flask import Flask, request, jsonify
 from double_optin_webhook import process_double_optin_webhook
 
@@ -97,17 +98,18 @@ def double_optin_webhook():
     payload = request.get_data(as_text=True)
 
     # Verify webhook signature
-    event = resend.Webhooks.verify(
-        payload=payload,
-        headers={
-            "svix-id": request.headers.get("svix-id"),
-            "svix-timestamp": request.headers.get("svix-timestamp"),
-            "svix-signature": request.headers.get("svix-signature"),
+    resend.Webhooks.verify({
+        "payload": payload,
+        "headers": {
+            "id": request.headers.get("svix-id"),
+            "timestamp": request.headers.get("svix-timestamp"),
+            "signature": request.headers.get("svix-signature"),
         },
-        secret=os.environ["RESEND_WEBHOOK_SECRET"],
-    )
+        "webhook_secret": os.environ["RESEND_WEBHOOK_SECRET"],
+    })
 
     # Process the event
+    event = json.loads(payload)
     result = process_double_optin_webhook(event)
     return jsonify(result)
     """)

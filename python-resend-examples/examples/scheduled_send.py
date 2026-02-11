@@ -14,7 +14,7 @@ Usage: python examples/scheduled_send.py
 """
 
 import os
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import resend
 from dotenv import load_dotenv
 
@@ -25,7 +25,7 @@ resend.api_key = os.environ["RESEND_API_KEY"]
 def main():
     """Send a scheduled email."""
     # Schedule for 5 minutes from now
-    scheduled_time = datetime.utcnow() + timedelta(minutes=5)
+    scheduled_time = datetime.now(timezone.utc) + timedelta(minutes=5)
 
     try:
         result = resend.Emails.send({
