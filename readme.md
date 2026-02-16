@@ -8,8 +8,8 @@ Choose your language/framework and follow the setup instructions in each folder:
 
 | Language | Folder | Framework |
 |----------|--------|-----------|
-| **Next.js (TypeScript)** | [`/nextjs-resend-examples/typescript`](/nextjs-resend-examples/typescript/) | Next.js 15, React 19 |
-| **Next.js (JavaScript)** | [`/nextjs-resend-examples/javascript`](/nextjs-resend-examples/javascript/) | Next.js 15, React 19 |
+| **Next.js (TypeScript)** | [`/nextjs-resend-examples/typescript`](/nextjs-resend-examples/typescript/) | Next.js 16, React 19 |
+| **Next.js (JavaScript)** | [`/nextjs-resend-examples/javascript`](/nextjs-resend-examples/javascript/) | Next.js 16, React 19 |
 | **PHP** | [`/php-resend-examples`](/php-resend-examples/) | PHP 8.2+ |
 | **Laravel** | [`/laravel-resend-examples`](/laravel-resend-examples/) | Laravel 11 |
 | **Python** | [`/python-resend-examples`](/python-resend-examples/) | Flask, FastAPI |

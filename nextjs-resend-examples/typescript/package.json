@@ -1,7 +1,7 @@
 {
   "name": "nextjs-resend-examples-typescript",
   "version": "1.0.0",
-  "description": "Comprehensive Resend examples with Next.js 15 and TypeScript",
+  "description": "Comprehensive Resend examples with Next.js 16 and TypeScript",
   "private": true,
   "scripts": {
     "dev": "next dev",

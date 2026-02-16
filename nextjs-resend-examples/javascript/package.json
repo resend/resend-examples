@@ -1,7 +1,7 @@
 {
   "name": "nextjs-resend-examples-javascript",
   "version": "1.0.0",
-  "description": "Comprehensive Resend examples with Next.js 15 and JavaScript",
+  "description": "Comprehensive Resend examples with Next.js 16 and JavaScript",
   "private": true,
   "scripts": {
     "dev": "next dev",

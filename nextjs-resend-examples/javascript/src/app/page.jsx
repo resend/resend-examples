@@ -126,7 +126,7 @@ export default function HomePage() {
           >
             Resend
           </a>{' '}
-          and Next.js 15. Each example includes commented code to help you
+          and Next.js 16. Each example includes commented code to help you
           learn.
         </p>
       </div>

@@ -1,6 +1,6 @@
 # Next.js + Resend Examples (JavaScript)
 
-A comprehensive collection of examples demonstrating how to send emails with [Resend](https://resend.com) using Next.js 15 and JavaScript.
+A comprehensive collection of examples demonstrating how to send emails with [Resend](https://resend.com) using Next.js 16 and JavaScript.
 
 ## Features
 
@@ -91,7 +91,7 @@ src/
 
 ## Tech Stack
 
-- **Framework**: Next.js 15 (App Router)
+- **Framework**: Next.js 16 (App Router)
 - **Language**: JavaScript (with JSDoc)
 - **Email**: Resend + React Email
 - **Styling**: Tailwind CSS 4

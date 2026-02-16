@@ -6,7 +6,7 @@
  * - Batch sending (sends 2 emails: confirmation to user + notification to owner)
  * - React Email templates
  *
- * This is the recommended approach for forms in Next.js 15.
+ * This is the recommended approach for forms in Next.js 16.
  */
 
 import { PageHeader } from '@/components/page-header';

@@ -1,6 +1,6 @@
 # Next.js + Resend Examples (TypeScript)
 
-A comprehensive collection of examples demonstrating how to send emails with [Resend](https://resend.com) using Next.js 15 and TypeScript.
+A comprehensive collection of examples demonstrating how to send emails with [Resend](https://resend.com) using Next.js 16 and TypeScript.
 
 ## Features
 
@@ -240,7 +240,7 @@ ngrok http 3000
 
 ## Tech Stack
 
-- **Framework**: Next.js 15 (App Router)
+- **Framework**: Next.js 16 (App Router)
 - **Language**: TypeScript
 - **Email**: Resend + React Email
 - **Styling**: Tailwind CSS 4
