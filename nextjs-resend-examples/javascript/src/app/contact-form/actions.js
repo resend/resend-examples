@@ -76,7 +76,7 @@ export async function submitContactForm(prevState, formData) {
     return {
       success: true,
       error: null,
-      ids: data,
+      ids: data?.data ?? null,
     };
   } catch (err) {
     console.error('Unexpected error:', err);
