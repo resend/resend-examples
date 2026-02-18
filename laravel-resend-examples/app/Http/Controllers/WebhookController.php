@@ -102,15 +102,34 @@ class WebhookController extends Controller
 
     /**
      * Handle inbound email received event
+     *
+     * Webhook payloads contain metadata only — use Resend::emails()->get()
+     * to fetch the full email content (body, attachments, etc.)
+     *
+     * For a dedicated inbound email endpoint with forwarding,
+     * see InboundController.
      */
     protected function handleEmailReceived(array $data): void
     {
         Log::info("New email from: {$data['from']}", [
             'to' => $data['to'],
             'subject' => $data['subject'],
+            'email_id' => $data['email_id'],
         ]);
 
-        // Fetch full email content if needed
-        // $email = Resend::emails()->get($data['email_id']);
+        // Fetch the full email content
+        $email = Resend::emails()->get($data['email_id']);
+
+        Log::info("Inbound email content fetched", [
+            'subject' => $email->subject,
+            'has_html' => !empty($email->html),
+            'has_text' => !empty($email->text),
+        ]);
+
+        // Process the email as needed:
+        // - Forward to a team inbox (see InboundController for a full example)
+        // - Create a support ticket
+        // - Store in database
+        // - Parse structured data from the body
     }
 }

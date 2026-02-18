@@ -4,6 +4,7 @@ use App\Http\Controllers\AudienceController;
 use App\Http\Controllers\DomainController;
 use App\Http\Controllers\DoubleOptinController;
 use App\Http\Controllers\EmailController;
+use App\Http\Controllers\InboundController;
 use App\Http\Controllers\WebhookController;
 use Illuminate\Support\Facades\Route;
 
@@ -67,6 +68,12 @@ Route::prefix('domains')->group(function () {
     Route::get('/{id}', [DomainController::class, 'show']);
     Route::post('/{id}/verify', [DomainController::class, 'verify']);
     Route::delete('/{id}', [DomainController::class, 'destroy']);
+});
+
+// Inbound emails
+Route::prefix('inbound')->group(function () {
+    Route::post('/webhook', [InboundController::class, 'webhook']);
+    Route::get('/{emailId}', [InboundController::class, 'show']);
 });
 
 // Double Opt-In
