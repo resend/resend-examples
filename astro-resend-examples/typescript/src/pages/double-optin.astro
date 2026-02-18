@@ -1,0 +1,274 @@
+---
+/**
+ * Double Opt-In Demo Page
+ *
+ * Demonstrates the double opt-in subscription flow:
+ * 1. User submits email
+ * 2. Contact created with unsubscribed: true
+ * 3. Confirmation email sent with trackable link
+ * 4. User clicks link -> webhook fires -> contact confirmed
+ *
+ * @see https://resend.com/docs/dashboard/audiences/introduction
+ */
+
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+---
+
+<Layout title="Double Opt-In">
+  <PageHeader
+    title="Double Opt-In"
+    description="GDPR-compliant subscription flow with email confirmation."
+  />
+
+  <div class="how-it-works">
+    <h2>How it works</h2>
+    <ol>
+      <li>User submits their email address</li>
+      <li>Contact is created with <code>unsubscribed: true</code></li>
+      <li>Confirmation email is sent with a trackable link</li>
+      <li>User clicks the confirmation link</li>
+      <li>Webhook receives <code>email.clicked</code> event</li>
+      <li>Contact is updated to <code>unsubscribed: false</code></li>
+    </ol>
+  </div>
+
+  <form id="optin-form" class="form">
+    <div class="field">
+      <label for="email">Email Address</label>
+      <input
+        id="email"
+        type="email"
+        required
+        placeholder="delivered@resend.dev"
+      />
+    </div>
+
+    <div class="field">
+      <label for="name">Name (optional)</label>
+      <input id="name" type="text" placeholder="John Doe" />
+    </div>
+
+    <button type="submit" id="submit-btn">Subscribe</button>
+  </form>
+
+  <div id="result" class="result" style="display: none;"></div>
+
+  <div class="code-example">
+    <h2>Code Example</h2>
+    <pre><code>{`// 1. Create contact (pending confirmation)
+const contact = await resend.contacts.create({
+  audienceId: AUDIENCE_ID,
+  email,
+  firstName: name,
+  unsubscribed: true, // Not confirmed yet
+});
+
+// 2. Send confirmation email with trackable link
+await resend.emails.send({
+  from: 'Acme <onboarding@resend.dev>',
+  to: [email],
+  subject: 'Confirm your subscription',
+  html: \`<a href="\${CONFIRM_URL}">Confirm</a>\`,
+});
+
+// 3. In webhook handler, on email.clicked event:
+await resend.contacts.update({
+  audienceId: AUDIENCE_ID,
+  id: contactId,
+  unsubscribed: false, // Now confirmed!
+});`}</code></pre>
+  </div>
+
+  <div class="info-box">
+    <h3>Setup Requirements</h3>
+    <ul>
+      <li>Set <code>RESEND_AUDIENCE_ID</code> in your environment variables</li>
+      <li>Set <code>CONFIRM_REDIRECT_URL</code> for the confirmation destination</li>
+      <li>Configure a webhook for the <code>email.clicked</code> event</li>
+      <li>Enable click tracking in your Resend dashboard</li>
+    </ul>
+  </div>
+</Layout>
+
+<script>
+  const form = document.getElementById('optin-form') as HTMLFormElement;
+  const btn = document.getElementById('submit-btn') as HTMLButtonElement;
+  const resultDiv = document.getElementById('result') as HTMLDivElement;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    btn.disabled = true;
+    btn.textContent = 'Subscribing...';
+    resultDiv.style.display = 'none';
+
+    const email = (document.getElementById('email') as HTMLInputElement).value;
+    const name = (document.getElementById('name') as HTMLInputElement).value;
+
+    try {
+      // Note: In a real app, you'd have a dedicated subscribe API route
+      // For this demo, we show the flow conceptually
+      resultDiv.style.display = 'block';
+      resultDiv.className = 'result success';
+      resultDiv.innerHTML =
+        '<strong>Subscription initiated!</strong><br/>' +
+        'In a production app, a confirmation email would be sent to ' +
+        `<strong>${email}</strong>.<br/>` +
+        'The user would click the link to confirm their subscription.';
+    } catch {
+      resultDiv.style.display = 'block';
+      resultDiv.className = 'result error';
+      resultDiv.textContent = 'Failed to subscribe. Please try again.';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Subscribe';
+    }
+  });
+</script>
+
+<style>
+  .how-it-works {
+    margin-bottom: 2rem;
+    padding: 1rem 1.25rem;
+    border-radius: 0.5rem;
+    background: #f0f0f0;
+    border: 1px solid #e5e5e5;
+  }
+
+  .how-it-works h2 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+
+  .how-it-works ol {
+    list-style-position: inside;
+    font-size: 0.875rem;
+    color: #666;
+  }
+
+  .how-it-works ol li {
+    margin-bottom: 0.5rem;
+  }
+
+  .how-it-works code {
+    background: #fff;
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    font-size: 0.8125rem;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .field label {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .field input {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #e5e5e5;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    background: #fff;
+  }
+
+  button[type='submit'] {
+    padding: 0.625rem 1rem;
+    background: #1a1a1a;
+    color: #fff;
+    border: none;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  button[type='submit']:hover {
+    opacity: 0.9;
+  }
+
+  button[type='submit']:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .result {
+    padding: 1rem;
+    border-radius: 0.375rem;
+    margin-bottom: 2rem;
+    font-size: 0.875rem;
+  }
+
+  .result.success {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #166534;
+  }
+
+  .result.error {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+  }
+
+  .code-example {
+    margin-bottom: 2rem;
+  }
+
+  .code-example h2 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  pre {
+    background: #1a1a1a;
+    color: #e5e5e5;
+    padding: 1rem 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+  }
+
+  .info-box {
+    padding: 1rem 1.25rem;
+    border-radius: 0.5rem;
+    background: #f0f0f0;
+    border: 1px solid #e5e5e5;
+  }
+
+  .info-box h3 {
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+
+  .info-box ul {
+    list-style: none;
+    font-size: 0.875rem;
+    color: #666;
+  }
+
+  .info-box ul li {
+    margin-bottom: 0.5rem;
+  }
+
+  .info-box code {
+    background: #fff;
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    font-size: 0.8125rem;
+  }
+</style>

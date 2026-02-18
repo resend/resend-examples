@@ -1,0 +1,221 @@
+---
+/**
+ * Schedule Email Example
+ *
+ * Demonstrates scheduling an email to be sent at a future time.
+ *
+ * Key constraints:
+ * - Maximum 7 days in the future
+ * - Use ISO 8601 datetime format
+ * - Can be cancelled before sending using email ID
+ *
+ * @see https://resend.com/docs/send-with-schedule
+ */
+
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+---
+
+<Layout title="Scheduling">
+  <PageHeader
+    title="Scheduled Send"
+    description="Schedule emails to be sent at a future date and time."
+  />
+
+  <form id="schedule-form" class="form">
+    <div class="field">
+      <label for="to">To</label>
+      <input
+        id="to"
+        type="email"
+        value="delivered@resend.dev"
+        required
+        placeholder="delivered@resend.dev"
+      />
+    </div>
+
+    <div class="field">
+      <label for="subject">Subject</label>
+      <input
+        id="subject"
+        type="text"
+        value="Scheduled Email from Resend"
+        required
+      />
+    </div>
+
+    <div class="field">
+      <label for="message">Message</label>
+      <textarea id="message" rows={3} required>This email was scheduled using Resend's scheduling feature.</textarea>
+    </div>
+
+    <div class="field">
+      <label for="scheduledAt">Schedule For</label>
+      <input id="scheduledAt" type="datetime-local" required />
+      <span class="hint">Must be within 7 days from now</span>
+    </div>
+
+    <button type="submit" id="submit-btn">Schedule Email</button>
+  </form>
+
+  <div id="result" class="result" style="display: none;"></div>
+
+  <div class="code-example">
+    <h2>Code Example</h2>
+    <pre><code>{`const { data, error } = await resend.emails.send({
+  from: 'Acme <onboarding@resend.dev>',
+  to: ['delivered@resend.dev'],
+  subject: 'Scheduled Email',
+  html: '<p>This was scheduled!</p>',
+  // ISO 8601 datetime - max 7 days in the future
+  scheduledAt: '2025-01-15T10:00:00Z',
+});
+
+// Cancel a scheduled email before it sends
+// await resend.emails.cancel(data.id);`}</code></pre>
+  </div>
+</Layout>
+
+<script>
+  // Set default datetime to 1 hour from now
+  const scheduledInput = document.getElementById('scheduledAt') as HTMLInputElement;
+  const now = new Date();
+  now.setHours(now.getHours() + 1);
+  const localISOTime = now.toISOString().slice(0, 16);
+  scheduledInput.value = localISOTime;
+
+  const form = document.getElementById('schedule-form') as HTMLFormElement;
+  const btn = document.getElementById('submit-btn') as HTMLButtonElement;
+  const resultDiv = document.getElementById('result') as HTMLDivElement;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    btn.disabled = true;
+    btn.textContent = 'Scheduling...';
+    resultDiv.style.display = 'none';
+
+    const to = (document.getElementById('to') as HTMLInputElement).value;
+    const subject = (document.getElementById('subject') as HTMLInputElement).value;
+    const message = (document.getElementById('message') as HTMLTextAreaElement).value;
+    const scheduledAt = new Date(scheduledInput.value).toISOString();
+
+    try {
+      const response = await fetch('/api/send-scheduled', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ to, subject, message, scheduledAt }),
+      });
+
+      const data = await response.json();
+      resultDiv.style.display = 'block';
+
+      if (!response.ok) {
+        resultDiv.className = 'result error';
+        resultDiv.textContent = data.error || 'Failed to schedule email';
+      } else {
+        resultDiv.className = 'result success';
+        resultDiv.innerHTML = `<strong>Email scheduled!</strong><br/>ID: ${data.id}<br/>Scheduled for: ${data.scheduledFor}`;
+      }
+    } catch {
+      resultDiv.style.display = 'block';
+      resultDiv.className = 'result error';
+      resultDiv.textContent = 'Network error. Please try again.';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Schedule Email';
+    }
+  });
+</script>
+
+<style>
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .field label {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .field input,
+  .field textarea {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #e5e5e5;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    background: #fff;
+  }
+
+  .hint {
+    font-size: 0.75rem;
+    color: #999;
+  }
+
+  button[type='submit'] {
+    padding: 0.625rem 1rem;
+    background: #1a1a1a;
+    color: #fff;
+    border: none;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  button[type='submit']:hover {
+    opacity: 0.9;
+  }
+
+  button[type='submit']:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .result {
+    padding: 1rem;
+    border-radius: 0.375rem;
+    margin-bottom: 2rem;
+    font-size: 0.875rem;
+  }
+
+  .result.success {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #166534;
+  }
+
+  .result.error {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+  }
+
+  .code-example {
+    margin-top: 2rem;
+  }
+
+  .code-example h2 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  pre {
+    background: #1a1a1a;
+    color: #e5e5e5;
+    padding: 1rem 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+  }
+</style>

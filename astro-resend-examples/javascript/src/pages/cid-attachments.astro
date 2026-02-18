@@ -1,0 +1,229 @@
+---
+/**
+ * Send Email with CID (Inline Image) Attachments
+ *
+ * Demonstrates embedding images directly in email HTML
+ * using Content-ID references.
+ *
+ * @see https://resend.com/docs/send-with-attachments#inline-attachments
+ */
+
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+---
+
+<Layout title="CID Attachments">
+  <PageHeader
+    title="CID Inline Images"
+    description="Embed images directly in email HTML using Content-ID references."
+  />
+
+  <form id="cid-form" class="form">
+    <div class="field">
+      <label for="to">To</label>
+      <input
+        id="to"
+        type="email"
+        value="delivered@resend.dev"
+        required
+        placeholder="delivered@resend.dev"
+      />
+      <span class="hint">Use delivered@resend.dev for testing</span>
+    </div>
+
+    <button type="submit" id="submit-btn">Send Email with Inline Image</button>
+  </form>
+
+  <div id="result" class="result" style="display: none;"></div>
+
+  <div class="code-example">
+    <h2>Code Example</h2>
+    <pre><code>{`const { data, error } = await resend.emails.send({
+  from: 'Acme <onboarding@resend.dev>',
+  to: ['delivered@resend.dev'],
+  subject: 'Email with Inline Image',
+  // Reference the image using cid: scheme
+  html: '<img src="cid:logo" alt="Logo" width="100" />',
+  attachments: [
+    {
+      filename: 'logo.png',
+      content: base64EncodedImage,
+      // This contentId must match the cid: reference in HTML
+      contentId: 'logo',
+    },
+  ],
+});`}</code></pre>
+  </div>
+
+  <div class="info-box">
+    <h3>When to Use CID Attachments</h3>
+    <ul>
+      <li>Company logos that must always display</li>
+      <li>Icons and small decorative images</li>
+      <li>Images that should not be blocked by email clients</li>
+    </ul>
+    <p class="note">Note: CID images increase email size. For large images, consider using hosted URLs instead.</p>
+  </div>
+</Layout>
+
+<script>
+  const form = document.getElementById('cid-form');
+  const btn = document.getElementById('submit-btn');
+  const resultDiv = document.getElementById('result');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    resultDiv.style.display = 'none';
+
+    const to = (document.getElementById('to')).value;
+
+    try {
+      const response = await fetch('/api/send-cid', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ to }),
+      });
+
+      const data = await response.json();
+      resultDiv.style.display = 'block';
+
+      if (!response.ok) {
+        resultDiv.className = 'result error';
+        resultDiv.textContent = data.error || 'Failed to send email';
+      } else {
+        resultDiv.className = 'result success';
+        resultDiv.innerHTML = `<strong>Email with inline image sent!</strong><br/>ID: ${data.id}`;
+      }
+    } catch {
+      resultDiv.style.display = 'block';
+      resultDiv.className = 'result error';
+      resultDiv.textContent = 'Network error. Please try again.';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Send Email with Inline Image';
+    }
+  });
+</script>
+
+<style>
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .field label {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .field input {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #e5e5e5;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    background: #fff;
+  }
+
+  .hint {
+    font-size: 0.75rem;
+    color: #999;
+  }
+
+  button[type='submit'] {
+    padding: 0.625rem 1rem;
+    background: #1a1a1a;
+    color: #fff;
+    border: none;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  button[type='submit']:hover {
+    opacity: 0.9;
+  }
+
+  button[type='submit']:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .result {
+    padding: 1rem;
+    border-radius: 0.375rem;
+    margin-bottom: 2rem;
+    font-size: 0.875rem;
+  }
+
+  .result.success {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #166534;
+  }
+
+  .result.error {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+  }
+
+  .code-example {
+    margin-top: 2rem;
+  }
+
+  .code-example h2 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  pre {
+    background: #1a1a1a;
+    color: #e5e5e5;
+    padding: 1rem 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+  }
+
+  .info-box {
+    margin-top: 2rem;
+    padding: 1rem 1.25rem;
+    border-radius: 0.5rem;
+    background: #f0f0f0;
+    border: 1px solid #e5e5e5;
+  }
+
+  .info-box h3 {
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+
+  .info-box ul {
+    list-style-position: inside;
+    font-size: 0.875rem;
+    color: #666;
+  }
+
+  .info-box ul li {
+    margin-bottom: 0.5rem;
+  }
+
+  .info-box .note {
+    margin-top: 0.75rem;
+    font-size: 0.8125rem;
+    color: #999;
+  }
+</style>
