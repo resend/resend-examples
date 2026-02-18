@@ -8,6 +8,10 @@ app.use(express.json());
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+/** Strip newlines from user-controlled values before logging */
+const sanitize = (value: unknown): string =>
+  String(value ?? "").replace(/[\r\n]/g, "");
+
 app.get("/health", (_req: Request, res: Response) => {
   res.json({ status: "ok" });
 });
@@ -63,23 +67,23 @@ app.post("/webhook", async (req: Request, res: Response) => {
     });
 
     const event = req.body;
-    console.log("Received webhook event:", event.type);
+    console.log("Received webhook event:", sanitize(event.type));
 
     switch (event.type) {
       case "email.received":
-        console.log("New email from:", event.data?.from);
+        console.log("New email from:", sanitize(event.data?.from));
         break;
       case "email.delivered":
-        console.log("Email delivered:", event.data?.email_id);
+        console.log("Email delivered:", sanitize(event.data?.email_id));
         break;
       case "email.bounced":
-        console.log("Email bounced:", event.data?.email_id);
+        console.log("Email bounced:", sanitize(event.data?.email_id));
         break;
     }
 
     res.json({ received: true, type: event.type });
-  } catch (err) {
-    res.status(400).json({ error: (err as Error).message });
+  } catch {
+    res.status(400).json({ error: "Invalid webhook signature" });
   }
 });
 
@@ -186,8 +190,8 @@ app.post("/double-optin/webhook", async (req: Request, res: Response) => {
       email: recipientEmail,
       contact_id: contact.id,
     });
-  } catch (err) {
-    res.status(400).json({ error: (err as Error).message });
+  } catch {
+    res.status(400).json({ error: "Invalid webhook signature" });
   }
 });
 
