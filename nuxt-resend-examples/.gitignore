@@ -1,0 +1,22 @@
+# Environment
+.env
+
+# Dependencies
+node_modules/
+
+# Nuxt
+.nuxt/
+.output/
+
+# Build
+dist/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
