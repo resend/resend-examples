@@ -1,0 +1,29 @@
+{
+  "name": "tanstack-resend-examples-typescript",
+  "version": "1.0.0",
+  "description": "Comprehensive Resend examples with TanStack Start and TypeScript",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vinxi dev",
+    "build": "vinxi build",
+    "start": "vinxi start"
+  },
+  "dependencies": {
+    "@tanstack/react-router": "^1.120.0",
+    "@tanstack/react-start": "^1.120.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "resend": "^4.5.0",
+    "vinxi": "^0.5.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.7.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
