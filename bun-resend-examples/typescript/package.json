@@ -1,0 +1,17 @@
+{
+  "name": "bun-resend-examples-typescript",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run src/index.ts",
+    "start": "bun run src/index.ts",
+    "example": "bun run"
+  },
+  "dependencies": {
+    "resend": "^4.0.0",
+    "svix": "^1.44.0"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.0.0"
+  }
+}
