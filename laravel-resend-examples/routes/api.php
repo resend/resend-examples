@@ -39,6 +39,9 @@ Route::prefix('send')->group(function () {
 
     // Send email that won't be threaded in Gmail
     Route::post('/prevent-threading', [EmailController::class, 'sendPreventThreading']);
+
+    // Send batch emails (up to 100)
+    Route::post('/batch', [EmailController::class, 'sendBatch']);
 });
 
 // Contact form submission (batch send)
