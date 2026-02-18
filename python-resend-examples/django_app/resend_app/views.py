@@ -45,9 +45,9 @@ def send_email(request):
             }
         )
         return JsonResponse({"success": True, "id": result["id"]})
-    except Exception as e:
+    except Exception:
         logger.exception("Error sending email")
-        return JsonResponse({"error": str(e)}, status=500)
+        return JsonResponse({"error": "Failed to send email"}, status=500)
 
 
 @csrf_exempt
@@ -88,9 +88,9 @@ def send_attachment(request):
             }
         )
         return JsonResponse({"success": True, "id": result["id"]})
-    except Exception as e:
+    except Exception:
         logger.exception("Error sending email with attachment")
-        return JsonResponse({"error": str(e)}, status=500)
+        return JsonResponse({"error": "Failed to send email"}, status=500)
 
 
 @csrf_exempt
@@ -124,9 +124,9 @@ def send_cid(request):
             }
         )
         return JsonResponse({"success": True, "id": result["id"]})
-    except Exception as e:
+    except Exception:
         logger.exception("Error sending CID email")
-        return JsonResponse({"error": str(e)}, status=500)
+        return JsonResponse({"error": "Failed to send email"}, status=500)
 
 
 @csrf_exempt
@@ -161,9 +161,9 @@ def send_scheduled(request):
         return JsonResponse(
             {"success": True, "id": result["id"], "scheduledFor": scheduled_at}
         )
-    except Exception as e:
+    except Exception:
         logger.exception("Error scheduling email")
-        return JsonResponse({"error": str(e)}, status=500)
+        return JsonResponse({"error": "Failed to schedule email"}, status=500)
 
 
 @csrf_exempt
@@ -196,9 +196,9 @@ def send_template(request):
             }
         )
         return JsonResponse({"success": True, "id": result["id"]})
-    except Exception as e:
+    except Exception:
         logger.exception("Error sending template email")
-        return JsonResponse({"error": str(e)}, status=500)
+        return JsonResponse({"error": "Failed to send email"}, status=500)
 
 
 @require_GET
@@ -206,9 +206,9 @@ def list_domains(request):
     try:
         result = resend.Domains.list()
         return JsonResponse({"domains": result.get("data", [])})
-    except Exception as e:
+    except Exception:
         logger.exception("Error listing domains")
-        return JsonResponse({"error": str(e)}, status=500)
+        return JsonResponse({"error": "Failed to list domains"}, status=500)
 
 
 @csrf_exempt
@@ -236,9 +236,9 @@ def create_domain(request):
                 },
             }
         )
-    except Exception as e:
+    except Exception:
         logger.exception("Error creating domain")
-        return JsonResponse({"error": str(e)}, status=500)
+        return JsonResponse({"error": "Failed to create domain"}, status=500)
 
 
 @require_GET
@@ -253,9 +253,9 @@ def list_contacts(request):
         result = resend.Contacts.list(audience_id)
         contacts = result.get("data", [])
         return JsonResponse({"contacts": contacts, "total": len(contacts)})
-    except Exception as e:
+    except Exception:
         logger.exception("Error listing contacts")
-        return JsonResponse({"error": str(e)}, status=500)
+        return JsonResponse({"error": "Failed to list contacts"}, status=500)
 
 
 @csrf_exempt
@@ -284,8 +284,8 @@ def webhook(request):
                 "svix-signature": svix_signature,
             },
         )
-    except WebhookVerificationError as e:
-        return JsonResponse({"error": str(e)}, status=400)
+    except WebhookVerificationError:
+        return JsonResponse({"error": "Invalid webhook signature"}, status=400)
 
     event_type = event.get("type", "")
     logger.info("Received webhook event: %s", event_type)
@@ -356,9 +356,9 @@ def double_optin_subscribe(request):
                 "email_id": sent["id"],
             }
         )
-    except Exception as e:
+    except Exception:
         logger.exception("Error in double opt-in subscribe")
-        return JsonResponse({"error": str(e)}, status=500)
+        return JsonResponse({"error": "Failed to process subscription"}, status=500)
 
 
 @csrf_exempt
@@ -380,8 +380,8 @@ def double_optin_webhook(request):
                 "svix-signature": request.headers.get("svix-signature", ""),
             },
         )
-    except WebhookVerificationError as e:
-        return JsonResponse({"error": str(e)}, status=400)
+    except WebhookVerificationError:
+        return JsonResponse({"error": "Invalid webhook signature"}, status=400)
 
     event_type = event.get("type", "")
 
@@ -423,6 +423,6 @@ def double_optin_webhook(request):
                 "contact_id": contact["id"],
             }
         )
-    except Exception as e:
+    except Exception:
         logger.exception("Error in double opt-in webhook")
-        return JsonResponse({"error": str(e)}, status=500)
+        return JsonResponse({"error": "Failed to process webhook"}, status=500)
