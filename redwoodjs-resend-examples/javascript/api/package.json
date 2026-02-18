@@ -1,0 +1,9 @@
+{
+  "name": "api",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "resend": "^4.0.0",
+    "svix": "^1.0.0"
+  }
+}
