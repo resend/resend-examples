@@ -79,6 +79,17 @@ const examples: { category: string; items: ExampleItem[] }[] = [
     ],
   },
   {
+    category: 'Subscription',
+    items: [
+      {
+        title: 'Double Opt-In',
+        description: 'GDPR-compliant subscription with email confirmation',
+        href: '/double-optin',
+        type: 'page',
+      },
+    ],
+  },
+  {
     category: 'Management',
     items: [
       {
