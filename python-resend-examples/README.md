@@ -104,6 +104,18 @@ curl -X POST http://localhost:8000/send \
   -d '{"to": "delivered@resend.dev", "subject": "Hello", "message": "Hi from FastAPI!"}'
 ```
 
+### Django Application
+```bash
+cd django_app
+pip install django
+python manage.py runserver 8001
+
+# Then in another terminal:
+curl -X POST http://localhost:8001/send \
+  -H "Content-Type: application/json" \
+  -d '{"to": "delivered@resend.dev", "subject": "Hello", "message": "Hi from Django!"}'
+```
+
 ## Quick Usage
 
 ```python
@@ -138,6 +150,10 @@ python-resend-examples/
 │   ├── inbound.py             # Handle inbound emails
 │   ├── flask_app.py           # Flask web application
 │   └── fastapi_app.py         # FastAPI web application
+├── django_app/                # Django web application
+│   ├── manage.py
+│   ├── django_project/
+│   └── resend_app/
 ├── requirements.txt
 ├── .env.example
 └── README.md
