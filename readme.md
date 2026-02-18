@@ -14,6 +14,11 @@ Choose your language/framework and follow the setup instructions in each folder:
 | **Laravel** | [`/laravel-resend-examples`](/laravel-resend-examples/) | Laravel 11 |
 | **Python** | [`/python-resend-examples`](/python-resend-examples/) | Flask, FastAPI |
 | **Ruby** | [`/ruby-resend-examples`](/ruby-resend-examples/) | Sinatra, Rails |
+| **Go** | [`/go-resend-examples`](/go-resend-examples/) | Chi, Gin |
+| **Java** | [`/java-resend-examples`](/java-resend-examples/) | Javalin, Spring Boot |
+| **.NET (C#)** | [`/dotnet-resend-examples`](/dotnet-resend-examples/) | ASP.NET Minimal APIs, ASP.NET MVC |
+| **Rust** | [`/rust-resend-examples`](/rust-resend-examples/) | Axum |
+| **Elixir** | [`/elixir-resend-examples`](/elixir-resend-examples/) | Phoenix |
 
 ## Examples Included
 

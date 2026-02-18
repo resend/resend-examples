@@ -1,0 +1,24 @@
+# Environment
+.env
+
+# Elixir/Mix
+/_build/
+/deps/
+/doc/
+/.fetch
+erl_crash.dump
+*.ez
+*.beam
+
+# Mix lock (optional - include for reproducible builds)
+# mix.lock
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
