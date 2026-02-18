@@ -1,113 +1,123 @@
-'use client';
+/**
+ * Domains Management Example
+ *
+ * Demonstrates creating a domain and displaying the required
+ * DNS records for verification.
+ *
+ * Key concepts:
+ * - Domains must be verified before sending
+ * - DNS records include SPF, DKIM, and DMARC
+ * - Use subdomains to separate transactional from marketing
+ *
+ * @see https://resend.com/docs/dashboard/domains/introduction
+ */
 
-import { useState } from 'react';
+import { CodeBlock } from '@/components/code-block';
 import { PageHeader } from '@/components/page-header';
+import { DomainManager } from './domain-manager';
 
 export default function DomainsPage() {
-  const [domain, setDomain] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState(null);
-  const [error, setError] = useState(null);
+  const createDomainCode = `// Create a new domain
+const { data: domain, error } = await resend.domains.create({
+  name: 'notifications.example.com',
+  // Optional: specify region
+  region: 'us-east-1',
+});
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-    setResult(null);
+// The response includes DNS records to add:
+console.log(domain.records);
+// [
+//   { type: 'MX', name: 'notifications', value: '...', priority: 10 },
+//   { type: 'TXT', name: 'notifications', value: 'v=spf1 ...' },
+//   { type: 'TXT', name: 'resend._domainkey.notifications', value: '...' },
+// ]`;
 
-    try {
-      const response = await fetch('/api/domains', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: domain }),
-      });
-      const data = await response.json();
-      if (!response.ok) {
-        setError(data.error);
-      } else {
-        setResult(data.domain);
-      }
-    } catch (err) {
-      setError('Network error');
-    } finally {
-      setLoading(false);
-    }
-  };
+  const verifyDomainCode = `// Check domain verification status
+const { data: domain } = await resend.domains.get(domainId);
+
+console.log(domain.status); // 'pending' | 'verified' | 'failed'
+
+// List all domains
+const { data: domains } = await resend.domains.list();
+
+// Delete a domain
+await resend.domains.remove(domainId);`;
 
   return (
     <main className="max-w-2xl mx-auto px-4 py-12">
       <PageHeader
         title="Domain Management"
-        description="Create domains and view required DNS records."
+        description="Create domains and view required DNS records for verification."
         sourcePath="src/app/domains/page.jsx"
       />
 
-      <form onSubmit={handleSubmit} className="space-y-4 mb-8">
+      {/* Domain creation form */}
+      <div className="mb-8">
+        <h2 className="text-lg font-semibold mb-4">Create a Domain</h2>
+        <DomainManager />
+      </div>
+
+      {/* DNS Setup Guide */}
+      <div className="mb-8 p-4 rounded-lg bg-[var(--muted)] border border-[var(--border)]">
+        <h3 className="font-medium mb-3">DNS Record Types</h3>
+        <dl className="text-sm text-[var(--muted-foreground)] space-y-3">
+          <div>
+            <dt className="font-medium text-[var(--foreground)]">MX Record</dt>
+            <dd>Required for receiving emails (inbound feature)</dd>
+          </div>
+          <div>
+            <dt className="font-medium text-[var(--foreground)]">SPF (TXT)</dt>
+            <dd>Authorizes Resend to send on your domain&apos;s behalf</dd>
+          </div>
+          <div>
+            <dt className="font-medium text-[var(--foreground)]">DKIM (TXT)</dt>
+            <dd>Cryptographic signature to prove email authenticity</dd>
+          </div>
+          <div>
+            <dt className="font-medium text-[var(--foreground)]">
+              DMARC (TXT)
+            </dt>
+            <dd>Policy for handling failed authentication (recommended)</dd>
+          </div>
+        </dl>
+      </div>
+
+      {/* Code examples */}
+      <div className="space-y-8">
         <div>
-          <label htmlFor="domain" className="block text-sm font-medium mb-1">
-            Domain Name
-          </label>
-          <input
-            id="domain"
-            type="text"
-            value={domain}
-            onChange={(e) => setDomain(e.target.value)}
-            required
-            className="w-full px-3 py-2 border border-[var(--border)] rounded-md bg-[var(--background)]"
-            placeholder="notifications.example.com"
-          />
+          <h2 className="text-lg font-semibold mb-4">Create Domain API</h2>
+          <CodeBlock code={createDomainCode} title="Creating a Domain" />
         </div>
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full px-4 py-2 bg-[var(--foreground)] text-[var(--background)] rounded-md font-medium hover:opacity-90 disabled:opacity-50"
-        >
-          {loading ? 'Creating...' : 'Create Domain'}
-        </button>
-      </form>
 
-      {error && (
-        <div className="p-4 rounded-lg border border-red-200 bg-red-50">
-          <p className="text-red-700">{error}</p>
+        <div>
+          <h2 className="text-lg font-semibold mb-4">Manage Domains</h2>
+          <CodeBlock code={verifyDomainCode} title="Domain Operations" />
         </div>
-      )}
+      </div>
 
-      {result && (
-        <div className="mt-6">
-          <div className="mb-4 p-4 rounded-lg border border-green-200 bg-green-50">
-            <h3 className="font-medium text-green-800">Domain Created!</h3>
-            <p className="text-sm text-green-700">ID: {result.id}</p>
-            <p className="text-sm text-green-700">Status: {result.status}</p>
-          </div>
-          <h3 className="font-medium mb-3">Required DNS Records</h3>
-          <div className="space-y-4">
-            {result.records?.map((record, i) => (
-              <div
-                key={i}
-                className="p-4 rounded-lg border border-[var(--border)] bg-[var(--muted)]"
-              >
-                <span className="px-2 py-0.5 text-xs font-medium rounded bg-[var(--background)]">
-                  {record.type}
-                </span>
-                <div className="mt-2 text-sm">
-                  <p>
-                    <span className="text-[var(--muted-foreground)]">
-                      Name:
-                    </span>{' '}
-                    <code>{record.name}</code>
-                  </p>
-                  <p>
-                    <span className="text-[var(--muted-foreground)]">
-                      Value:
-                    </span>{' '}
-                    <code className="text-xs break-all">{record.value}</code>
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      {/* Best practices */}
+      <div className="mt-8 p-4 rounded-lg bg-[var(--muted)] border border-[var(--border)]">
+        <h3 className="font-medium mb-3">Best Practices</h3>
+        <ul className="text-sm text-[var(--muted-foreground)] space-y-2">
+          <li>
+            <strong>Use subdomains:</strong> Separate transactional
+            (notifications.example.com) from marketing (mail.example.com) to
+            protect reputation
+          </li>
+          <li>
+            <strong>Set up DMARC:</strong> Helps prevent spoofing and improves
+            deliverability
+          </li>
+          <li>
+            <strong>Verify both SPF and DKIM:</strong> Both are important for
+            inbox placement
+          </li>
+          <li>
+            <strong>DNS propagation:</strong> Records can take up to 48 hours to
+            propagate
+          </li>
+        </ul>
+      </div>
     </main>
   );
 }
