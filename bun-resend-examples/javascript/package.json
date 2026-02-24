@@ -1,0 +1,14 @@
+{
+  "name": "bun-resend-examples-javascript",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run src/index.js",
+    "start": "bun run src/index.js",
+    "example": "bun run"
+  },
+  "dependencies": {
+    "resend": "^4.0.0",
+    "svix": "^1.44.0"
+  }
+}

@@ -10,10 +10,24 @@ Choose your language/framework and follow the setup instructions in each folder:
 |----------|--------|-----------|
 | **Next.js (TypeScript)** | [`/nextjs-resend-examples/typescript`](/nextjs-resend-examples/typescript/) | Next.js 16, React 19 |
 | **Next.js (JavaScript)** | [`/nextjs-resend-examples/javascript`](/nextjs-resend-examples/javascript/) | Next.js 16, React 19 |
-| **PHP** | [`/php-resend-examples`](/php-resend-examples/) | PHP 8.2+ |
+| **PHP** | [`/php-resend-examples`](/php-resend-examples/) | Slim, Symfony |
 | **Laravel** | [`/laravel-resend-examples`](/laravel-resend-examples/) | Laravel 11 |
-| **Python** | [`/python-resend-examples`](/python-resend-examples/) | Flask, FastAPI |
+| **Python** | [`/python-resend-examples`](/python-resend-examples/) | Flask, FastAPI, Django |
 | **Ruby** | [`/ruby-resend-examples`](/ruby-resend-examples/) | Sinatra, Rails |
+| **Go** | [`/go-resend-examples`](/go-resend-examples/) | Chi, Gin |
+| **Java** | [`/java-resend-examples`](/java-resend-examples/) | Javalin, Spring Boot |
+| **.NET (C#)** | [`/dotnet-resend-examples`](/dotnet-resend-examples/) | ASP.NET Minimal APIs, ASP.NET MVC |
+| **Rust** | [`/rust-resend-examples`](/rust-resend-examples/) | Axum |
+| **Elixir** | [`/elixir-resend-examples`](/elixir-resend-examples/) | Phoenix |
+| **Express** | [`/express-resend-examples`](/express-resend-examples/) | Express 5 |
+| **Hono** | [`/hono-resend-examples`](/hono-resend-examples/) | Hono |
+| **Bun** | [`/bun-resend-examples`](/bun-resend-examples/) | Bun.serve() |
+| **Remix** | [`/remix-resend-examples`](/remix-resend-examples/) | Remix |
+| **Nuxt** | [`/nuxt-resend-examples`](/nuxt-resend-examples/) | Nuxt 3 |
+| **SvelteKit** | [`/sveltekit-resend-examples`](/sveltekit-resend-examples/) | SvelteKit |
+| **Astro** | [`/astro-resend-examples`](/astro-resend-examples/) | Astro |
+| **RedwoodJS** | [`/redwoodjs-resend-examples`](/redwoodjs-resend-examples/) | RedwoodJS |
+| **TanStack Start** | [`/tanstack-resend-examples`](/tanstack-resend-examples/) | TanStack Start |
 
 ## Examples Included
 
@@ -63,6 +77,10 @@ Each language folder includes examples for:
 - [API Reference](https://resend.com/docs/api-reference)
 - [React Email](https://react.email)
 - [Dashboard](https://resend.com/emails)
+
+## Contributing
+
+See something that could be improved? We welcome contributions! [Open an issue](https://github.com/resend/resend-examples/issues) to report a bug or suggest an improvement, or [submit a pull request](https://github.com/resend/resend-examples/pulls) with your changes.
 
 ## License
 

@@ -1,0 +1,204 @@
+---
+/**
+ * Home Page
+ *
+ * Displays a navigation grid of all available examples.
+ * Each example links to its dedicated page with a working demo.
+ */
+
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Home">
+  <div class="header">
+    <h1>Resend Examples</h1>
+    <p>
+      Comprehensive examples for sending emails with
+      <a href="https://resend.com" target="_blank" rel="noopener noreferrer">Resend</a>
+      and Astro. Each example includes commented code to help you learn.
+    </p>
+  </div>
+
+  <div class="setup">
+    <h2>Quick Setup</h2>
+    <ol>
+      <li>Copy <code>.env.example</code> to <code>.env</code></li>
+      <li>
+        Add your Resend API key from
+        <a href="https://resend.com/api-keys" target="_blank" rel="noopener noreferrer">resend.com/api-keys</a>
+      </li>
+      <li>Run <code>npm run dev</code> and explore!</li>
+    </ol>
+  </div>
+
+  <section>
+    <h2 class="category">Sending Emails</h2>
+    <div class="grid">
+      <a href="/send-email" class="card">
+        <h3>Basic Send</h3>
+        <p>Send a simple email with HTML content</p>
+      </a>
+      <a href="/attachments" class="card">
+        <h3>With Attachments</h3>
+        <p>Send emails with file attachments</p>
+      </a>
+      <a href="/cid-attachments" class="card">
+        <h3>With CID Attachments</h3>
+        <p>Embed inline images using Content-ID</p>
+      </a>
+      <a href="/templates" class="card">
+        <h3>With Templates</h3>
+        <p>Use Resend hosted templates with variables</p>
+      </a>
+      <a href="/scheduling" class="card">
+        <h3>Scheduled Send</h3>
+        <p>Schedule emails to send later</p>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="category">Receiving Emails</h2>
+    <div class="grid">
+      <a href="/inbound" class="card">
+        <h3>Inbound Emails</h3>
+        <p>Receive and forward emails via webhooks</p>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="category">Subscription</h2>
+    <div class="grid">
+      <a href="/double-optin" class="card">
+        <h3>Double Opt-In</h3>
+        <p>GDPR-compliant subscription with email confirmation</p>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="category">Management</h2>
+    <div class="grid">
+      <a href="/audiences" class="card">
+        <h3>Audiences</h3>
+        <p>Manage contacts and segments</p>
+      </a>
+      <a href="/domains" class="card">
+        <h3>Domains</h3>
+        <p>Create domains and view DNS records</p>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="category">Advanced</h2>
+    <div class="grid">
+      <a href="/prevent-threading" class="card">
+        <h3>Prevent Gmail Threading</h3>
+        <p>Stop emails from grouping in Gmail</p>
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .header {
+    margin-bottom: 3rem;
+  }
+
+  .header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .header p {
+    font-size: 1.125rem;
+    color: #666;
+  }
+
+  .header a {
+    color: #1a1a1a;
+    text-decoration: underline;
+  }
+
+  .setup {
+    margin-bottom: 3rem;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    background: #f0f0f0;
+    border: 1px solid #e5e5e5;
+  }
+
+  .setup h2 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .setup ol {
+    list-style-position: inside;
+    font-size: 0.875rem;
+    color: #666;
+  }
+
+  .setup ol li {
+    margin-bottom: 0.25rem;
+  }
+
+  .setup code {
+    background: #fff;
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    font-size: 0.8125rem;
+  }
+
+  .setup a {
+    color: #1a1a1a;
+    text-decoration: underline;
+  }
+
+  section {
+    margin-bottom: 2.5rem;
+  }
+
+  .category {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 1rem;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+
+  .card {
+    display: block;
+    padding: 1rem 1.25rem;
+    border-radius: 0.5rem;
+    border: 1px solid #e5e5e5;
+    background: #fff;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s;
+  }
+
+  .card:hover {
+    border-color: #1a1a1a;
+  }
+
+  .card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  .card p {
+    font-size: 0.875rem;
+    color: #666;
+  }
+</style>

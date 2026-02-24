@@ -1,0 +1,13 @@
+{
+  "name": "redwoodjs-resend-examples-typescript",
+  "private": true,
+  "workspaces": ["api", "web"],
+  "devDependencies": {
+    "@redwoodjs/core": "^8.0.0"
+  },
+  "scripts": {
+    "dev": "rw dev",
+    "build": "rw build",
+    "serve": "rw serve"
+  }
+}

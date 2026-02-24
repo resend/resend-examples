@@ -1,0 +1,10 @@
+[web]
+  title = "RedwoodJS + Resend Examples"
+  port = 8910
+  apiUrl = "/.redwood/functions"
+
+[api]
+  port = 8911
+
+[browser]
+  open = true

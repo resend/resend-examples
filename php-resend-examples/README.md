@@ -92,6 +92,18 @@ curl -X POST http://localhost:8080/send \
   -d '{"to": "delivered@resend.dev", "subject": "Hello", "message": "Hi from PHP!"}'
 ```
 
+### Symfony Application
+```bash
+cd symfony_app
+composer install
+php -S localhost:8081
+
+# Then in another terminal:
+curl -X POST http://localhost:8081/send \
+  -H "Content-Type: application/json" \
+  -d '{"to": "delivered@resend.dev", "subject": "Hello", "message": "Hi from Symfony!"}'
+```
+
 ## Quick Usage
 
 ```php
@@ -135,6 +147,10 @@ php-resend-examples/
 │   ├── inbound/
 │   │   └── webhook.php         # Handle webhooks
 │   └── slim_app.php            # Slim web application
+├── symfony_app/               # Symfony web application
+│   ├── src/Controller/
+│   ├── config/
+│   └── composer.json
 ├── composer.json
 ├── .env.example
 └── README.md
@@ -145,6 +161,10 @@ php-resend-examples/
 - [Resend PHP SDK](https://github.com/resend/resend-php)
 - [Resend Documentation](https://resend.com/docs)
 - [API Reference](https://resend.com/docs/api-reference)
+
+## Contributing
+
+See something that could be improved? We welcome contributions! [Open an issue](https://github.com/resend/resend-examples/issues) to report a bug or suggest an improvement, or [submit a pull request](https://github.com/resend/resend-examples/pulls) with your changes.
 
 ## License
 

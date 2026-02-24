@@ -139,6 +139,42 @@ class EmailController extends Controller
     }
 
     /**
+     * Send batch emails
+     *
+     * Up to 100 emails per call. No attachments or scheduling supported.
+     *
+     * @see https://resend.com/docs/api-reference/emails/send-batch-emails
+     */
+    public function sendBatch(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        $contactEmail = $request->input('contact_email', config('app.contact_email', 'delivered@resend.dev'));
+
+        $result = Resend::batch()->send([
+            [
+                'from' => config('mail.from.address'),
+                'to' => [$request->email],
+                'subject' => 'We received your message',
+                'html' => '<h1>Thanks for reaching out!</h1><p>We\'ll get back to you soon.</p>',
+            ],
+            [
+                'from' => config('mail.from.address'),
+                'to' => [$contactEmail],
+                'subject' => 'New contact form submission',
+                'html' => "<h1>New message received</h1><p>From: {$request->email}</p>",
+            ],
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'ids' => collect($result->data)->pluck('id'),
+        ]);
+    }
+
+    /**
      * Send email with attachment
      */
     public function sendWithAttachment(Request $request)
