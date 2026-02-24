@@ -102,6 +102,10 @@ src/
 - [React Email Documentation](https://react.email)
 - [Next.js Documentation](https://nextjs.org/docs)
 
+## Contributing
+
+See something that could be improved? We welcome contributions! [Open an issue](https://github.com/resend/resend-examples/issues) to report a bug or suggest an improvement, or [submit a pull request](https://github.com/resend/resend-examples/pulls) with your changes.
+
 ## License
 
 MIT

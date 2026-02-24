@@ -78,6 +78,10 @@ Each language folder includes examples for:
 - [React Email](https://react.email)
 - [Dashboard](https://resend.com/emails)
 
+## Contributing
+
+See something that could be improved? We welcome contributions! [Open an issue](https://github.com/resend/resend-examples/issues) to report a bug or suggest an improvement, or [submit a pull request](https://github.com/resend/resend-examples/pulls) with your changes.
+
 ## License
 
 MIT

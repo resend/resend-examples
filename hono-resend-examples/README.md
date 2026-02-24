@@ -66,3 +66,7 @@ Once the server is running:
 - `POST /webhook` - Receive Resend webhook events
 - `POST /double-optin/subscribe` - Start double opt-in (`{ "email": "...", "name": "..." }`)
 - `POST /double-optin/webhook` - Handle double opt-in confirmation
+
+## Contributing
+
+See something that could be improved? We welcome contributions! [Open an issue](https://github.com/resend/resend-examples/issues) to report a bug or suggest an improvement, or [submit a pull request](https://github.com/resend/resend-examples/pulls) with your changes.

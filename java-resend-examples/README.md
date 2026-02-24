@@ -156,6 +156,10 @@ java-resend-examples/
 - [Resend Documentation](https://resend.com/docs)
 - [API Reference](https://resend.com/docs/api-reference)
 
+## Contributing
+
+See something that could be improved? We welcome contributions! [Open an issue](https://github.com/resend/resend-examples/issues) to report a bug or suggest an improvement, or [submit a pull request](https://github.com/resend/resend-examples/pulls) with your changes.
+
 ## License
 
 MIT

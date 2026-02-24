@@ -99,3 +99,7 @@ curl -X POST http://localhost:3000/double-optin/subscribe \
   -H "Content-Type: application/json" \
   -d '{"email": "user@example.com", "name": "Jane Doe"}'
 ```
+
+## Contributing
+
+See something that could be improved? We welcome contributions! [Open an issue](https://github.com/resend/resend-examples/issues) to report a bug or suggest an improvement, or [submit a pull request](https://github.com/resend/resend-examples/pulls) with your changes.

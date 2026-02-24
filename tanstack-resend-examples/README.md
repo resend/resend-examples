@@ -55,3 +55,7 @@ Once the dev server is running, visit `http://localhost:3000`:
 - `GET /api/domains` - List domains
 - `POST /api/domains` - Create a domain
 - `GET /api/audiences/contacts` - List contacts in an audience
+
+## Contributing
+
+See something that could be improved? We welcome contributions! [Open an issue](https://github.com/resend/resend-examples/issues) to report a bug or suggest an improvement, or [submit a pull request](https://github.com/resend/resend-examples/pulls) with your changes.
