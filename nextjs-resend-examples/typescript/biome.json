@@ -1,0 +1,104 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.3.13/schema.json",
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
+  "formatter": {
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 80
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single"
+    }
+  },
+  "css": {
+    "parser": {
+      "cssModules": true,
+      "tailwindDirectives": true
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "a11y": {
+        "noAutofocus": "off",
+        "noLabelWithoutControl": "off",
+        "noPositiveTabindex": "off",
+        "noStaticElementInteractions": "off",
+        "noSvgWithoutTitle": "off",
+        "useAriaPropsForRole": "off",
+        "useButtonType": "off",
+        "useFocusableInteractive": "off",
+        "useIframeTitle": "off",
+        "useKeyWithClickEvents": "off",
+        "useMediaCaption": "off",
+        "useSemanticElements": "off",
+        "useAriaPropsSupportedByRole": "off",
+        "useValidAnchor": "off"
+      },
+      "correctness": {
+        "useUniqueElementIds": "off",
+        "noUnusedImports": "error",
+        "noUnusedVariables": "off",
+        "noUnusedFunctionParameters": "off",
+        "useExhaustiveDependencies": "off",
+        "useHookAtTopLevel": "off"
+      },
+      "complexity": {
+        "noImportantStyles": "off",
+        "noUselessSwitchCase": "off",
+        "noBannedTypes": "off",
+        "noUselessFragments": "off"
+      },
+      "suspicious": {
+        "noUnknownAtRules": "off",
+        "noImplicitAnyLet": "off",
+        "noExplicitAny": "off",
+        "noAssignInExpressions": "off",
+        "noArrayIndexKey": "off",
+        "noFallthroughSwitchClause": "off",
+        "noPrototypeBuiltins": "off",
+        "useDefaultSwitchClauseLast": "off",
+        "noCommentText": "off",
+        "noConsole": "off"
+      },
+      "security": {
+        "noDangerouslySetInnerHtml": "off",
+        "noBlankTarget": "off"
+      },
+      "style": {
+        "useBlockStatements": "error",
+        "noNonNullAssertion": "off",
+        "useSingleVarDeclarator": "off",
+        "noParameterAssign": "off",
+        "noDescendingSpecificity": "off"
+      },
+      "performance": {
+        "noAccumulatingSpread": "off",
+        "noImgElement": "off",
+        "noDynamicNamespaceImportAccess": "off"
+      }
+    }
+  },
+  "files": {
+    "includes": [
+      "**",
+      "!**/dist",
+      "!**/pnpm-lock.yaml",
+      "!**/infra/logs-migrations/**/*",
+      "!**/infra/migrations/**/*",
+      "!**/.react-email",
+      "!**/.next",
+      "!**/public",
+      "!**/playwright-report",
+      "!src/app/(internal)/design/_common/*.json"
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "hono-resend-examples-javascript",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node src/index.js",
+    "start": "node src/index.js",
+    "example": "node"
+  },
+  "dependencies": {
+    "hono": "^4.0.0",
+    "@hono/node-server": "^1.13.0",
+    "resend": "^4.0.0",
+    "dotenv": "^16.4.0",
+    "svix": "^1.44.0"
+  }
+}

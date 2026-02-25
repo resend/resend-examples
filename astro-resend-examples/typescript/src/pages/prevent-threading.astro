@@ -1,0 +1,303 @@
+---
+/**
+ * Prevent Gmail Threading Example
+ *
+ * Demonstrates how to prevent emails from being grouped into threads
+ * in Gmail. Useful for notifications, alerts, and recurring emails
+ * that should stand alone.
+ *
+ * @see https://resend.com/docs/knowledge-base/how-to-prevent-threading
+ */
+
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+---
+
+<Layout title="Prevent Threading">
+  <PageHeader
+    title="Prevent Gmail Threading"
+    description="Stop emails from being grouped into conversation threads."
+  />
+
+  <div class="info-box">
+    <h2>Why Prevent Threading?</h2>
+    <p>Gmail automatically groups emails with the same subject into threads. This can be problematic for:</p>
+    <ul>
+      <li>Daily/weekly reports that should stand alone</li>
+      <li>Notification emails that need individual attention</li>
+      <li>Alerts that should not be buried in a thread</li>
+      <li>Recurring reminders with the same subject</li>
+    </ul>
+  </div>
+
+  <form id="threading-form" class="form">
+    <div class="field">
+      <label for="to">To</label>
+      <input
+        id="to"
+        type="email"
+        value="delivered@resend.dev"
+        required
+        placeholder="delivered@resend.dev"
+      />
+    </div>
+
+    <button type="submit" id="submit-btn">Send Non-Threaded Email</button>
+    <span class="hint">Send multiple times - each email will appear separately!</span>
+  </form>
+
+  <div id="result" class="result" style="display: none;"></div>
+
+  <div class="code-example">
+    <h2>Code Example</h2>
+    <pre><code>{`import { Resend } from 'resend';
+import { randomUUID } from 'crypto';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+// Method 1: Use X-Entity-Ref-ID header (RECOMMENDED)
+const { data, error } = await resend.emails.send({
+  from: 'Acme <notifications@resend.dev>',
+  to: ['delivered@resend.dev'],
+  subject: 'Your Daily Report', // Same subject is OK!
+  html: '<p>Your daily report content...</p>',
+  headers: {
+    // Unique value prevents Gmail from threading
+    'X-Entity-Ref-ID': randomUUID(),
+  },
+});`}</code></pre>
+  </div>
+
+  <div class="comparison">
+    <h3>Methods Compared</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Pros</th>
+          <th>Cons</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>X-Entity-Ref-ID</td>
+          <td>Clean subject, reliable</td>
+          <td>Hidden from recipients</td>
+        </tr>
+        <tr>
+          <td>Unique subject</td>
+          <td>Simple to implement</td>
+          <td>Cluttered subject lines</td>
+        </tr>
+        <tr>
+          <td>References header</td>
+          <td>Standards-based</td>
+          <td>More complex</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</Layout>
+
+<script>
+  const form = document.getElementById('threading-form') as HTMLFormElement;
+  const btn = document.getElementById('submit-btn') as HTMLButtonElement;
+  const resultDiv = document.getElementById('result') as HTMLDivElement;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    resultDiv.style.display = 'none';
+
+    const to = (document.getElementById('to') as HTMLInputElement).value;
+
+    try {
+      const response = await fetch('/api/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to,
+          subject: 'Your Daily Report',
+          message: `This is your daily report generated at ${new Date().toLocaleString()}.`,
+          preventThreading: true,
+        }),
+      });
+
+      const data = await response.json();
+      resultDiv.style.display = 'block';
+
+      if (!response.ok) {
+        resultDiv.className = 'result error';
+        resultDiv.textContent = data.error || 'Failed to send email';
+      } else {
+        resultDiv.className = 'result success';
+        resultDiv.innerHTML = `<strong>Non-threaded email sent!</strong><br/>ID: ${data.id}<br/>Threading prevented: ${data.preventedThreading}`;
+      }
+    } catch {
+      resultDiv.style.display = 'block';
+      resultDiv.className = 'result error';
+      resultDiv.textContent = 'Network error. Please try again.';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Send Non-Threaded Email';
+    }
+  });
+</script>
+
+<style>
+  .info-box {
+    margin-bottom: 2rem;
+    padding: 1rem 1.25rem;
+    border-radius: 0.5rem;
+    background: #f0f0f0;
+    border: 1px solid #e5e5e5;
+  }
+
+  .info-box h2 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .info-box p {
+    font-size: 0.875rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+  }
+
+  .info-box ul {
+    list-style-position: inside;
+    font-size: 0.875rem;
+    color: #666;
+  }
+
+  .info-box ul li {
+    margin-bottom: 0.25rem;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .field label {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .field input {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #e5e5e5;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    background: #fff;
+  }
+
+  .hint {
+    font-size: 0.75rem;
+    color: #999;
+  }
+
+  button[type='submit'] {
+    padding: 0.625rem 1rem;
+    background: #1a1a1a;
+    color: #fff;
+    border: none;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  button[type='submit']:hover {
+    opacity: 0.9;
+  }
+
+  button[type='submit']:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .result {
+    padding: 1rem;
+    border-radius: 0.375rem;
+    margin-bottom: 2rem;
+    font-size: 0.875rem;
+  }
+
+  .result.success {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #166534;
+  }
+
+  .result.error {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+  }
+
+  .code-example {
+    margin-top: 2rem;
+  }
+
+  .code-example h2 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  pre {
+    background: #1a1a1a;
+    color: #e5e5e5;
+    padding: 1rem 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+  }
+
+  .comparison {
+    margin-top: 2rem;
+    padding: 1rem 1.25rem;
+    border-radius: 0.5rem;
+    background: #f0f0f0;
+    border: 1px solid #e5e5e5;
+  }
+
+  .comparison h3 {
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+
+  table {
+    width: 100%;
+    font-size: 0.875rem;
+    border-collapse: collapse;
+  }
+
+  th {
+    text-align: left;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  td {
+    padding: 0.5rem 0;
+    color: #666;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+</style>

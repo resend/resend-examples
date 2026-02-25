@@ -1,0 +1,70 @@
+[package]
+name = "rust-resend-examples"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+resend-rs = "0.20"
+tokio = { version = "1", features = ["full"] }
+dotenvy = "0.15"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+base64 = "0.22"
+uuid = { version = "1", features = ["v4"] }
+chrono = "0.4"
+
+# Framework dependencies (used by axum_app)
+axum = "0.8"
+svix = "1"
+
+[[example]]
+name = "basic_send"
+path = "examples/basic_send.rs"
+
+[[example]]
+name = "batch_send"
+path = "examples/batch_send.rs"
+
+[[example]]
+name = "with_attachments"
+path = "examples/with_attachments.rs"
+
+[[example]]
+name = "with_cid_attachments"
+path = "examples/with_cid_attachments.rs"
+
+[[example]]
+name = "scheduled_send"
+path = "examples/scheduled_send.rs"
+
+[[example]]
+name = "with_template"
+path = "examples/with_template.rs"
+
+[[example]]
+name = "prevent_threading"
+path = "examples/prevent_threading.rs"
+
+[[example]]
+name = "audiences"
+path = "examples/audiences.rs"
+
+[[example]]
+name = "domains"
+path = "examples/domains.rs"
+
+[[example]]
+name = "inbound"
+path = "examples/inbound.rs"
+
+[[example]]
+name = "double_optin_subscribe"
+path = "examples/double_optin_subscribe.rs"
+
+[[example]]
+name = "double_optin_webhook"
+path = "examples/double_optin_webhook.rs"
+
+[[bin]]
+name = "axum_app"
+path = "axum_app/src/main.rs"

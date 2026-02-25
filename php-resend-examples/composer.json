@@ -1,0 +1,22 @@
+{
+    "name": "resend/php-resend-examples",
+    "description": "Comprehensive Resend examples with PHP",
+    "type": "project",
+    "require": {
+        "php": "^8.2",
+        "resend/resend-php": "^0.13",
+        "vlucas/phpdotenv": "^5.6",
+        "slim/slim": "^4.0",
+        "slim/psr7": "^1.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "scripts": {
+        "send": "php src/send/basic.php",
+        "send:attachment": "php src/attachments/send.php",
+        "send:scheduled": "php src/scheduling/send.php"
+    }
+}

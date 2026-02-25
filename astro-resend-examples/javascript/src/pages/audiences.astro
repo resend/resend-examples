@@ -1,0 +1,237 @@
+---
+/**
+ * Audiences (Contacts & Segments) Example
+ *
+ * Demonstrates managing contacts and segments using Resend's Audiences API.
+ *
+ * @see https://resend.com/docs/dashboard/audiences/introduction
+ */
+
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+---
+
+<Layout title="Audiences">
+  <PageHeader
+    title="Audiences"
+    description="Manage contacts and segments for newsletters and marketing."
+  />
+
+  <div class="setup-notice">
+    <h3>Setup Required</h3>
+    <p>
+      Create an audience in the
+      <a href="https://resend.com/audiences" target="_blank" rel="noopener noreferrer">Resend dashboard</a>
+      first. Then add the audience ID to your environment variables.
+    </p>
+  </div>
+
+  <div class="contacts-section">
+    <h2>Your Contacts</h2>
+    <button id="load-contacts" type="button">Load Contacts</button>
+    <div id="contacts-list" class="contacts-list"></div>
+  </div>
+
+  <div class="code-example">
+    <h2>Contacts API</h2>
+    <pre><code>{`// List contacts in an audience
+const { data: contacts } = await resend.contacts.list({
+  audienceId: 'aud_123',
+});
+
+// Create a new contact
+const { data: contact } = await resend.contacts.create({
+  audienceId: 'aud_123',
+  email: 'delivered@resend.dev',
+  firstName: 'John',
+  lastName: 'Doe',
+  unsubscribed: false,
+});
+
+// Update a contact
+await resend.contacts.update({
+  audienceId: 'aud_123',
+  id: contact.id,
+  firstName: 'Jane',
+});
+
+// Remove a contact
+await resend.contacts.remove({
+  audienceId: 'aud_123',
+  id: contact.id,
+});`}</code></pre>
+  </div>
+
+  <div class="info-box">
+    <h3>Audiences Features</h3>
+    <ul>
+      <li><strong>Contacts:</strong> Store email addresses with optional first/last name and custom properties</li>
+      <li><strong>Segments:</strong> Automatically group contacts based on rules</li>
+      <li><strong>Unsubscribe handling:</strong> Track unsubscribed contacts to respect their preferences</li>
+      <li><strong>Bulk operations:</strong> Import/export contacts via CSV in the dashboard</li>
+    </ul>
+  </div>
+</Layout>
+
+<script>
+  const loadBtn = document.getElementById('load-contacts');
+  const listDiv = document.getElementById('contacts-list');
+
+  loadBtn.addEventListener('click', async () => {
+    loadBtn.disabled = true;
+    loadBtn.textContent = 'Loading...';
+    listDiv.innerHTML = '';
+
+    try {
+      const response = await fetch('/api/audiences/contacts');
+      const data = await response.json();
+
+      if (!response.ok) {
+        listDiv.innerHTML = `<p class="error-text">${data.error || 'Failed to load contacts'}</p>`;
+        return;
+      }
+
+      if (data.contacts.length === 0) {
+        listDiv.innerHTML = '<p class="empty-text">No contacts found. Add contacts in the Resend dashboard.</p>';
+        return;
+      }
+
+      const html = data.contacts
+        .map(
+          (contact) =>
+            `<div class="contact-item">
+              <strong>${contact.email}</strong>
+              ${contact.first_name ? ` - ${contact.first_name} ${contact.last_name || ''}` : ''}
+              ${contact.unsubscribed ? ' <span class="badge">Unsubscribed</span>' : ''}
+            </div>`,
+        )
+        .join('');
+
+      listDiv.innerHTML = `<p class="total">Total: ${data.total}</p>${html}`;
+    } catch {
+      listDiv.innerHTML = '<p class="error-text">Network error. Please try again.</p>';
+    } finally {
+      loadBtn.disabled = false;
+      loadBtn.textContent = 'Load Contacts';
+    }
+  });
+</script>
+
+<style>
+  .setup-notice {
+    margin-bottom: 2rem;
+    padding: 1rem 1.25rem;
+    border-radius: 0.5rem;
+    background: #fefce8;
+    border: 1px solid #fde68a;
+  }
+
+  .setup-notice h3 {
+    font-weight: 600;
+    color: #92400e;
+    margin-bottom: 0.25rem;
+  }
+
+  .setup-notice p {
+    font-size: 0.875rem;
+    color: #a16207;
+  }
+
+  .setup-notice a {
+    color: #92400e;
+    text-decoration: underline;
+  }
+
+  .contacts-section {
+    margin-bottom: 2rem;
+  }
+
+  .contacts-section h2 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  #load-contacts {
+    padding: 0.5rem 1rem;
+    background: #1a1a1a;
+    color: #fff;
+    border: none;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    cursor: pointer;
+    margin-bottom: 1rem;
+  }
+
+  #load-contacts:hover {
+    opacity: 0.9;
+  }
+
+  #load-contacts:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .contacts-list {
+    min-height: 2rem;
+  }
+
+  .total {
+    font-size: 0.875rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+  }
+
+  .error-text {
+    color: #991b1b;
+    font-size: 0.875rem;
+  }
+
+  .empty-text {
+    color: #666;
+    font-size: 0.875rem;
+  }
+
+  .code-example {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .code-example h2 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  pre {
+    background: #1a1a1a;
+    color: #e5e5e5;
+    padding: 1rem 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+  }
+
+  .info-box {
+    padding: 1rem 1.25rem;
+    border-radius: 0.5rem;
+    background: #f0f0f0;
+    border: 1px solid #e5e5e5;
+  }
+
+  .info-box h3 {
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+
+  .info-box ul {
+    list-style: none;
+    font-size: 0.875rem;
+    color: #666;
+  }
+
+  .info-box ul li {
+    margin-bottom: 0.5rem;
+  }
+</style>
