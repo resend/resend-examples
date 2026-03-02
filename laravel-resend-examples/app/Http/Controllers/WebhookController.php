@@ -54,7 +54,7 @@ class WebhookController extends Controller
             ];
 
             $verify = Resend::webhooks()->verify($payload, $headers, $webhookSecret);
-            if(!$verify) {
+            if (!$verify) {
                 throw new \Exception('Invalid webhook signature');
             }
             $event = json_decode($payload, true);
