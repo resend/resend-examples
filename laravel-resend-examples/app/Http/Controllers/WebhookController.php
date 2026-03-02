@@ -47,16 +47,17 @@ class WebhookController extends Controller
         }
 
         try {
-            $event = Resend::webhooks()->verify([
-                'payload' => $payload,
-                'headers' => [
-                    'svix-id' => $svixId,
-                    'svix-timestamp' => $svixTimestamp,
-                    'svix-signature' => $svixSignature,
-                ],
-                'secret' => $webhookSecret,
-            ]);
+            $headers = [
+                'svix-id' => $svixId,
+                'svix-timestamp' => $svixTimestamp,
+                'svix-signature' => $svixSignature,
+            ];
 
+            $verify = Resend::webhooks()->verify($payload, $headers, $webhookSecret);
+            if(!$verify) {
+                throw new \Exception('Invalid webhook signature');
+            }
+            $event = json_decode($payload, true);
             $eventType = $event['type'];
             Log::info("Received webhook event: {$eventType}", ['data' => $event['data']]);
 
@@ -103,8 +104,10 @@ class WebhookController extends Controller
     /**
      * Handle inbound email received event
      *
-     * Webhook payloads contain metadata only — use Resend::emails()->get()
+     * Webhook payloads contain metadata only — use Resend::emails()->receiving->get()
      * to fetch the full email content (body, attachments, etc.)
+     *
+     * Note: inbound emails must be fetched via the receiving API, not emails()->get().
      *
      * For a dedicated inbound email endpoint with forwarding,
      * see InboundController.
@@ -117,8 +120,8 @@ class WebhookController extends Controller
             'email_id' => $data['email_id'],
         ]);
 
-        // Fetch the full email content
-        $email = Resend::emails()->get($data['email_id']);
+        // Fetch the full inbound email content via the receiving API
+        $email = Resend::emails()->receiving->get($data['email_id']);
 
         Log::info("Inbound email content fetched", [
             'subject' => $email->subject,
