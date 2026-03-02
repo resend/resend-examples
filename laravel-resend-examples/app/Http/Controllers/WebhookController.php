@@ -53,13 +53,15 @@ class WebhookController extends Controller
                 'svix-signature' => $svixSignature,
             ];
 
-            $verify = Resend::webhooks()->verify($payload, $headers, $webhookSecret);
-            if (!$verify) {
-                throw new \Exception('Invalid webhook signature');
+            // Verify the webhook and get the parsed event payload from the SDK.
+            $event = Resend::webhooks()->verify($payload, $headers, $webhookSecret);
+
+            if (!is_array($event) || !isset($event['type'])) {
+                throw new \Exception('Invalid webhook payload');
             }
-            $event = json_decode($payload, true);
+
             $eventType = $event['type'];
-            Log::info("Received webhook event: {$eventType}", ['data' => $event['data']]);
+            Log::info("Received webhook event: {$eventType}", ['data' => $event['data'] ?? null]);
 
             switch ($eventType) {
                 case 'email.received':
