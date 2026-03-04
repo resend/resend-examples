@@ -24,7 +24,7 @@ defmodule PhoenixApp.MixProject do
       {:jason, "~> 1.4"},
       {:plug_cowboy, "~> 2.7"},
       {:resend, "~> 0.4.5"},
-      {:dotenvy, "~> 0.8"}
+      {:dotenvy, "~> 0.9"}
     ]
   end
 end

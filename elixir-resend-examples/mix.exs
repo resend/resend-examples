@@ -20,7 +20,7 @@ defmodule ResendExamples.MixProject do
   defp deps do
     [
       {:resend, "~> 0.4.5"},
-      {:dotenvy, "~> 0.8"},
+      {:dotenvy, "~> 0.9"},
       {:jason, "~> 1.4"}
     ]
   end
