@@ -17,7 +17,7 @@
     "svix": "1.62.0"
   },
   "devDependencies": {
-    "typescript": "5.8.3"
+    "typescript": "5.9.3"
   },
   "engines": {
     "node": ">=22.0.0"
