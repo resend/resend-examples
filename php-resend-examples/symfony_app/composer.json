@@ -4,7 +4,7 @@
     "type": "project",
     "require": {
         "php": "^8.2",
-        "resend/resend-php": "^0.13",
+        "resend/resend-php": "^0.23",
         "symfony/framework-bundle": "^7.0",
         "symfony/http-kernel": "^7.0",
         "symfony/routing": "^7.0",
