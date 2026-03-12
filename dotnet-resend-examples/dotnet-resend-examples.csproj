@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Resend" Version="0.2.1" />
+    <PackageReference Include="Resend" Version="0.2.2" />
     <PackageReference Include="DotNetEnv" Version="3.1.1" />
   </ItemGroup>
 
