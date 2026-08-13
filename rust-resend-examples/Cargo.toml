@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-resend-rs = "0.20"
+resend-rs = "0.29"
 tokio = { version = "1", features = ["full"] }
 dotenvy = "0.15"
 serde = { version = "1", features = ["derive"] }
@@ -52,6 +52,10 @@ path = "examples/audiences.rs"
 [[example]]
 name = "domains"
 path = "examples/domains.rs"
+
+[[example]]
+name = "automations"
+path = "examples/automations.rs"
 
 [[example]]
 name = "inbound"

@@ -66,6 +66,11 @@ cargo run --example audiences
 cargo run --example domains
 ```
 
+### Automations
+```bash
+cargo run --example automations
+```
+
 ### Inbound Email
 ```bash
 cargo run --example inbound
@@ -126,6 +131,7 @@ rust-resend-examples/
 │   ├── prevent_threading.rs         # Prevent Gmail threading
 │   ├── audiences.rs                 # Manage contacts
 │   ├── domains.rs                   # Manage domains
+│   ├── automations.rs               # Manage automations
 │   ├── inbound.rs                   # Handle inbound emails
 │   ├── double_optin_subscribe.rs    # Create contact + send confirmation
 │   └── double_optin_webhook.rs      # Process confirmation click
