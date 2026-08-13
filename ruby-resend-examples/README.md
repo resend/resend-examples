@@ -67,6 +67,11 @@ ruby examples/audiences.rb
 ruby examples/domains.rb
 ```
 
+### Automations
+```bash
+ruby examples/automations.rb
+```
+
 ### Inbound Email
 ```bash
 ruby examples/inbound.rb
@@ -135,6 +140,7 @@ ruby-resend-examples/
 │   ├── prevent_threading.rb   # Prevent Gmail threading
 │   ├── audiences.rb           # Manage contacts
 │   ├── domains.rb             # Manage domains
+│   ├── automations.rb         # Automation lifecycle
 │   └── inbound.rb             # Handle inbound emails
 ├── sinatra_app/
 │   └── app.rb                 # Sinatra web app
