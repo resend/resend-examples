@@ -71,6 +71,11 @@ python examples/audiences.py
 python examples/domains.py
 ```
 
+### Automations
+```bash
+python examples/automations.py
+```
+
 ### Inbound Email
 ```bash
 python examples/inbound.py
@@ -147,6 +152,7 @@ python-resend-examples/
 │   ├── prevent_threading.py   # Prevent Gmail threading
 │   ├── audiences.py           # Manage contacts
 │   ├── domains.py             # Manage domains
+│   ├── automations.py         # Manage automations
 │   ├── inbound.py             # Handle inbound emails
 │   ├── flask_app.py           # Flask web application
 │   └── fastapi_app.py         # FastAPI web application
