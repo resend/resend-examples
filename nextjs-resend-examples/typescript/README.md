@@ -23,6 +23,7 @@ This project includes examples for:
 ### Management
 - **Audiences** - Manage contacts and segments
 - **Domains** - Create domains and view DNS records
+- **Automations** - Build event-driven workflows and inspect their runs
 
 ### Advanced
 - **Better Auth** - Authentication with email verification
@@ -107,6 +108,7 @@ src/
 │   ├── inbound/              # Inbound docs
 │   ├── audiences/            # Audiences UI
 │   ├── domains/              # Domains UI
+│   ├── automations/          # Automations UI
 │   ├── better-auth/          # Auth integration docs
 │   └── prevent-threading/    # Threading prevention UI
 ├── components/               # Shared UI components
