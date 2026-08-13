@@ -66,6 +66,11 @@ dotnet run -- Audiences
 dotnet run -- Domains
 ```
 
+### Automations
+```bash
+dotnet run -- Automations
+```
+
 ### Inbound Email
 ```bash
 dotnet run -- Inbound
@@ -135,6 +140,7 @@ dotnet-resend-examples/
 │   ├── PreventThreading.cs          # Prevent Gmail threading
 │   ├── Audiences.cs                 # Manage contacts
 │   ├── Domains.cs                   # Manage domains
+│   ├── Automations.cs               # Automation lifecycle + runs
 │   ├── Inbound.cs                   # Handle inbound emails
 │   ├── DoubleOptinSubscribe.cs      # Create contact + send confirmation
 │   └── DoubleOptinWebhook.cs        # Process confirmation click
