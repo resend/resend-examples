@@ -2,7 +2,7 @@ package com.resend.examples;
 
 import com.resend.Resend;
 import com.resend.services.contacts.model.CreateContactOptions;
-import com.resend.services.contacts.model.CreateContactResponseData;
+import com.resend.services.contacts.model.CreateContactResponseSuccess;
 import com.resend.services.emails.model.CreateEmailOptions;
 import com.resend.services.emails.model.CreateEmailResponse;
 import io.github.cdimascio.dotenv.Dotenv;
@@ -46,7 +46,7 @@ public class DoubleOptinSubscribe {
                     .unsubscribed(true)
                     .build();
 
-            CreateContactResponseData contact = resend.contacts().create(contactParams);
+            CreateContactResponseSuccess contact = resend.contacts().create(contactParams);
             System.out.println("Contact created: " + contact.getId());
 
             // Step 2: Send confirmation email

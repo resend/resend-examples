@@ -1,7 +1,7 @@
 package com.resend.examples;
 
 import com.resend.Resend;
-import com.resend.services.contacts.model.ListContactsResponseData;
+import com.resend.services.contacts.model.Contact;
 import com.resend.services.contacts.model.UpdateContactOptions;
 import io.github.cdimascio.dotenv.Dotenv;
 
@@ -44,7 +44,7 @@ public class DoubleOptinWebhook {
         var contacts = resend.contacts().list(audienceId);
         String contactId = null;
 
-        for (ListContactsResponseData c : contacts.getData()) {
+        for (Contact c : contacts.getData()) {
             if (recipientEmail.equals(c.getEmail())) {
                 contactId = c.getId();
                 break;

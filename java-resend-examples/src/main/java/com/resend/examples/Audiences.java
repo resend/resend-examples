@@ -1,10 +1,10 @@
 package com.resend.examples;
 
 import com.resend.Resend;
-import com.resend.services.audiences.model.ListAudiencesResponseData;
+import com.resend.services.audiences.model.Audience;
+import com.resend.services.contacts.model.Contact;
 import com.resend.services.contacts.model.CreateContactOptions;
-import com.resend.services.contacts.model.CreateContactResponseData;
-import com.resend.services.contacts.model.ListContactsResponseData;
+import com.resend.services.contacts.model.CreateContactResponseSuccess;
 import com.resend.services.contacts.model.UpdateContactOptions;
 import io.github.cdimascio.dotenv.Dotenv;
 
@@ -26,7 +26,7 @@ public class Audiences {
             // 1. List audiences
             System.out.println("=== Listing Audiences ===");
             var audiences = resend.audiences().list();
-            for (ListAudiencesResponseData audience : audiences.getData()) {
+            for (Audience audience : audiences.getData()) {
                 System.out.println("  - " + audience.getName() + " (" + audience.getId() + ")");
             }
 
@@ -40,13 +40,13 @@ public class Audiences {
                     .unsubscribed(false)
                     .build();
 
-            CreateContactResponseData contact = resend.contacts().create(createParams);
+            CreateContactResponseSuccess contact = resend.contacts().create(createParams);
             System.out.println("Contact created: " + contact.getId());
 
             // 3. List contacts
             System.out.println("\n=== Listing Contacts ===");
             var contacts = resend.contacts().list(audienceId);
-            for (ListContactsResponseData c : contacts.getData()) {
+            for (Contact c : contacts.getData()) {
                 System.out.println("  - " + c.getFirstName() + " " + c.getLastName()
                         + " <" + c.getEmail() + "> (unsubscribed: " + c.getUnsubscribed() + ")");
             }
@@ -65,7 +65,7 @@ public class Audiences {
 
             // 5. Remove the contact
             System.out.println("\n=== Removing Contact ===");
-            resend.contacts().remove(audienceId, contact.getId());
+            resend.contacts().remove(contact.getId());
             System.out.println("Contact removed: " + contact.getId());
 
             System.out.println("\nDone! Full audience/contact lifecycle complete.");

@@ -2,7 +2,7 @@ package com.resend.examples;
 
 import com.resend.Resend;
 import com.resend.services.batch.model.CreateBatchEmailsResponse;
-import com.resend.services.batch.model.SendEmailRequest;
+import com.resend.services.emails.model.CreateEmailOptions;
 import io.github.cdimascio.dotenv.Dotenv;
 
 import java.util.List;
@@ -24,14 +24,14 @@ public class BatchSend {
 
         // Batch send: up to 100 emails per call
         // Note: Batch send does not support attachments or scheduling
-        SendEmailRequest email1 = SendEmailRequest.builder()
+        CreateEmailOptions email1 = CreateEmailOptions.builder()
                 .from(from)
                 .to("delivered@resend.dev")
                 .subject("We received your message")
                 .html("<h1>Thanks for reaching out!</h1><p>We'll get back to you soon.</p>")
                 .build();
 
-        SendEmailRequest email2 = SendEmailRequest.builder()
+        CreateEmailOptions email2 = CreateEmailOptions.builder()
                 .from(from)
                 .to(contactEmail)
                 .subject("New contact form submission")

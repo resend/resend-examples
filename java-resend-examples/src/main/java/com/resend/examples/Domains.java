@@ -1,7 +1,7 @@
 package com.resend.examples;
 
 import com.resend.Resend;
-import com.resend.services.domains.model.DomainRecord;
+import com.resend.services.domains.model.Record;
 import io.github.cdimascio.dotenv.Dotenv;
 
 public class Domains {
@@ -42,7 +42,7 @@ public class Domains {
                 var records = domain.getRecords();
                 if (records != null && !records.isEmpty()) {
                     System.out.println("\nDNS Records:");
-                    for (DomainRecord record : records) {
+                    for (Record record : records) {
                         System.out.println("  " + record.getType() + ": " + record.getName() + " -> " + record.getValue());
                     }
                 }
