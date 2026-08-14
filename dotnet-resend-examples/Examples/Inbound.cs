@@ -9,7 +9,7 @@ public static class Inbound
         var apiKey = Environment.GetEnvironmentVariable("RESEND_API_KEY")
             ?? throw new Exception("RESEND_API_KEY environment variable is required");
 
-        var client = new ResendClient(apiKey);
+        var client = ResendClient.Create(apiKey);
 
         // This example fetches a previously received inbound email by ID.
         // The email ID comes from an "email.received" webhook event payload.
@@ -22,17 +22,17 @@ public static class Inbound
             Console.WriteLine("You get this ID from the 'email.received' webhook event.\n");
         }
 
-        var email = await client.EmailRetrieveAsync(emailId);
+        var email = (await client.ReceivedEmailRetrieveAsync(Guid.Parse(emailId))).Content;
 
         Console.WriteLine("=== Inbound Email Details ===");
         Console.WriteLine($"From: {email.From}");
         Console.WriteLine($"To: {string.Join(", ", email.To)}");
         Console.WriteLine($"Subject: {email.Subject}");
-        Console.WriteLine($"Created: {email.CreatedAt}");
+        Console.WriteLine($"Created: {email.MomentCreated}");
 
-        if (!string.IsNullOrEmpty(email.Text))
+        if (!string.IsNullOrEmpty(email.TextBody))
         {
-            var preview = email.Text.Length > 200 ? email.Text[..200] + "..." : email.Text;
+            var preview = email.TextBody.Length > 200 ? email.TextBody[..200] + "..." : email.TextBody;
             Console.WriteLine($"\nText preview:\n{preview}");
         }
 

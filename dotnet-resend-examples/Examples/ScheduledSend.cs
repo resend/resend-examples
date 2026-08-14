@@ -9,7 +9,7 @@ public static class ScheduledSend
         var apiKey = Environment.GetEnvironmentVariable("RESEND_API_KEY")
             ?? throw new Exception("RESEND_API_KEY environment variable is required");
 
-        var client = new ResendClient(apiKey);
+        var client = ResendClient.Create(apiKey);
 
         var from = Environment.GetEnvironmentVariable("EMAIL_FROM") ?? "Acme <onboarding@resend.dev>";
 
@@ -23,13 +23,13 @@ public static class ScheduledSend
             Subject = "Scheduled Email from .NET",
             HtmlBody = "<h1>Hello from the future!</h1><p>This email was scheduled for later delivery.</p>",
             TextBody = "Hello from the future! This email was scheduled for later delivery.",
-            ScheduledAt = scheduledAt
+            MomentSchedule = scheduledAt
         };
 
         var response = await client.EmailSendAsync(message);
 
         Console.WriteLine("Email scheduled successfully!");
-        Console.WriteLine($"Email ID: {response.Id}");
+        Console.WriteLine($"Email ID: {response.Content}");
         Console.WriteLine($"Scheduled for: {scheduledAt:yyyy-MM-dd HH:mm:ss} UTC");
     }
 }

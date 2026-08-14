@@ -107,7 +107,7 @@ curl -X POST http://localhost:3001/send \
 ```csharp
 using Resend;
 
-var client = new ResendClient("re_xxxxxxxxx");
+var client = ResendClient.Create("re_xxxxxxxxx");
 
 var message = new EmailMessage
 {
@@ -118,7 +118,7 @@ var message = new EmailMessage
 };
 
 var response = await client.EmailSendAsync(message);
-Console.WriteLine($"Email ID: {response.Id}");
+Console.WriteLine($"Email ID: {response.Content}");
 ```
 
 ## Project Structure
