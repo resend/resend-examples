@@ -9,7 +9,7 @@ public static class BasicSend
         var apiKey = Environment.GetEnvironmentVariable("RESEND_API_KEY")
             ?? throw new Exception("RESEND_API_KEY environment variable is required");
 
-        var client = new ResendClient(apiKey);
+        var client = ResendClient.Create(apiKey);
 
         var from = Environment.GetEnvironmentVariable("EMAIL_FROM") ?? "Acme <onboarding@resend.dev>";
 
@@ -25,6 +25,6 @@ public static class BasicSend
         var response = await client.EmailSendAsync(message);
 
         Console.WriteLine("Email sent successfully!");
-        Console.WriteLine($"Email ID: {response.Id}");
+        Console.WriteLine($"Email ID: {response.Content}");
     }
 }

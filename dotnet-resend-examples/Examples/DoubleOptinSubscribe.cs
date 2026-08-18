@@ -18,23 +18,21 @@ public static class DoubleOptinSubscribe
         var apiKey = Environment.GetEnvironmentVariable("RESEND_API_KEY")
             ?? throw new Exception("RESEND_API_KEY environment variable is required");
 
-        var audienceId = Environment.GetEnvironmentVariable("RESEND_AUDIENCE_ID")
-            ?? throw new Exception("RESEND_AUDIENCE_ID environment variable is required");
-
         var confirmUrl = Environment.GetEnvironmentVariable("CONFIRM_REDIRECT_URL") ?? "https://example.com/confirmed";
         var from = Environment.GetEnvironmentVariable("EMAIL_FROM") ?? "Acme <onboarding@resend.dev>";
 
-        var client = new ResendClient(apiKey);
+        var client = ResendClient.Create(apiKey);
 
         // Step 1: Create contact with unsubscribed=true (pending confirmation)
         Console.WriteLine("Step 1: Creating contact (pending confirmation)...");
-        var contact = await client.ContactCreateAsync(audienceId, new ContactData
+        var contact = await client.ContactAddAsync(new ContactData
         {
             Email = email,
             FirstName = name,
-            Unsubscribed = true
+            IsUnsubscribed = true
         });
-        Console.WriteLine($"Contact created: {contact.Id}");
+        var contactId = contact.Content;
+        Console.WriteLine($"Contact created: {contactId}");
 
         // Step 2: Send confirmation email
         Console.WriteLine("Step 2: Sending confirmation email...");
@@ -63,8 +61,8 @@ public static class DoubleOptinSubscribe
         var sent = await client.EmailSendAsync(message);
 
         Console.WriteLine("\nDouble opt-in initiated!");
-        Console.WriteLine($"Contact ID: {contact.Id}");
-        Console.WriteLine($"Email ID: {sent.Id}");
+        Console.WriteLine($"Contact ID: {contactId}");
+        Console.WriteLine($"Email ID: {sent.Content}");
         Console.WriteLine("\nNext steps:");
         Console.WriteLine("1. User clicks the confirmation link in the email");
         Console.WriteLine("2. Resend fires an 'email.clicked' webhook event");

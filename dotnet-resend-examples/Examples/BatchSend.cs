@@ -9,7 +9,7 @@ public static class BatchSend
         var apiKey = Environment.GetEnvironmentVariable("RESEND_API_KEY")
             ?? throw new Exception("RESEND_API_KEY environment variable is required");
 
-        var client = new ResendClient(apiKey);
+        var client = ResendClient.Create(apiKey);
 
         var from = Environment.GetEnvironmentVariable("EMAIL_FROM") ?? "Acme <onboarding@resend.dev>";
         var contactEmail = Environment.GetEnvironmentVariable("CONTACT_EMAIL") ?? "delivered@resend.dev";
@@ -34,12 +34,12 @@ public static class BatchSend
             }
         };
 
-        var response = await client.BatchEmailSendAsync(emails);
+        var response = await client.EmailBatchAsync(emails);
 
         Console.WriteLine("Batch sent successfully!");
-        for (var i = 0; i < response.Data.Count; i++)
+        for (var i = 0; i < response.Content.Count; i++)
         {
-            Console.WriteLine($"Email {i + 1} ID: {response.Data[i].Id}");
+            Console.WriteLine($"Email {i + 1} ID: {response.Content[i]}");
         }
     }
 }

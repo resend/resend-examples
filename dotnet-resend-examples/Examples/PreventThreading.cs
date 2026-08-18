@@ -9,7 +9,7 @@ public static class PreventThreading
         var apiKey = Environment.GetEnvironmentVariable("RESEND_API_KEY")
             ?? throw new Exception("RESEND_API_KEY environment variable is required");
 
-        var client = new ResendClient(apiKey);
+        var client = ResendClient.Create(apiKey);
 
         var from = Environment.GetEnvironmentVariable("EMAIL_FROM") ?? "Acme <onboarding@resend.dev>";
 
@@ -23,11 +23,11 @@ public static class PreventThreading
                 To = { "delivered@resend.dev" },
                 Subject = "Order Confirmation", // Same subject for all
                 HtmlBody = $"<h1>Order Confirmation</h1><p>This is email #{i} — each appears as a separate conversation in Gmail.</p>",
-                Headers = { { "X-Entity-Ref-ID", Guid.NewGuid().ToString() } }
+                Headers = new Dictionary<string, string> { { "X-Entity-Ref-ID", Guid.NewGuid().ToString() } }
             };
 
             var response = await client.EmailSendAsync(message);
-            Console.WriteLine($"Email #{i} sent: {response.Id}");
+            Console.WriteLine($"Email #{i} sent: {response.Content}");
         }
 
         Console.WriteLine("\nAll emails sent with unique X-Entity-Ref-ID headers.");

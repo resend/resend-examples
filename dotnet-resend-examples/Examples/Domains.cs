@@ -9,37 +9,37 @@ public static class Domains
         var apiKey = Environment.GetEnvironmentVariable("RESEND_API_KEY")
             ?? throw new Exception("RESEND_API_KEY environment variable is required");
 
-        var client = new ResendClient(apiKey);
+        var client = ResendClient.Create(apiKey);
 
         // 1. List all domains
         Console.WriteLine("=== Listing Domains ===");
         var domains = await client.DomainListAsync();
-        Console.WriteLine($"Found {domains.Data.Count} domain(s)");
+        Console.WriteLine($"Found {domains.Content.Count} domain(s)");
 
-        foreach (var domain in domains.Data)
+        foreach (var domain in domains.Content)
         {
             Console.WriteLine($"  - {domain.Name} (status: {domain.Status}, id: {domain.Id})");
         }
 
         // 2. Get domain details (if any exist)
-        if (domains.Data.Count > 0)
+        if (domains.Content.Count > 0)
         {
-            var domainId = domains.Data[0].Id;
+            var domainId = domains.Content[0].Id;
 
-            Console.WriteLine($"\n=== Domain Details: {domains.Data[0].Name} ===");
-            var domain = await client.DomainRetrieveAsync(domainId);
+            Console.WriteLine($"\n=== Domain Details: {domains.Content[0].Name} ===");
+            var domain = (await client.DomainRetrieveAsync(domainId)).Content;
 
             Console.WriteLine($"Name: {domain.Name}");
             Console.WriteLine($"Status: {domain.Status}");
             Console.WriteLine($"Region: {domain.Region}");
-            Console.WriteLine($"Created: {domain.CreatedAt}");
+            Console.WriteLine($"Created: {domain.MomentCreated}");
 
             if (domain.Records?.Count > 0)
             {
                 Console.WriteLine("\nDNS Records:");
                 foreach (var record in domain.Records)
                 {
-                    Console.WriteLine($"  {record.Type}: {record.Name} -> {record.Value}");
+                    Console.WriteLine($"  {record.RecordType}: {record.Name} -> {record.Value}");
                 }
             }
 
@@ -50,14 +50,14 @@ public static class Domains
         }
 
         // To create a new domain (uncomment):
-        // var newDomain = await client.DomainCreateAsync(new DomainData
+        // var newDomain = await client.DomainAddAsync(new DomainAddData
         // {
-        //     Name = "mail.example.com",
-        //     Region = "us-east-1"
+        //     DomainName = "mail.example.com",
+        //     Region = DeliveryRegion.UsEast1
         // });
 
         // To delete a domain (uncomment):
-        // await client.DomainRemoveAsync(domainId);
+        // await client.DomainDeleteAsync(domainId);
 
         Console.WriteLine("\nDone!");
     }

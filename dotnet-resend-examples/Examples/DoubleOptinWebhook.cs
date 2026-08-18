@@ -10,7 +10,7 @@ using System.Text.Json;
 public static class DoubleOptinWebhook
 {
     public static async Task<Dictionary<string, object>> ProcessDoubleOptinWebhookAsync(
-        ResendClient client, string audienceId, JsonElement eventData)
+        IResend client, JsonElement eventData)
     {
         var eventType = eventData.GetProperty("type").GetString()!;
 
@@ -32,10 +32,11 @@ public static class DoubleOptinWebhook
             ?? throw new Exception("No recipient email in webhook data");
 
         // Find the contact by email
-        var contacts = await client.ContactListAsync(audienceId);
-        string? contactId = null;
+        // Contacts are account-level in the .NET SDK, so the listing is not audience-scoped.
+        var contacts = await client.ContactListAsync();
+        Guid? contactId = null;
 
-        foreach (var c in contacts.Data)
+        foreach (var c in contacts.Content.Data)
         {
             if (c.Email == recipientEmail)
             {
@@ -50,9 +51,9 @@ public static class DoubleOptinWebhook
         }
 
         // Update contact: confirm subscription
-        await client.ContactUpdateAsync(audienceId, contactId, new ContactData
+        await client.ContactUpdateAsync(contactId.Value, new ContactData
         {
-            Unsubscribed = false
+            IsUnsubscribed = false
         });
 
         return new Dictionary<string, object>
@@ -61,7 +62,7 @@ public static class DoubleOptinWebhook
             ["type"] = eventType,
             ["confirmed"] = true,
             ["email"] = recipientEmail,
-            ["contact_id"] = contactId
+            ["contact_id"] = contactId.Value
         };
     }
 
@@ -70,10 +71,7 @@ public static class DoubleOptinWebhook
         var apiKey = Environment.GetEnvironmentVariable("RESEND_API_KEY")
             ?? throw new Exception("RESEND_API_KEY environment variable is required");
 
-        var audienceId = Environment.GetEnvironmentVariable("RESEND_AUDIENCE_ID")
-            ?? throw new Exception("RESEND_AUDIENCE_ID environment variable is required");
-
-        var client = new ResendClient(apiKey);
+        var client = ResendClient.Create(apiKey);
 
         // Simulate a webhook event (in production, this comes from Resend)
         var sampleJson = """
@@ -88,7 +86,7 @@ public static class DoubleOptinWebhook
         var eventData = JsonDocument.Parse(sampleJson).RootElement;
 
         Console.WriteLine("Processing double opt-in webhook event...");
-        var result = await ProcessDoubleOptinWebhookAsync(client, audienceId, eventData);
+        var result = await ProcessDoubleOptinWebhookAsync(client, eventData);
 
         foreach (var kvp in result)
         {

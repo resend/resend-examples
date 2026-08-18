@@ -8,8 +8,22 @@
     <RootNamespace>ResendExamples</RootNamespace>
   </PropertyGroup>
 
+  <!--
+    MinimalApiApp/ and MvcApp/ are standalone Microsoft.NET.Sdk.Web projects, each
+    with its own .csproj and its own top-level-statement Program.cs. Keep them out
+    of this project's default globs so they are built on their own.
+  -->
   <ItemGroup>
-    <PackageReference Include="Resend" Version="0.2.1" />
+    <Compile Remove="MinimalApiApp/**" />
+    <Compile Remove="MvcApp/**" />
+    <Content Remove="MinimalApiApp/**" />
+    <Content Remove="MvcApp/**" />
+    <EmbeddedResource Remove="MinimalApiApp/**" />
+    <EmbeddedResource Remove="MvcApp/**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Resend" Version="0.8.0" />
     <PackageReference Include="DotNetEnv" Version="3.1.1" />
   </ItemGroup>
 
