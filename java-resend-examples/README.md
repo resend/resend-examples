@@ -67,6 +67,11 @@ mvn compile exec:java -Dexec.mainClass="com.resend.examples.Audiences"
 mvn compile exec:java -Dexec.mainClass="com.resend.examples.Domains"
 ```
 
+### Automations
+```bash
+mvn compile exec:java -Dexec.mainClass="com.resend.examples.Automations"
+```
+
 ### Inbound Email
 ```bash
 mvn compile exec:java -Dexec.mainClass="com.resend.examples.Inbound"
@@ -136,6 +141,7 @@ java-resend-examples/
 │   ├── PreventThreading.java        # Prevent Gmail threading
 │   ├── Audiences.java               # Manage contacts
 │   ├── Domains.java                 # Manage domains
+│   ├── Automations.java             # Automation lifecycle
 │   ├── Inbound.java                 # Handle inbound emails
 │   ├── DoubleOptinSubscribe.java    # Create contact + send confirmation
 │   └── DoubleOptinWebhook.java      # Process confirmation click
