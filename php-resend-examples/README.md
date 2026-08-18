@@ -67,6 +67,11 @@ php src/audiences/contacts.php
 php src/domains/create.php
 ```
 
+### Automations
+```bash
+php src/automations/lifecycle.php
+```
+
 ### Webhook Handler (Inbound)
 ```bash
 php src/inbound/webhook.php
@@ -144,6 +149,8 @@ php-resend-examples/
 │   │   └── contacts.php        # Manage contacts
 │   ├── domains/
 │   │   └── create.php          # Manage domains
+│   ├── automations/
+│   │   └── lifecycle.php       # Automation lifecycle
 │   ├── inbound/
 │   │   └── webhook.php         # Handle webhooks
 │   └── slim_app.php            # Slim web application
