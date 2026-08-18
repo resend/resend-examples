@@ -104,6 +104,12 @@ const examples: { category: string; items: ExampleItem[] }[] = [
         href: '/domains',
         type: 'page',
       },
+      {
+        title: 'Automations',
+        description: 'Build event-driven workflows and inspect runs',
+        href: '/automations',
+        type: 'page',
+      },
     ],
   },
   {

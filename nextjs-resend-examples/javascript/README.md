@@ -23,6 +23,7 @@ This project includes examples for:
 ### Management
 - **Audiences** - Manage contacts and segments
 - **Domains** - Create domains and view DNS records
+- **Automations** - Build event-driven workflows and inspect their runs
 
 ### Advanced
 - **Better Auth** - Authentication with email verification
@@ -82,6 +83,7 @@ src/
 │   ├── api/                  # API routes
 │   ├── contact-form/         # Server Action example
 │   ├── send-email/           # Basic send UI
+│   ├── automations/          # Automations UI
 │   └── ...                   # Other examples
 ├── components/               # Shared UI components
 ├── emails/                   # React Email templates

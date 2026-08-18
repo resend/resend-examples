@@ -16,7 +16,7 @@
     "next": "16.1.6",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "resend": "6.9.1"
+    "resend": "6.19.0"
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.13",
