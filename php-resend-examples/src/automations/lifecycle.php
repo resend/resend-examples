@@ -119,14 +119,26 @@ try {
         echo "No runs yet - runs appear once a user.created event triggers the automation.\n\n";
     }
 
-    // 7. Stop the automation, halting in-flight runs
+    // 7. Duplicate the automation, then delete the copy.
+    //    The copy starts disabled, named "Welcome series (Copy)".
+    echo "=== Duplicating Automation ===\n\n";
+
+    $duplicated = $resend->automations->duplicate($automationId);
+
+    echo "Duplicated automation: " . $duplicated->id . "\n\n";
+
+    $removedCopy = $resend->automations->remove($duplicated->id);
+
+    echo "Deleted duplicate " . $removedCopy->id . ": " . ($removedCopy->deleted ? 'Yes' : 'No') . "\n\n";
+
+    // 8. Stop the automation, halting in-flight runs
     echo "=== Stopping Automation ===\n\n";
 
     $stopped = $resend->automations->stop($automationId);
 
     echo "Stopped automation " . $stopped->id . ", status: " . $stopped->status . "\n\n";
 
-    // 8. Clean up
+    // 9. Clean up
     echo "=== Deleting Automation ===\n\n";
 
     $deleted = $resend->automations->remove($automationId);

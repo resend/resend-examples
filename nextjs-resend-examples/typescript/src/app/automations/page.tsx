@@ -103,6 +103,13 @@ if (runs.data.length > 0) {
   }
 }`;
 
+  const duplicateCode = `// Duplicating copies the steps and connections into a new automation.
+// The copy starts disabled, named 'Welcome series (Copy)' — rename or
+// edit it with update, then enable it when ready.
+const { data: duplicated } = await resend.automations.duplicate(automationId);
+
+console.log('Duplicated automation:', duplicated.id);`;
+
   const cleanupCode = `// Stopping an automation disables it and halts its in-flight runs
 const { data: stopped } = await resend.automations.stop(automationId);
 
@@ -173,7 +180,12 @@ console.log('Deleted:', deleted.id, 'deleted:', deleted.deleted);`;
         </div>
 
         <div>
-          <h2 className="text-lg font-semibold mb-4">6. Stop and delete</h2>
+          <h2 className="text-lg font-semibold mb-4">6. Duplicate it</h2>
+          <CodeBlock code={duplicateCode} title="Duplicating an Automation" />
+        </div>
+
+        <div>
+          <h2 className="text-lg font-semibold mb-4">7. Stop and delete</h2>
           <CodeBlock code={cleanupCode} title="Stopping and Deleting" />
         </div>
       </div>

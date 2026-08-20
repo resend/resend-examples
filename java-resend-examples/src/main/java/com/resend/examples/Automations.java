@@ -11,6 +11,7 @@ import com.resend.services.automations.model.AutomationStepResponse;
 import com.resend.services.automations.model.CreateAutomationOptions;
 import com.resend.services.automations.model.CreateAutomationResponseSuccess;
 import com.resend.services.automations.model.DeleteAutomationResponseSuccess;
+import com.resend.services.automations.model.DuplicateAutomationResponseSuccess;
 import com.resend.services.automations.model.GetAutomationRunOptions;
 import com.resend.services.automations.model.ListAutomationRunsResponseSuccess;
 import com.resend.services.automations.model.ListAutomationsParams;
@@ -127,13 +128,21 @@ public class Automations {
                 System.out.println("No runs yet - a run starts when a 'user.created' event arrives.");
             }
 
-            // 7. Stop the automation
+            // 7. Duplicate the automation, then delete the copy.
+            //    The copy starts disabled, named "Welcome series (Copy)".
+            System.out.println("\n=== Duplicating Automation ===");
+            DuplicateAutomationResponseSuccess duplicated = resend.automations().duplicate(automationId);
+            System.out.println("Automation duplicated: " + duplicated.getId());
+            DeleteAutomationResponseSuccess removedCopy = resend.automations().remove(duplicated.getId());
+            System.out.println("Duplicate deleted: " + removedCopy.getDeleted());
+
+            // 8. Stop the automation
             System.out.println("\n=== Stopping Automation ===");
             StopAutomationResponseSuccess stopped = resend.automations().stop(automationId);
             System.out.println("Automation stopped: " + stopped.getId()
                     + " (status: " + stopped.getStatus().getValue() + ")");
 
-            // 8. Delete the automation
+            // 9. Delete the automation
             System.out.println("\n=== Deleting Automation ===");
             DeleteAutomationResponseSuccess deleted = resend.automations().remove(automationId);
             System.out.println("Automation deleted: " + deleted.getId()

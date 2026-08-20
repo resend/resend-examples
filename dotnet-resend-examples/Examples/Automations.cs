@@ -102,12 +102,20 @@ public static class Automations
             Console.WriteLine("No runs yet - a run appears once the trigger event fires.");
         }
 
-        // 7. Stop the automation
+        // 7. Duplicate the automation, then delete the copy.
+        //    The copy starts disabled, named "Welcome series (Copy)".
+        Console.WriteLine("\n=== Duplicating Automation ===");
+        var duplicatedId = (await client.AutomationDuplicateAsync(automationId)).Content;
+        Console.WriteLine($"Automation duplicated: {duplicatedId}");
+        var removedCopy = (await client.AutomationDeleteAsync(duplicatedId)).Content;
+        Console.WriteLine($"Duplicate deleted: {removedCopy.Deleted}");
+
+        // 8. Stop the automation
         Console.WriteLine("\n=== Stopping Automation ===");
         var stopped = (await client.AutomationStopAsync(automationId)).Content;
         Console.WriteLine($"Automation stopped: {stopped.Id} (status: {stopped.Status})");
 
-        // 8. Delete the automation
+        // 9. Delete the automation
         Console.WriteLine("\n=== Deleting Automation ===");
         var deleted = (await client.AutomationDeleteAsync(automationId)).Content;
         Console.WriteLine($"Automation deleted: {deleted.Id} (deleted: {deleted.Deleted})");
