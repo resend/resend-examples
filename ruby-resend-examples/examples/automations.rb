@@ -107,6 +107,18 @@ Resend::Automations.stop(automation_id)
 puts "Automation stopped"
 puts
 
+# Duplicate the automation - the copy starts disabled, named "Welcome series (Copy)"
+puts "Duplicating automation..."
+duplicated = Resend::Automations.duplicate(automation_id)
+puts "Automation duplicated: #{duplicated[:id]}"
+puts
+
+# Delete the duplicate
+puts "Deleting duplicate..."
+Resend::Automations.remove(duplicated[:id])
+puts "Duplicate deleted"
+puts
+
 # Clean up
 puts "Deleting automation..."
 Resend::Automations.remove(automation_id)

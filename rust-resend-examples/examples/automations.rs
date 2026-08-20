@@ -140,7 +140,7 @@ async fn main() {
     // 6. Inspect the first run, if the trigger event has fired at least once.
     //    A freshly created automation normally has no runs yet.
     if let Some(first_run) = runs.data.first() {
-        // `AutomationRun` keeps its fields private in resend-rs 0.29, so read the
+        // `AutomationRun` keeps its fields private in resend-rs 0.30, so read the
         // run id back out of the serialized run.
         let run_id = serde_json::to_value(first_run)
             .ok()
@@ -162,7 +162,23 @@ async fn main() {
         println!("No runs yet - runs appear once the 'user.created' event fires.");
     }
 
-    // 7. Stop the automation
+    // 7. Duplicate the automation, then delete the copy.
+    //    The copy starts disabled, named "Welcome series (Copy)".
+    println!("\n=== Duplicating Automation ===");
+    match resend.automations.duplicate(automation_id).await {
+        Ok(duplicated) => {
+            println!("Automation duplicated: {}", duplicated.id);
+            match resend.automations.delete(&duplicated.id).await {
+                Ok(deleted) => println!("Duplicate {} deleted: {}", deleted.id, deleted.deleted),
+                Err(e) => eprintln!("Error deleting duplicate: {}", e),
+            }
+        }
+        Err(e) => {
+            eprintln!("Error duplicating automation: {}", e);
+        }
+    }
+
+    // 8. Stop the automation
     println!("\n=== Stopping Automation ===");
     match resend.automations.stop(automation_id).await {
         Ok(stopped) => println!("Automation stopped: {} (status: {:?})", stopped.id, stopped.status),
@@ -171,7 +187,7 @@ async fn main() {
         }
     }
 
-    // 8. Delete the automation
+    // 9. Delete the automation
     println!("\n=== Deleting Automation ===");
     match resend.automations.delete(automation_id).await {
         Ok(deleted) => println!("Automation {} deleted: {}", deleted.id, deleted.deleted),

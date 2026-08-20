@@ -101,6 +101,18 @@ stopped = resend.Automations.stop(automation_id)
 print(f"Automation stopped: {stopped['id']} ({stopped['status']})")
 print()
 
+# Duplicate the automation - the copy starts disabled, named "Welcome series (Copy)"
+print("Duplicating automation...")
+duplicated = resend.Automations.duplicate(automation_id)
+print(f"Automation duplicated: {duplicated['id']}")
+print()
+
+# Delete the duplicate
+print("Removing duplicate...")
+removed_copy = resend.Automations.remove(duplicated["id"])
+print(f"Duplicate removed: {removed_copy['deleted']}")
+print()
+
 # Delete the automation
 print("Removing automation...")
 deleted = resend.Automations.remove(automation_id)

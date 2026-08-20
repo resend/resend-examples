@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Resend" Version="0.8.0" />
+    <PackageReference Include="Resend" Version="0.10.0" />
     <PackageReference Include="DotNetEnv" Version="3.1.1" />
   </ItemGroup>
 
