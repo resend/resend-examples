@@ -67,6 +67,11 @@ mvn compile exec:java -Dexec.mainClass="com.resend.examples.Audiences"
 mvn compile exec:java -Dexec.mainClass="com.resend.examples.Domains"
 ```
 
+### API Keys
+```bash
+mvn compile exec:java -Dexec.mainClass="com.resend.examples.ApiKeys"
+```
+
 ### Automations
 ```bash
 mvn compile exec:java -Dexec.mainClass="com.resend.examples.Automations"
@@ -141,6 +146,7 @@ java-resend-examples/
 │   ├── PreventThreading.java        # Prevent Gmail threading
 │   ├── Audiences.java               # Manage contacts
 │   ├── Domains.java                 # Manage domains
+│   ├── ApiKeys.java                 # API key lifecycle
 │   ├── Automations.java             # Automation lifecycle
 │   ├── Inbound.java                 # Handle inbound emails
 │   ├── DoubleOptinSubscribe.java    # Create contact + send confirmation

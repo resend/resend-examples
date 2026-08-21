@@ -182,6 +182,63 @@ app.post("/double-optin/webhook", async (c) => {
   }
 });
 
+app.get("/api-keys", async (c) => {
+  const { data, error } = await resend.apiKeys.list();
+
+  if (error) {
+    return c.json({ error: error.message }, 500);
+  }
+
+  return c.json({ success: true, data: data?.data });
+});
+
+app.post("/api-keys", async (c) => {
+  const { name, permission } = await c.req.json();
+
+  if (!name) {
+    return c.json({ error: "Missing required field: name" }, 400);
+  }
+
+  const { data, error } = await resend.apiKeys.create({ name, permission });
+
+  if (error) {
+    return c.json({ error: error.message }, 500);
+  }
+
+  return c.json({ success: true, id: data?.id, token: data?.token });
+});
+
+app.patch("/api-keys/:id", async (c) => {
+  const id = c.req.param("id");
+  const { name } = await c.req.json();
+
+  if (!name) {
+    return c.json({ error: "Missing required field: name" }, 400);
+  }
+
+  // Only `name` is patchable here - never forward permission/domainId from
+  // the request body, so a leaked key can't be used to widen another key's scope.
+  const { data, error } = await resend.apiKeys.update(id, { name });
+
+  if (error) {
+    return c.json({ error: error.message }, 500);
+  }
+
+  return c.json({ success: true, data });
+});
+
+app.delete("/api-keys/:id", async (c) => {
+  const id = c.req.param("id");
+
+  const { data, error } = await resend.apiKeys.remove(id);
+
+  if (error) {
+    return c.json({ error: error.message }, 500);
+  }
+
+  return c.json({ success: true, data });
+});
+
 const port = Number(process.env.PORT) || 3000;
 serve({ fetch: app.fetch, port }, () => {
   console.log(`Hono server running on http://localhost:${port}`);

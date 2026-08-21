@@ -71,6 +71,11 @@ cargo run --example domains
 cargo run --example automations
 ```
 
+### API Keys
+```bash
+cargo run --example api_keys
+```
+
 ### Inbound Email
 ```bash
 cargo run --example inbound
@@ -132,6 +137,7 @@ rust-resend-examples/
 │   ├── audiences.rs                 # Manage contacts
 │   ├── domains.rs                   # Manage domains
 │   ├── automations.rs               # Manage automations
+│   ├── api_keys.rs                  # Manage API keys
 │   ├── inbound.rs                   # Handle inbound emails
 │   ├── double_optin_subscribe.rs    # Create contact + send confirmation
 │   └── double_optin_webhook.rs      # Process confirmation click

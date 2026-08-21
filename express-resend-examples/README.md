@@ -86,6 +86,10 @@ npm run dev
 - `POST /webhook` — Handle Resend webhook events
 - `POST /double-optin/subscribe` — Subscribe with confirmation
 - `POST /double-optin/webhook` — Confirm subscription on click
+- `GET /api-keys` — List API keys
+- `POST /api-keys` — Create an API key
+- `PATCH /api-keys/:id` — Rename an API key
+- `DELETE /api-keys/:id` — Delete an API key
 
 ## Quick Usage
 
@@ -111,11 +115,13 @@ express-resend-examples/
 ├── typescript/
 │   ├── examples/                    # 12 standalone examples
 │   ├── src/index.ts                 # Express app
+│   ├── src/routes/api-keys.ts       # API key management routes
 │   ├── package.json
 │   └── tsconfig.json
 ├── javascript/
 │   ├── examples/                    # 12 standalone examples
 │   ├── src/index.js                 # Express app
+│   ├── src/routes/api-keys.js       # API key management routes
 │   └── package.json
 ├── .env.example
 └── README.md

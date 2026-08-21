@@ -66,6 +66,11 @@ dotnet run -- Audiences
 dotnet run -- Domains
 ```
 
+### API Keys
+```bash
+dotnet run -- ApiKeys
+```
+
 ### Automations
 ```bash
 dotnet run -- Automations
@@ -140,6 +145,7 @@ dotnet-resend-examples/
 │   ├── PreventThreading.cs          # Prevent Gmail threading
 │   ├── Audiences.cs                 # Manage contacts
 │   ├── Domains.cs                   # Manage domains
+│   ├── ApiKeys.cs                   # Manage API keys
 │   ├── Automations.cs               # Automation lifecycle + runs
 │   ├── Inbound.cs                   # Handle inbound emails
 │   ├── DoubleOptinSubscribe.cs      # Create contact + send confirmation

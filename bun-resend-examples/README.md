@@ -41,6 +41,7 @@ bun run examples/with-template.ts
 bun run examples/prevent-threading.ts
 bun run examples/audiences.ts
 bun run examples/domains.ts
+bun run examples/api-keys.ts
 bun run examples/inbound.ts
 bun run examples/double-optin-subscribe.ts user@example.com "Jane Doe"
 bun run examples/double-optin-webhook.ts
@@ -56,6 +57,7 @@ bun run examples/with-template.js
 bun run examples/prevent-threading.js
 bun run examples/audiences.js
 bun run examples/domains.js
+bun run examples/api-keys.js
 bun run examples/inbound.js
 bun run examples/double-optin-subscribe.js user@example.com "Jane Doe"
 bun run examples/double-optin-webhook.js

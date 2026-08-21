@@ -2,9 +2,11 @@ import "dotenv/config";
 import express from "express";
 import { Resend } from "resend";
 import { Webhook } from "svix";
+import { apiKeysRouter } from "./routes/api-keys.js";
 
 const app = express();
 app.use(express.json());
+app.use("/api-keys", apiKeysRouter);
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 

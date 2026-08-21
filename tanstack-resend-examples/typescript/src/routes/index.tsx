@@ -45,6 +45,7 @@ const examples: { category: string; items: ExampleItem[] }[] = [
     items: [
       { title: 'Audiences', description: 'Manage contacts and segments', href: '/audiences' },
       { title: 'Domains', description: 'Create domains and view DNS records', href: '/domains' },
+      { title: 'API Keys', description: 'Create, rename, and delete API keys', href: '/api-keys' },
     ],
   },
   {

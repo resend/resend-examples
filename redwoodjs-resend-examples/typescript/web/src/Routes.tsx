@@ -14,6 +14,7 @@ const Routes = () => {
         <Route path="/prevent-threading" page={PreventThreadingPage} name="preventThreading" />
         <Route path="/audiences" page={AudiencesPage} name="audiences" />
         <Route path="/domains" page={DomainsPage} name="domains" />
+        <Route path="/api-keys" page={ApiKeysPage} name="apiKeys" />
         <Route path="/double-optin" page={DoubleOptinPage} name="doubleOptin" />
         <Route path="/inbound" page={InboundPage} name="inbound" />
       </Set>

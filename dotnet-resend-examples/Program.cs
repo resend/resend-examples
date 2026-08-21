@@ -16,6 +16,7 @@ if (args.Length == 0)
     Console.WriteLine("  PreventThreading       - Prevent Gmail conversation threading");
     Console.WriteLine("  Audiences              - Manage audiences and contacts");
     Console.WriteLine("  Domains                - Manage sending domains");
+    Console.WriteLine("  ApiKeys                - Manage API keys");
     Console.WriteLine("  Automations            - Manage automations and inspect runs");
     Console.WriteLine("  Inbound                - Fetch inbound email details");
     Console.WriteLine("  DoubleOptinSubscribe   - Create contact + send confirmation");
@@ -56,6 +57,9 @@ try
             break;
         case "Domains":
             await Domains.RunAsync();
+            break;
+        case "ApiKeys":
+            await ApiKeys.RunAsync();
             break;
         case "Automations":
             await Automations.RunAsync();
