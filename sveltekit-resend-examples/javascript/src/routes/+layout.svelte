@@ -13,6 +13,7 @@
         <a href="/templates">Templates</a>
         <a href="/audiences">Audiences</a>
         <a href="/domains">Domains</a>
+        <a href="/api-keys">API Keys</a>
       </div>
     </div>
   </nav>

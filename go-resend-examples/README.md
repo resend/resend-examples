@@ -66,6 +66,11 @@ go run ./examples/audiences/
 go run ./examples/domains/
 ```
 
+### API Keys
+```bash
+go run examples/api_keys/main.go
+```
+
 ### Inbound Email
 ```bash
 go run ./examples/inbound/
@@ -143,6 +148,7 @@ go-resend-examples/
 │   ├── prevent_threading/main.go   # Prevent Gmail threading
 │   ├── audiences/main.go           # Manage contacts
 │   ├── domains/main.go             # Manage domains
+│   ├── api_keys/main.go            # Manage API keys (create/rename/list/delete)
 │   ├── inbound/main.go             # Handle inbound emails
 │   └── double_optin/
 │       ├── subscribe/main.go       # Create contact + send confirmation

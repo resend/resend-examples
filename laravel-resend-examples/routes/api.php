@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiKeyController;
 use App\Http\Controllers\AudienceController;
 use App\Http\Controllers\DomainController;
 use App\Http\Controllers\DoubleOptinController;
@@ -71,6 +72,14 @@ Route::prefix('domains')->group(function () {
     Route::get('/{id}', [DomainController::class, 'show']);
     Route::post('/{id}/verify', [DomainController::class, 'verify']);
     Route::delete('/{id}', [DomainController::class, 'destroy']);
+});
+
+// API Keys
+Route::prefix('api-keys')->group(function () {
+    Route::get('/', [ApiKeyController::class, 'index']);
+    Route::post('/', [ApiKeyController::class, 'store']);
+    Route::patch('/{id}', [ApiKeyController::class, 'update']);
+    Route::delete('/{id}', [ApiKeyController::class, 'destroy']);
 });
 
 // Inbound emails

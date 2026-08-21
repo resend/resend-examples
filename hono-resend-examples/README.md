@@ -66,6 +66,10 @@ Once the server is running:
 - `POST /webhook` - Receive Resend webhook events
 - `POST /double-optin/subscribe` - Start double opt-in (`{ "email": "...", "name": "..." }`)
 - `POST /double-optin/webhook` - Handle double opt-in confirmation
+- `GET /api-keys` - List API keys
+- `POST /api-keys` - Create an API key (`{ "name": "...", "permission": "..." }`)
+- `PATCH /api-keys/:id` - Rename an API key (`{ "name": "..." }`)
+- `DELETE /api-keys/:id` - Delete an API key
 
 ## Contributing
 

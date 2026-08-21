@@ -72,6 +72,11 @@ ruby examples/domains.rb
 ruby examples/automations.rb
 ```
 
+### API Keys
+```bash
+ruby examples/api_keys.rb
+```
+
 ### Inbound Email
 ```bash
 ruby examples/inbound.rb
@@ -141,6 +146,7 @@ ruby-resend-examples/
 │   ├── audiences.rb           # Manage contacts
 │   ├── domains.rb             # Manage domains
 │   ├── automations.rb         # Automation lifecycle
+│   ├── api_keys.rb            # API key lifecycle
 │   └── inbound.rb             # Handle inbound emails
 ├── sinatra_app/
 │   └── app.rb                 # Sinatra web app

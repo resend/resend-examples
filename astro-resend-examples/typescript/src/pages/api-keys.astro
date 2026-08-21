@@ -1,0 +1,140 @@
+---
+/**
+ * API Keys Example
+ *
+ * Demonstrates the full lifecycle of a Resend API key: creating one with a
+ * scoped permission, renaming it, listing all keys, and removing it.
+ *
+ * Key concepts:
+ * - The token is only ever returned once, at creation time
+ * - Only the name can be changed after creation — permission and domain
+ *   are fixed for the lifetime of the key
+ * - There is no endpoint to retrieve a single key after creation, only list
+ *
+ * @see https://resend.com/docs/api-reference/api-keys
+ */
+
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+---
+
+<Layout title="API Keys">
+  <PageHeader
+    title="API Keys"
+    description="Create, rename, list, and delete API keys."
+  />
+
+  <div class="lifecycle">
+    <div class="step">
+      <h2>1. Create a key</h2>
+      <pre><code>{`const { data: created, error } = await resend.apiKeys.create({
+  name: 'Production Sending Key',
+  permission: 'sending_access',
+});
+
+if (error) {
+  throw new Error(error.message);
+}
+
+// The token is only shown here, at creation — store it now, it can't be
+// retrieved again
+console.log('Created:', created.id, 'token (shown once):', created.token);`}</code></pre>
+    </div>
+
+    <div class="step">
+      <h2>2. Rename it</h2>
+      <pre><code>{`// Only \`name\` is patchable. Never send permission or domainId here — a
+// leaked key must not be able to widen another key's scope.
+const { data: updated } = await resend.apiKeys.update(created.id, {
+  name: 'Production Sending Key v2',
+});
+
+console.log('Renamed:', updated.id);`}</code></pre>
+    </div>
+
+    <div class="step">
+      <h2>3. List all keys</h2>
+      <pre><code>{`// List every API key in the project
+const { data: keys } = await resend.apiKeys.list();
+
+console.log('Total keys:', keys.data.length);
+
+// Tokens are never included in the list response — only id, name,
+// permission, and creation date
+for (const key of keys.data) {
+  console.log(key.id, key.name, key.permission);
+}`}</code></pre>
+    </div>
+
+    <div class="step">
+      <h2>4. Delete it</h2>
+      <pre><code>{`// Deleting an API key immediately revokes it — any requests made with
+// it will start failing right away
+const { data: deleted } = await resend.apiKeys.remove(created.id);
+
+console.log('Deleted:', deleted.id);`}</code></pre>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <h3>Permissions</h3>
+    <ul>
+      <li><strong>full_access:</strong> Can send emails and manage every resource in the project</li>
+      <li><strong>sending_access:</strong> Can only send emails — scope it further to a single domain with <code>domainId</code></li>
+    </ul>
+  </div>
+</Layout>
+
+<style>
+  .lifecycle {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .step h2 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  pre {
+    background: #1a1a1a;
+    color: #e5e5e5;
+    padding: 1rem 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+  }
+
+  .info-box {
+    padding: 1rem 1.25rem;
+    border-radius: 0.5rem;
+    background: #f0f0f0;
+    border: 1px solid #e5e5e5;
+  }
+
+  .info-box h3 {
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+
+  .info-box ul {
+    list-style: none;
+    font-size: 0.875rem;
+    color: #666;
+  }
+
+  .info-box ul li {
+    margin-bottom: 0.5rem;
+  }
+
+  .info-box code {
+    background: #fff;
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    font-size: 0.8125rem;
+  }
+</style>

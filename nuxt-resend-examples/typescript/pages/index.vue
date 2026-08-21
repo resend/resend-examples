@@ -41,6 +41,11 @@ const examples = [
     path: "/domains",
   },
   {
+    title: "API Keys",
+    description: "Create, rename, and delete API keys",
+    path: "/api-keys",
+  },
+  {
     title: "Double Opt-in",
     description: "Double opt-in subscription flow",
     path: "/double-optin",

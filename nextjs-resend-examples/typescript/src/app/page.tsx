@@ -110,6 +110,12 @@ const examples: { category: string; items: ExampleItem[] }[] = [
         href: '/automations',
         type: 'page',
       },
+      {
+        title: 'API Keys',
+        description: 'Create, rename, list, and delete API keys',
+        href: '/api-keys',
+        type: 'page',
+      },
     ],
   },
   {

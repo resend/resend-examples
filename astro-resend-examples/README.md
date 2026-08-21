@@ -40,6 +40,7 @@ Once the dev server is running, visit `http://localhost:4321`:
 - `/prevent-threading` - Send emails that avoid Gmail threading
 - `/audiences` - Manage audiences and contacts
 - `/domains` - Manage domains
+- `/api-keys` - API key lifecycle: create, rename, list, delete
 - `/double-optin` - Double opt-in subscription flow
 - `/inbound` - Inbound email information
 

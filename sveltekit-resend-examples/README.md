@@ -55,6 +55,7 @@ npm run dev
 | Prevent Threading | Prevent email client threading |
 | Audiences | Manage contacts and audiences |
 | Domains | List and manage domains |
+| API Keys | Create, list, rename, and delete API keys |
 | Double Opt-in | Subscription with confirmation |
 | Inbound | Receive and process inbound emails |
 

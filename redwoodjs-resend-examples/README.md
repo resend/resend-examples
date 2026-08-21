@@ -47,6 +47,7 @@ RedwoodJS uses serverless functions at `/.redwood/functions/`:
 - `POST /api/sendTemplate` — Send with template
 - `POST /api/webhook` — Handle Resend webhook events
 - `GET/POST /api/domains` — List/create domains
+- `GET/POST/PATCH/DELETE /api/apiKeys` — List/create/rename/delete API keys
 - `GET /api/audiencesContacts` — List audience contacts
 - `POST /api/doubleOptinSubscribe` — Subscribe with confirmation
 - `POST /api/doubleOptinWebhook` — Confirm subscription on click

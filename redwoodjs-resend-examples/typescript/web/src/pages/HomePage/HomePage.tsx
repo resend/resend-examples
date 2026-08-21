@@ -44,6 +44,11 @@ const examples = [
     description: "List and manage sending domains.",
   },
   {
+    to: "/api-keys",
+    title: "API Keys",
+    description: "List, create, rename, and delete API keys.",
+  },
+  {
     to: "/double-optin",
     title: "Double Opt-in",
     description: "Implement a double opt-in subscription flow.",

@@ -40,6 +40,7 @@ Once the dev server is running, visit `http://localhost:3000`:
 - `/prevent-threading` - Send emails that avoid Gmail threading
 - `/audiences` - Manage audiences and contacts
 - `/domains` - Manage domains
+- `/api-keys` - Create, rename, and delete API keys
 - `/double-optin` - Double opt-in subscription flow
 - `/inbound` - Inbound email information
 
@@ -55,6 +56,10 @@ Once the dev server is running, visit `http://localhost:3000`:
 - `GET /api/domains` - List domains
 - `POST /api/domains` - Create a domain
 - `GET /api/audiences/contacts` - List contacts in an audience
+- `GET /api/api-keys` - List API keys
+- `POST /api/api-keys` - Create an API key
+- `PATCH /api/api-keys/:id` - Rename an API key
+- `DELETE /api/api-keys/:id` - Delete an API key
 
 ## Contributing
 
