@@ -17,6 +17,7 @@ if (args.Length == 0)
     Console.WriteLine("  Audiences              - Manage audiences and contacts");
     Console.WriteLine("  Domains                - Manage sending domains");
     Console.WriteLine("  Automations            - Manage automations and inspect runs");
+    Console.WriteLine("  Broadcasts             - Create, send, and list broadcast recipients");
     Console.WriteLine("  Inbound                - Fetch inbound email details");
     Console.WriteLine("  DoubleOptinSubscribe   - Create contact + send confirmation");
     Console.WriteLine("  DoubleOptinWebhook     - Process confirmation click webhook");
@@ -59,6 +60,9 @@ try
             break;
         case "Automations":
             await Automations.RunAsync();
+            break;
+        case "Broadcasts":
+            await Broadcasts.RunAsync();
             break;
         case "Inbound":
             await Inbound.RunAsync();
