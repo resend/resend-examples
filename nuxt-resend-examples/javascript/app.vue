@@ -9,7 +9,6 @@
         <NuxtLink to="/templates">Templates</NuxtLink>
         <NuxtLink to="/domains">Domains</NuxtLink>
         <NuxtLink to="/audiences">Audiences</NuxtLink>
-        <NuxtLink to="/api-keys">API Keys</NuxtLink>
       </div>
     </nav>
     <main class="main">
