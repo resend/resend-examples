@@ -72,6 +72,11 @@ php src/domains/create.php
 php src/automations/lifecycle.php
 ```
 
+### Broadcast Clicked Links
+```bash
+php src/broadcasts/clicked_links.php
+```
+
 ### Webhook Handler (Inbound)
 ```bash
 php src/inbound/webhook.php
@@ -151,6 +156,8 @@ php-resend-examples/
 │   │   └── create.php          # Manage domains
 │   ├── automations/
 │   │   └── lifecycle.php       # Automation lifecycle
+│   ├── broadcasts/
+│   │   └── clicked_links.php   # Broadcast clicked links
 │   ├── inbound/
 │   │   └── webhook.php         # Handle webhooks
 │   └── slim_app.php            # Slim web application
