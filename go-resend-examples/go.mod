@@ -8,4 +8,7 @@ require (
 	github.com/joho/godotenv v1.5.1
 	github.com/resend/resend-go/v2 v2.13.0
 	github.com/svix/svix-webhooks v1.44.0
+
+	// examples/broadcasts uses Broadcasts.Recipients(), only available in resend-go v3.
+	github.com/resend/resend-go/v3 v3.17.0
 )

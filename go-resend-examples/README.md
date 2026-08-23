@@ -66,6 +66,12 @@ go run ./examples/audiences/
 go run ./examples/domains/
 ```
 
+### Broadcasts & Recipients
+```bash
+# Requires resend-go v3 (unreleased) - see examples/broadcasts/main.go for details
+go run ./examples/broadcasts/
+```
+
 ### Inbound Email
 ```bash
 go run ./examples/inbound/
@@ -143,6 +149,7 @@ go-resend-examples/
 │   ├── prevent_threading/main.go   # Prevent Gmail threading
 │   ├── audiences/main.go           # Manage contacts
 │   ├── domains/main.go             # Manage domains
+│   ├── broadcasts/main.go          # Create, send & list recipients (requires resend-go v3)
 │   ├── inbound/main.go             # Handle inbound emails
 │   └── double_optin/
 │       ├── subscribe/main.go       # Create contact + send confirmation
