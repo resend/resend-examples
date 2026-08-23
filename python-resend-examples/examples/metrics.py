@@ -4,8 +4,7 @@ Email Metrics
 
 Demonstrates retrieving account-level email metrics using the Resend API.
 
-Requires resend>=2.40.0 (not yet published as of resend==2.39.0) - see
-resend/resend-python#262.
+Requires resend>=2.40.0.
 
 Usage:
     python examples/metrics.py
