@@ -72,6 +72,11 @@ ruby examples/domains.rb
 ruby examples/automations.rb
 ```
 
+### Email Metrics
+```bash
+ruby examples/metrics.rb
+```
+
 ### Inbound Email
 ```bash
 ruby examples/inbound.rb
@@ -141,6 +146,7 @@ ruby-resend-examples/
 │   ├── audiences.rb           # Manage contacts
 │   ├── domains.rb             # Manage domains
 │   ├── automations.rb         # Automation lifecycle
+│   ├── metrics.rb             # Account-level email metrics
 │   └── inbound.rb             # Handle inbound emails
 ├── sinatra_app/
 │   └── app.rb                 # Sinatra web app
