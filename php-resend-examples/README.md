@@ -72,11 +72,6 @@ php src/domains/create.php
 php src/automations/lifecycle.php
 ```
 
-### Email Metrics
-```bash
-php src/metrics/retrieve.php
-```
-
 ### Webhook Handler (Inbound)
 ```bash
 php src/inbound/webhook.php
@@ -156,8 +151,6 @@ php-resend-examples/
 │   │   └── create.php          # Manage domains
 │   ├── automations/
 │   │   └── lifecycle.php       # Automation lifecycle
-│   ├── metrics/
-│   │   └── retrieve.php        # Account-level email metrics
 │   ├── inbound/
 │   │   └── webhook.php         # Handle webhooks
 │   └── slim_app.php            # Slim web application

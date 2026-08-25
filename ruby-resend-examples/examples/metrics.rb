@@ -20,29 +20,34 @@ Resend.api_key = ENV.fetch("RESEND_API_KEY")
 
 puts "=== Email Metrics ===\n\n"
 
-broadcast_id = ARGV[0]
-
-params = {
-  start_date: "2026-07-01",
-  end_date: "2026-07-08",
-  dimensions: ["period", "broadcast"]
-}
-params[:broadcast_id] = [broadcast_id] if broadcast_id
-
-metrics = Resend::Emails.metrics(params)
-
-puts "Totals:"
-metrics[:totals]&.each do |metric, value|
-  puts "  #{metric}: #{value}"
-end
+# Totals for the default range (last 6 days), no breakdown
+puts "Fetching totals..."
+totals = Resend::Emails.metrics
+puts "  Sent: #{totals[:totals]["sent"]}"
+puts "  Delivered: #{totals[:totals]["delivered"]}"
+puts "  Bounced: #{totals[:totals]["bounced"]}"
 puts
 
-if metrics[:data]&.any?
-  puts "Breakdown by period, broadcast:"
-  metrics[:data].each do |row|
-    puts "  Period: #{row["period"]}"
-    puts "  Broadcast: #{row["broadcast_name"]}" if row["broadcast_name"]
-    puts "  Sent: #{row["sent"] || 0}"
-    puts
+broadcast_id = ARGV[0]
+
+if broadcast_id
+  puts "Fetching metrics for broadcast #{broadcast_id}..."
+  params = {
+    start_date: "2026-07-01",
+    end_date: "2026-07-08",
+    dimensions: ["period", "broadcast"],
+    broadcast_id: [broadcast_id]
+  }
+
+  metrics = Resend::Emails.metrics(params)
+
+  if metrics[:data]&.any?
+    puts "Breakdown by period, broadcast:"
+    metrics[:data].each do |row|
+      puts "  Period: #{row["period"]}"
+      puts "  Broadcast: #{row["broadcast_name"]}" if row["broadcast_name"]
+      puts "  Sent: #{row["sent"] || 0}"
+      puts
+    end
   end
 end
