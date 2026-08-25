@@ -7,7 +7,7 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-	"github.com/resend/resend-go/v2"
+	"github.com/resend/resend-go/v4"
 )
 
 // ProcessDoubleOptinWebhook handles the email.clicked webhook event
@@ -34,7 +34,7 @@ func ProcessDoubleOptinWebhook(client *resend.Client, audienceID string, event m
 	recipientEmail, _ := toList[0].(string)
 
 	// Find the contact by email
-	contacts, err := client.Contacts.List(audienceID)
+	contacts, err := client.Contacts.List(&resend.ListContactsOptions{AudienceId: audienceID})
 	if err != nil {
 		return nil, fmt.Errorf("error listing contacts: %v", err)
 	}

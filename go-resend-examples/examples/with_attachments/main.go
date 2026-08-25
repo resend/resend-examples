@@ -1,14 +1,13 @@
 package main
 
 import (
-	"encoding/base64"
 	"fmt"
 	"log"
 	"os"
 	"time"
 
 	"github.com/joho/godotenv"
-	"github.com/resend/resend-go/v2"
+	"github.com/resend/resend-go/v4"
 )
 
 func main() {
@@ -28,7 +27,6 @@ func main() {
 
 	// Create sample file content
 	fileContent := fmt.Sprintf("Sample Attachment\n==================\n\nThis file was attached to your email.\nSent at: %s\n", time.Now().UTC().Format(time.RFC3339))
-	encoded := base64.StdEncoding.EncodeToString([]byte(fileContent))
 
 	// Maximum total attachment size: 40MB
 	params := &resend.SendEmailRequest{
@@ -39,7 +37,7 @@ func main() {
 		Attachments: []*resend.Attachment{
 			{
 				Filename: "sample.txt",
-				Content:  encoded,
+				Content:  []byte(fileContent),
 			},
 		},
 	}

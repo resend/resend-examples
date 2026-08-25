@@ -9,7 +9,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	"github.com/resend/resend-go/v2"
+	"github.com/resend/resend-go/v4"
 	svix "github.com/svix/svix-webhooks/go"
 )
 
@@ -263,7 +263,7 @@ func doubleOptinWebhookHandler(c *gin.Context) {
 	}
 	recipientEmail, _ := toList[0].(string)
 
-	contacts, err := client.Contacts.List(audienceID)
+	contacts, err := client.Contacts.List(&resend.ListContactsOptions{AudienceId: audienceID})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
