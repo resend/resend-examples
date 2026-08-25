@@ -29,8 +29,12 @@ api_key = resend.ApiKeys.create({
     "permission": "full_access",
 })
 api_key_id = api_key["id"]
-print(f"API key created: {api_key_id}")
-print(f"Token (shown only once): {api_key['token']}")
+# CodeQL flags these as clear-text logging of sensitive data since the
+# response includes a token field, but this is example output whose whole
+# point is showing the user their own newly-created (disposable) key -
+# not a real secret leak.
+print(f"API key created: {api_key_id}")  # lgtm[py/clear-text-logging-sensitive-data]
+print(f"Token (shown only once): {api_key['token']}")  # lgtm[py/clear-text-logging-sensitive-data]
 print()
 
 # Rename the key - only `name` can be patched, permission and domain_id
@@ -48,10 +52,10 @@ print("Listing API keys...")
 api_keys = resend.ApiKeys.list()
 print(f"Found {len(api_keys.get('data', []))} API key(s)")
 for key in api_keys.get("data", []):
-    print(f"  - {key['name']} ({key['id']}) last used: {key.get('last_used_at', 'never')}")
+    print(f"  - {key['name']} ({key['id']}) last used: {key.get('last_used_at', 'never')}")  # lgtm[py/clear-text-logging-sensitive-data]
 print()
 
 # Delete the key
 print("Removing API key...")
 resend.ApiKeys.remove(api_key_id=api_key_id)
-print(f"API key removed: {api_key_id}")
+print(f"API key removed: {api_key_id}")  # lgtm[py/clear-text-logging-sensitive-data]
