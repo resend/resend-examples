@@ -76,6 +76,11 @@ python examples/domains.py
 python examples/automations.py
 ```
 
+### Email Metrics
+```bash
+python examples/metrics.py
+```
+
 ### Inbound Email
 ```bash
 python examples/inbound.py
@@ -153,6 +158,7 @@ python-resend-examples/
 │   ├── audiences.py           # Manage contacts
 │   ├── domains.py             # Manage domains
 │   ├── automations.py         # Manage automations
+│   ├── metrics.py             # Account-level email metrics
 │   ├── inbound.py             # Handle inbound emails
 │   ├── flask_app.py           # Flask web application
 │   └── fastapi_app.py         # FastAPI web application

@@ -110,6 +110,12 @@ const examples: { category: string; items: ExampleItem[] }[] = [
         href: '/automations',
         type: 'page',
       },
+      {
+        title: 'Metrics',
+        description: 'Retrieve account-level delivery and engagement metrics',
+        href: '/metrics',
+        type: 'page',
+      },
     ],
   },
   {

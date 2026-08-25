@@ -72,6 +72,11 @@ mvn compile exec:java -Dexec.mainClass="com.resend.examples.Domains"
 mvn compile exec:java -Dexec.mainClass="com.resend.examples.Automations"
 ```
 
+### Metrics
+```bash
+mvn compile exec:java -Dexec.mainClass="com.resend.examples.Metrics"
+```
+
 ### Inbound Email
 ```bash
 mvn compile exec:java -Dexec.mainClass="com.resend.examples.Inbound"
@@ -142,6 +147,7 @@ java-resend-examples/
 │   ├── Audiences.java               # Manage contacts
 │   ├── Domains.java                 # Manage domains
 │   ├── Automations.java             # Automation lifecycle
+│   ├── Metrics.java                 # Account-level email metrics
 │   ├── Inbound.java                 # Handle inbound emails
 │   ├── DoubleOptinSubscribe.java    # Create contact + send confirmation
 │   └── DoubleOptinWebhook.java      # Process confirmation click

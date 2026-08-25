@@ -100,6 +100,12 @@ const examples = [
         href: '/automations',
         type: 'page',
       },
+      {
+        title: 'Metrics',
+        description: 'Retrieve account-level delivery and engagement metrics',
+        href: '/metrics',
+        type: 'page',
+      },
     ],
   },
   {

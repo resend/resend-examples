@@ -66,6 +66,11 @@ go run ./examples/audiences/
 go run ./examples/domains/
 ```
 
+### Email Metrics
+```bash
+go run ./examples/metrics/
+```
+
 ### Inbound Email
 ```bash
 go run ./examples/inbound/
@@ -143,6 +148,7 @@ go-resend-examples/
 │   ├── prevent_threading/main.go   # Prevent Gmail threading
 │   ├── audiences/main.go           # Manage contacts
 │   ├── domains/main.go             # Manage domains
+│   ├── metrics/main.go             # Account-level email metrics
 │   ├── inbound/main.go             # Handle inbound emails
 │   └── double_optin/
 │       ├── subscribe/main.go       # Create contact + send confirmation
