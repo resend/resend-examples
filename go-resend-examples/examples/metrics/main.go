@@ -7,7 +7,7 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-	"github.com/resend/resend-go/v3"
+	"github.com/resend/resend-go/v4"
 )
 
 func main() {
