@@ -1,12 +1,13 @@
 package main
 
 import (
+	"encoding/base64"
 	"fmt"
 	"log"
 	"os"
 
 	"github.com/joho/godotenv"
-	"github.com/resend/resend-go/v2"
+	"github.com/resend/resend-go/v4"
 )
 
 func main() {
@@ -26,7 +27,11 @@ func main() {
 
 	// Minimal 1x1 PNG placeholder (base64-encoded)
 	// In production, replace with your actual image file
-	placeholderImage := "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
+	placeholderImageB64 := "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
+	placeholderImage, err := base64.StdEncoding.DecodeString(placeholderImageB64)
+	if err != nil {
+		log.Fatalf("Error decoding placeholder image: %v", err)
+	}
 
 	// Use Content-ID (CID) to reference inline images in HTML
 	// The "cid:logo" in HTML matches the ContentId "logo" in the attachment

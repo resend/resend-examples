@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-	"github.com/resend/resend-go/v2"
+	"github.com/resend/resend-go/v4"
 )
 
 func main() {
@@ -26,7 +26,7 @@ func main() {
 	if emailID == "" {
 		emailID = "example-email-id"
 		fmt.Println("Note: Set INBOUND_EMAIL_ID to fetch a real inbound email.")
-		fmt.Println("You get this ID from the 'email.received' webhook event.\n")
+		fmt.Println("You get this ID from the 'email.received' webhook event.")
 	}
 
 	email, err := client.Emails.Get(emailID)

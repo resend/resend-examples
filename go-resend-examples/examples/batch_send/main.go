@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-	"github.com/resend/resend-go/v2"
+	"github.com/resend/resend-go/v4"
 )
 
 func main() {
@@ -31,7 +31,7 @@ func main() {
 
 	// Batch send: up to 100 emails per call
 	// Note: Batch send does not support attachments or scheduling
-	params := &resend.BatchEmailRequest{
+	params := []*resend.SendEmailRequest{
 		{
 			From:    from,
 			To:      []string{"delivered@resend.dev"},

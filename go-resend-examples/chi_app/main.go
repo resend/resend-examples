@@ -10,7 +10,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/joho/godotenv"
-	"github.com/resend/resend-go/v2"
+	"github.com/resend/resend-go/v4"
 	svix "github.com/svix/svix-webhooks/go"
 )
 
@@ -277,7 +277,7 @@ func doubleOptinWebhookHandler(w http.ResponseWriter, r *http.Request) {
 	recipientEmail, _ := toList[0].(string)
 
 	// Find and update contact
-	contacts, err := client.Contacts.List(audienceID)
+	contacts, err := client.Contacts.List(&resend.ListContactsOptions{AudienceId: audienceID})
 	if err != nil {
 		jsonResponse(w, http.StatusInternalServerError, map[string]string{"error": err.Error()})
 		return

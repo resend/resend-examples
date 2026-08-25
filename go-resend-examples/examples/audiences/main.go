@@ -6,8 +6,15 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-	"github.com/resend/resend-go/v2"
+	"github.com/resend/resend-go/v4"
 )
+
+func deref(s *string) string {
+	if s == nil {
+		return ""
+	}
+	return *s
+}
 
 func main() {
 	_ = godotenv.Load()
@@ -52,12 +59,12 @@ func main() {
 
 	// 3. List contacts
 	fmt.Println("\n=== Listing Contacts ===")
-	contacts, err := client.Contacts.List(audienceID)
+	contacts, err := client.Contacts.List(&resend.ListContactsOptions{AudienceId: audienceID})
 	if err != nil {
 		log.Fatalf("Error listing contacts: %v", err)
 	}
 	for _, c := range contacts.Data {
-		fmt.Printf("  - %s %s <%s> (unsubscribed: %t)\n", c.FirstName, c.LastName, c.Email, c.Unsubscribed)
+		fmt.Printf("  - %s %s <%s> (unsubscribed: %t)\n", deref(c.FirstName), deref(c.LastName), c.Email, c.Unsubscribed)
 	}
 
 	// 4. Update the contact
@@ -77,7 +84,7 @@ func main() {
 
 	// 5. Remove the contact
 	fmt.Println("\n=== Removing Contact ===")
-	_, err = client.Contacts.Remove(audienceID, contact.Id)
+	_, err = client.Contacts.Remove(&resend.RemoveContactOptions{AudienceId: audienceID, Id: contact.Id})
 	if err != nil {
 		log.Fatalf("Error removing contact: %v", err)
 	}
