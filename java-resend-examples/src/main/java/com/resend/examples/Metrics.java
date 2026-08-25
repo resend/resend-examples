@@ -35,7 +35,6 @@ public class Metrics {
                 System.out.println("\n=== Metrics: Broadcast Breakdown ===");
                 GetEmailsMetricsOptions options = GetEmailsMetricsOptions.builder()
                         .startDate(LocalDate.now().minusDays(7).toString())
-                        .endDate(LocalDate.now().toString())
                         .dimensions(MetricsDimension.PERIOD, MetricsDimension.BROADCAST)
                         .granularity(MetricsGranularity.DAILY)
                         .broadcastIds(List.of(broadcastId))
