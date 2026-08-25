@@ -41,9 +41,9 @@ public class Broadcasts {
             System.out.println("\n=== Paginating Clicked Links ===");
             ListParams pageParams = ListParams.builder().limit(1).build();
             ListBroadcastClickedLinksResponseSuccess firstPage = resend.broadcasts().clickedLinks(broadcastId, pageParams);
-            System.out.println("Has more: " + firstPage.getHasMore());
+            System.out.println("Has more: " + firstPage.hasMore());
 
-            if (Boolean.TRUE.equals(firstPage.getHasMore()) && !firstPage.getData().isEmpty()) {
+            if (Boolean.TRUE.equals(firstPage.hasMore()) && !firstPage.getData().isEmpty()) {
                 // `id` on each clicked link is an opaque pagination cursor for that row,
                 // not an entity id — use it with `after`/`before` to page through results.
                 String lastCursor = firstPage.getData().get(firstPage.getData().size() - 1).getId();
