@@ -15,7 +15,7 @@ const navLinks = [
   { to: "/scheduling", label: "Scheduling" },
   { to: "/templates", label: "Templates" },
   { to: "/prevent-threading", label: "Prevent Threading" },
-  { to: "/audiences", label: "Audiences" },
+  { to: "/segments", label: "Segments" },
   { to: "/domains", label: "Domains" },
   { to: "/double-optin", label: "Double Opt-in" },
   { to: "/inbound", label: "Inbound" },

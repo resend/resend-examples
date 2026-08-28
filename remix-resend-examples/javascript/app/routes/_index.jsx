@@ -37,9 +37,9 @@ const examples = [
       "Send emails with unique X-Entity-Ref-ID to prevent Gmail threading.",
   },
   {
-    to: "/audiences",
-    title: "Audiences",
-    description: "Manage audiences and contacts.",
+    to: "/segments",
+    title: "Segments",
+    description: "Manage segments and contacts.",
   },
   {
     to: "/domains",
