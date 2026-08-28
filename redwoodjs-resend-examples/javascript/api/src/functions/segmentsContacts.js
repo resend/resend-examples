@@ -1,21 +1,20 @@
-import type { APIGatewayEvent, Context } from "aws-lambda";
 import { resend } from "src/lib/resend";
 
-export const handler = async (event: APIGatewayEvent, _context: Context) => {
+export const handler = async (event, _context) => {
   if (event.httpMethod !== "GET") {
     return { statusCode: 405, body: JSON.stringify({ error: "Method not allowed" }) };
   }
 
-  const audienceId = process.env.RESEND_AUDIENCE_ID;
+  const segmentId = process.env.RESEND_SEGMENT_ID;
 
-  if (!audienceId) {
+  if (!segmentId) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: "RESEND_AUDIENCE_ID not configured" }),
+      body: JSON.stringify({ error: "RESEND_SEGMENT_ID not configured" }),
     };
   }
 
-  const { data, error } = await resend.contacts.list({ audienceId });
+  const { data, error } = await resend.contacts.list({ segmentId });
 
   if (error) {
     return { statusCode: 500, body: JSON.stringify({ error: error.message }) };

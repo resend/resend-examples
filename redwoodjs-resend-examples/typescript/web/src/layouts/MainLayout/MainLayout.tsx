@@ -44,8 +44,8 @@ const MainLayout = ({ children }: MainLayoutProps) => {
         <Link to="/domains" style={navLinkStyle}>
           Domains
         </Link>
-        <Link to="/audiences" style={navLinkStyle}>
-          Audiences
+        <Link to="/segments" style={navLinkStyle}>
+          Segments
         </Link>
       </nav>
       <main>{children}</main>
