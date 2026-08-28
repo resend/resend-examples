@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "express": "^5.0.0",
-    "resend": "^4.0.0",
+    "resend": "^6.24.0",
     "dotenv": "^16.4.0",
     "svix": "^1.44.0"
   },
