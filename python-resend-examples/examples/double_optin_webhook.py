@@ -41,9 +41,9 @@ def process_double_optin_webhook(event: dict) -> dict:
             "message": "Event type ignored",
         }
 
-    audience_id = os.environ.get("RESEND_AUDIENCE_ID")
-    if not audience_id:
-        raise ValueError("RESEND_AUDIENCE_ID not configured")
+    segment_id = os.environ.get("RESEND_SEGMENT_ID")
+    if not segment_id:
+        raise ValueError("RESEND_SEGMENT_ID not configured")
 
     # Get the recipient email from the webhook data
     recipient_email = event.get("data", {}).get("to", [None])[0]
@@ -53,7 +53,7 @@ def process_double_optin_webhook(event: dict) -> dict:
     print(f"Confirmation click received for: {recipient_email}")
 
     # Find the contact by email
-    contacts = resend.Contacts.list(audience_id)
+    contacts = resend.Contacts.list(segment_id=segment_id)
     contact = next(
         (c for c in contacts.get("data", []) if c["email"] == recipient_email),
         None,
@@ -64,7 +64,6 @@ def process_double_optin_webhook(event: dict) -> dict:
 
     # Update contact to confirmed (unsubscribed: False)
     resend.Contacts.update({
-        "audience_id": audience_id,
         "id": contact["id"],
         "unsubscribed": False,
     })

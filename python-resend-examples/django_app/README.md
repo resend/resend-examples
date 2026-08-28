@@ -26,7 +26,7 @@ python manage.py runserver 8001
 - `POST /webhook` — Handle Resend webhook events
 - `GET /domains` — List all domains
 - `POST /domains/create` — Create a domain
-- `GET /audiences/contacts` — List contacts in audience
+- `GET /segments/contacts` — List contacts in segment
 - `POST /double-optin/subscribe` — Subscribe with confirmation
 - `POST /double-optin/webhook` — Confirm subscription on click
 

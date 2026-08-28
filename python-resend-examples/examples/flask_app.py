@@ -136,21 +136,21 @@ def double_optin_subscribe():
     if not email:
         return jsonify({"error": "Email is required"}), 400
 
-    audience_id = os.environ.get("RESEND_AUDIENCE_ID")
-    if not audience_id:
-        return jsonify({"error": "RESEND_AUDIENCE_ID not configured"}), 500
+    segment_id = os.environ.get("RESEND_SEGMENT_ID")
+    if not segment_id:
+        return jsonify({"error": "RESEND_SEGMENT_ID not configured"}), 500
 
     confirm_url = os.environ.get(
         "CONFIRM_REDIRECT_URL", "https://example.com/confirmed"
     )
 
     try:
-        # Step 1: Create contact with unsubscribed: True
+        # Step 1: Create contact with unsubscribed: True, assigned to the segment inline
         contact = resend.Contacts.create({
-            "audience_id": audience_id,
             "email": email,
             "first_name": name,
             "unsubscribed": True,
+            "segments": [{"id": segment_id}],
         })
 
         # Step 2: Send confirmation email
@@ -224,14 +224,14 @@ def double_optin_webhook():
                 "message": "Event ignored",
             })
 
-        audience_id = os.environ.get("RESEND_AUDIENCE_ID")
+        segment_id = os.environ.get("RESEND_SEGMENT_ID")
         recipient_email = event.get("data", {}).get("to", [None])[0]
 
         if not recipient_email:
             return jsonify({"error": "No recipient email"}), 400
 
         # Find contact by email
-        contacts = resend.Contacts.list(audience_id)
+        contacts = resend.Contacts.list(segment_id=segment_id)
         contact = next(
             (c for c in contacts.get("data", []) if c["email"] == recipient_email),
             None,
@@ -242,7 +242,6 @@ def double_optin_webhook():
 
         # Update contact to confirmed
         resend.Contacts.update({
-            "audience_id": audience_id,
             "id": contact["id"],
             "unsubscribed": False,
         })

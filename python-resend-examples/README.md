@@ -61,9 +61,9 @@ python examples/with_template.py
 python examples/prevent_threading.py
 ```
 
-### Audiences & Contacts
+### Segments & Contacts
 ```bash
-python examples/audiences.py
+python examples/segments.py
 ```
 
 ### Domain Management
@@ -155,7 +155,7 @@ python-resend-examples/
 │   ├── scheduled_send.py      # Future delivery
 │   ├── with_template.py       # Using Resend templates
 │   ├── prevent_threading.py   # Prevent Gmail threading
-│   ├── audiences.py           # Manage contacts
+│   ├── segments.py            # Manage contacts
 │   ├── domains.py             # Manage domains
 │   ├── automations.py         # Manage automations
 │   ├── metrics.py             # Account-level email metrics

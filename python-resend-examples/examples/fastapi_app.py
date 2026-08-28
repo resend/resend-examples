@@ -122,21 +122,21 @@ class SubscribeRequest(BaseModel):
 @app.post("/double-optin/subscribe")
 async def double_optin_subscribe(subscribe_request: SubscribeRequest):
     """Subscribe with double opt-in."""
-    audience_id = os.environ.get("RESEND_AUDIENCE_ID")
-    if not audience_id:
-        raise HTTPException(status_code=500, detail="RESEND_AUDIENCE_ID not configured")
+    segment_id = os.environ.get("RESEND_SEGMENT_ID")
+    if not segment_id:
+        raise HTTPException(status_code=500, detail="RESEND_SEGMENT_ID not configured")
 
     confirm_url = os.environ.get(
         "CONFIRM_REDIRECT_URL", "https://example.com/confirmed"
     )
 
     try:
-        # Step 1: Create contact with unsubscribed: True
+        # Step 1: Create contact with unsubscribed: True, assigned to the segment inline
         contact = resend.Contacts.create({
-            "audience_id": audience_id,
             "email": subscribe_request.email,
             "first_name": subscribe_request.name,
             "unsubscribed": True,
+            "segments": [{"id": segment_id}],
         })
 
         # Step 2: Send confirmation email
@@ -211,14 +211,14 @@ async def double_optin_webhook(request: Request):
                 "message": "Event ignored",
             }
 
-        audience_id = os.environ.get("RESEND_AUDIENCE_ID")
+        segment_id = os.environ.get("RESEND_SEGMENT_ID")
         recipient_email = event.get("data", {}).get("to", [None])[0]
 
         if not recipient_email:
             raise HTTPException(status_code=400, detail="No recipient email")
 
         # Find contact by email
-        contacts = resend.Contacts.list(audience_id)
+        contacts = resend.Contacts.list(segment_id=segment_id)
         contact = next(
             (c for c in contacts.get("data", []) if c["email"] == recipient_email),
             None,
@@ -229,7 +229,6 @@ async def double_optin_webhook(request: Request):
 
         # Update contact to confirmed
         resend.Contacts.update({
-            "audience_id": audience_id,
             "id": contact["id"],
             "unsubscribed": False,
         })

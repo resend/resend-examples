@@ -12,7 +12,7 @@ urlpatterns = [
     path("webhook", views.webhook, name="webhook"),
     path("domains", views.list_domains, name="list_domains"),
     path("domains/create", views.create_domain, name="create_domain"),
-    path("audiences/contacts", views.list_contacts, name="list_contacts"),
+    path("segments/contacts", views.list_contacts, name="list_contacts"),
     path("double-optin/subscribe", views.double_optin_subscribe, name="double_optin_subscribe"),
     path("double-optin/webhook", views.double_optin_webhook, name="double_optin_webhook"),
 ]

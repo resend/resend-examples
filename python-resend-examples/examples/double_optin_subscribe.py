@@ -33,20 +33,21 @@ def subscribe(email: str, name: str = None) -> dict:
     Returns:
         dict with contact_id and email_id
     """
-    audience_id = os.environ.get("RESEND_AUDIENCE_ID")
-    if not audience_id:
-        raise ValueError("RESEND_AUDIENCE_ID environment variable is required")
+    segment_id = os.environ.get("RESEND_SEGMENT_ID")
+    if not segment_id:
+        raise ValueError("RESEND_SEGMENT_ID environment variable is required")
 
     confirm_url = os.environ.get(
         "CONFIRM_REDIRECT_URL", "https://example.com/confirmed"
     )
 
-    # Step 1: Create contact with unsubscribed: True (pending confirmation)
+    # Step 1: Create contact with unsubscribed: True (pending confirmation),
+    # assigned to the segment inline
     contact = resend.Contacts.create({
-        "audience_id": audience_id,
         "email": email,
         "first_name": name,
         "unsubscribed": True,  # Will be set to False when they confirm
+        "segments": [{"id": segment_id}],
     })
 
     # Step 2: Send confirmation email with trackable link
