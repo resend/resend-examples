@@ -10,9 +10,9 @@ if (!email) {
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-const audienceId = process.env.RESEND_AUDIENCE_ID;
-if (!audienceId) {
-  console.error("RESEND_AUDIENCE_ID environment variable is required");
+const segmentId = process.env.RESEND_SEGMENT_ID;
+if (!segmentId) {
+  console.error("RESEND_SEGMENT_ID environment variable is required");
   process.exit(1);
 }
 
@@ -22,10 +22,10 @@ const from = process.env.EMAIL_FROM || "Acme <onboarding@resend.dev>";
 // Step 1: Create contact with unsubscribed=true (pending confirmation)
 console.log("Step 1: Creating contact (pending confirmation)...");
 const { data: contact, error: contactError } = await resend.contacts.create({
-  audienceId,
   email,
   firstName: name,
   unsubscribed: true,
+  segments: [{ id: segmentId }],
 });
 
 if (contactError) {
