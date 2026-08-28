@@ -8,7 +8,7 @@
  * 3. Confirmation email sent with trackable link
  * 4. User clicks link -> webhook fires -> contact confirmed
  *
- * @see https://resend.com/docs/dashboard/audiences/introduction
+ * @see https://resend.com/docs/dashboard/segments/introduction
  */
 
 import Layout from '../layouts/Layout.astro';
@@ -58,10 +58,10 @@ import PageHeader from '../components/PageHeader.astro';
     <h2>Code Example</h2>
     <pre><code>{`// 1. Create contact (pending confirmation)
 const contact = await resend.contacts.create({
-  audienceId: AUDIENCE_ID,
   email,
   firstName: name,
   unsubscribed: true, // Not confirmed yet
+  segments: [{ id: SEGMENT_ID }],
 });
 
 // 2. Send confirmation email with trackable link
@@ -74,7 +74,6 @@ await resend.emails.send({
 
 // 3. In webhook handler, on email.clicked event:
 await resend.contacts.update({
-  audienceId: AUDIENCE_ID,
   id: contactId,
   unsubscribed: false, // Now confirmed!
 });`}</code></pre>
@@ -83,7 +82,7 @@ await resend.contacts.update({
   <div class="info-box">
     <h3>Setup Requirements</h3>
     <ul>
-      <li>Set <code>RESEND_AUDIENCE_ID</code> in your environment variables</li>
+      <li>Set <code>RESEND_SEGMENT_ID</code> in your environment variables</li>
       <li>Set <code>CONFIRM_REDIRECT_URL</code> for the confirmation destination</li>
       <li>Configure a webhook for the <code>email.clicked</code> event</li>
       <li>Enable click tracking in your Resend dashboard</li>
