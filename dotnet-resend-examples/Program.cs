@@ -14,7 +14,7 @@ if (args.Length == 0)
     Console.WriteLine("  ScheduledSend          - Schedule an email for later delivery");
     Console.WriteLine("  WithTemplate           - Send email using a Resend template");
     Console.WriteLine("  PreventThreading       - Prevent Gmail conversation threading");
-    Console.WriteLine("  Audiences              - Manage audiences and contacts");
+    Console.WriteLine("  Segments               - Manage segments and contacts");
     Console.WriteLine("  Domains                - Manage sending domains");
     Console.WriteLine("  Automations            - Manage automations and inspect runs");
     Console.WriteLine("  Metrics                - Retrieve account-level email metrics");
@@ -52,8 +52,8 @@ try
         case "PreventThreading":
             await PreventThreading.RunAsync();
             break;
-        case "Audiences":
-            await Audiences.RunAsync();
+        case "Segments":
+            await Segments.RunAsync();
             break;
         case "Domains":
             await Domains.RunAsync();

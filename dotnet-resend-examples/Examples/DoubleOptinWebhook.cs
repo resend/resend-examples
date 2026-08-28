@@ -32,7 +32,7 @@ public static class DoubleOptinWebhook
             ?? throw new Exception("No recipient email in webhook data");
 
         // Find the contact by email
-        // Contacts are account-level in the .NET SDK, so the listing is not audience-scoped.
+        // Contacts are account-level in the .NET SDK, so the listing is not segment-scoped.
         var contacts = await client.ContactListAsync();
         Guid? contactId = null;
 

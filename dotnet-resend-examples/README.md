@@ -56,9 +56,9 @@ dotnet run -- WithTemplate
 dotnet run -- PreventThreading
 ```
 
-### Audiences & Contacts
+### Segments & Contacts
 ```bash
-dotnet run -- Audiences
+dotnet run -- Segments
 ```
 
 ### Domain Management
@@ -138,7 +138,7 @@ dotnet-resend-examples/
 │   ├── ScheduledSend.cs             # Future delivery
 │   ├── WithTemplate.cs              # Using Resend templates
 │   ├── PreventThreading.cs          # Prevent Gmail threading
-│   ├── Audiences.cs                 # Manage contacts
+│   ├── Segments.cs                  # Manage segments and contacts
 │   ├── Domains.cs                   # Manage domains
 │   ├── Automations.cs               # Automation lifecycle + runs
 │   ├── Inbound.cs                   # Handle inbound emails
