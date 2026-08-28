@@ -9,7 +9,7 @@
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json"
   },
   "dependencies": {
-    "resend": "^4.1.2",
+    "resend": "^6.24.0",
     "svix": "^1.60.0"
   },
   "devDependencies": {

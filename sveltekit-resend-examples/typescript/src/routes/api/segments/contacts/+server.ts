@@ -1,10 +1,11 @@
 import { json } from "@sveltejs/kit";
 import { resend } from "$lib/server/resend";
-import { RESEND_AUDIENCE_ID } from "$env/static/private";
+import { RESEND_SEGMENT_ID } from "$env/static/private";
+import type { RequestHandler } from "./$types";
 
-export async function GET() {
+export const GET: RequestHandler = async () => {
   const { data, error } = await resend.contacts.list({
-    audienceId: RESEND_AUDIENCE_ID,
+    segmentId: RESEND_SEGMENT_ID,
   });
 
   if (error) {
@@ -12,16 +13,16 @@ export async function GET() {
   }
 
   return json(data);
-}
+};
 
-export async function POST({ request }) {
+export const POST: RequestHandler = async ({ request }) => {
   const { email, firstName, lastName } = await request.json();
 
   const { data, error } = await resend.contacts.create({
-    audienceId: RESEND_AUDIENCE_ID,
     email,
     firstName,
     lastName,
+    segments: [{ id: RESEND_SEGMENT_ID }],
   });
 
   if (error) {
@@ -29,4 +30,4 @@ export async function POST({ request }) {
   }
 
   return json(data);
-}
+};

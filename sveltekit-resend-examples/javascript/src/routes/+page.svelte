@@ -31,9 +31,9 @@
       href: "/prevent-threading",
     },
     {
-      title: "Audiences",
-      description: "Manage contacts and audiences.",
-      href: "/audiences",
+      title: "Segments",
+      description: "Manage contacts and segments.",
+      href: "/segments",
     },
     {
       title: "Domains",
