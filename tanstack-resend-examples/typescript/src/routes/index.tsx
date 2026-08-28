@@ -43,7 +43,7 @@ const examples: { category: string; items: ExampleItem[] }[] = [
   {
     category: 'Management',
     items: [
-      { title: 'Audiences', description: 'Manage contacts and segments', href: '/audiences' },
+      { title: 'Segments', description: 'Manage contacts and segments', href: '/segments' },
       { title: 'Domains', description: 'Create domains and view DNS records', href: '/domains' },
     ],
   },
