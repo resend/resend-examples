@@ -1,8 +1,9 @@
 package com.resend.javalin;
 
 import com.resend.Resend;
+import com.resend.services.contacts.model.AddContactToSegmentOptions;
+import com.resend.services.contacts.model.Contact;
 import com.resend.services.contacts.model.CreateContactOptions;
-import com.resend.services.contacts.model.ListContactsResponseData;
 import com.resend.services.contacts.model.UpdateContactOptions;
 import com.resend.services.emails.model.CreateEmailOptions;
 import com.svix.Webhook;
@@ -119,9 +120,9 @@ public class App {
             return;
         }
 
-        String audienceId = dotenv.get("RESEND_AUDIENCE_ID");
-        if (audienceId == null) {
-            ctx.status(500).json(Map.of("error", "RESEND_AUDIENCE_ID not configured"));
+        String segmentId = dotenv.get("RESEND_SEGMENT_ID");
+        if (segmentId == null) {
+            ctx.status(500).json(Map.of("error", "RESEND_SEGMENT_ID not configured"));
             return;
         }
 
@@ -130,13 +131,17 @@ public class App {
 
         try {
             var contactParams = CreateContactOptions.builder()
-                    .audienceId(audienceId)
                     .email(email)
                     .firstName(name)
                     .unsubscribed(true)
                     .build();
 
             var contact = resend.contacts().create(contactParams);
+
+            resend.contacts().segments().add(AddContactToSegmentOptions.builder()
+                    .id(contact.getId())
+                    .segmentId(segmentId)
+                    .build());
 
             String greeting = name.isEmpty() ? "Welcome!" : "Welcome, " + name + "!";
             String html = "<div style=\"text-align: center; padding: 40px 20px; font-family: Arial, sans-serif;\">"
@@ -189,14 +194,14 @@ public class App {
                 return;
             }
 
-            String audienceId = dotenv.get("RESEND_AUDIENCE_ID");
+            String segmentId = dotenv.get("RESEND_SEGMENT_ID");
             Map<String, Object> data = (Map<String, Object>) event.get("data");
             List<String> toList = (List<String>) data.get("to");
             String recipientEmail = toList.get(0);
 
-            var contacts = resend.contacts().list(audienceId);
+            var contacts = resend.contacts().list(segmentId);
             String contactId = null;
-            for (ListContactsResponseData c : contacts.getData()) {
+            for (Contact c : contacts.getData()) {
                 if (recipientEmail.equals(c.getEmail())) {
                     contactId = c.getId();
                     break;
@@ -209,7 +214,6 @@ public class App {
             }
 
             var updateParams = UpdateContactOptions.builder()
-                    .audienceId(audienceId)
                     .id(contactId)
                     .unsubscribed(false)
                     .build();
