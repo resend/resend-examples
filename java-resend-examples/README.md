@@ -57,9 +57,9 @@ mvn compile exec:java -Dexec.mainClass="com.resend.examples.WithTemplate"
 mvn compile exec:java -Dexec.mainClass="com.resend.examples.PreventThreading"
 ```
 
-### Audiences & Contacts
+### Segments & Contacts
 ```bash
-mvn compile exec:java -Dexec.mainClass="com.resend.examples.Audiences"
+mvn compile exec:java -Dexec.mainClass="com.resend.examples.Segments"
 ```
 
 ### Domain Management
@@ -144,7 +144,7 @@ java-resend-examples/
 │   ├── ScheduledSend.java           # Future delivery
 │   ├── WithTemplate.java            # Using Resend templates
 │   ├── PreventThreading.java        # Prevent Gmail threading
-│   ├── Audiences.java               # Manage contacts
+│   ├── Segments.java                # Manage contacts
 │   ├── Domains.java                 # Manage domains
 │   ├── Automations.java             # Automation lifecycle
 │   ├── Metrics.java                 # Account-level email metrics

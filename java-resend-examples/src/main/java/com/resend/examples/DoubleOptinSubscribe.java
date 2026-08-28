@@ -1,6 +1,7 @@
 package com.resend.examples;
 
 import com.resend.Resend;
+import com.resend.services.contacts.model.AddContactToSegmentOptions;
 import com.resend.services.contacts.model.CreateContactOptions;
 import com.resend.services.contacts.model.CreateContactResponseSuccess;
 import com.resend.services.emails.model.CreateEmailOptions;
@@ -25,9 +26,9 @@ public class DoubleOptinSubscribe {
             System.exit(1);
         }
 
-        String audienceId = dotenv.get("RESEND_AUDIENCE_ID");
-        if (audienceId == null || audienceId.isEmpty()) {
-            System.err.println("RESEND_AUDIENCE_ID environment variable is required");
+        String segmentId = dotenv.get("RESEND_SEGMENT_ID");
+        if (segmentId == null || segmentId.isEmpty()) {
+            System.err.println("RESEND_SEGMENT_ID environment variable is required");
             System.exit(1);
         }
 
@@ -40,7 +41,6 @@ public class DoubleOptinSubscribe {
             // Step 1: Create contact with unsubscribed=true (pending confirmation)
             System.out.println("Step 1: Creating contact (pending confirmation)...");
             CreateContactOptions contactParams = CreateContactOptions.builder()
-                    .audienceId(audienceId)
                     .email(email)
                     .firstName(name)
                     .unsubscribed(true)
@@ -48,6 +48,12 @@ public class DoubleOptinSubscribe {
 
             CreateContactResponseSuccess contact = resend.contacts().create(contactParams);
             System.out.println("Contact created: " + contact.getId());
+
+            resend.contacts().segments().add(AddContactToSegmentOptions.builder()
+                    .id(contact.getId())
+                    .segmentId(segmentId)
+                    .build());
+            System.out.println("Contact added to segment: " + segmentId);
 
             // Step 2: Send confirmation email
             System.out.println("Step 2: Sending confirmation email...");

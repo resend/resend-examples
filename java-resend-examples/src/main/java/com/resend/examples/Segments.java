@@ -1,14 +1,15 @@
 package com.resend.examples;
 
 import com.resend.Resend;
-import com.resend.services.audiences.model.Audience;
+import com.resend.services.contacts.model.AddContactToSegmentOptions;
 import com.resend.services.contacts.model.Contact;
 import com.resend.services.contacts.model.CreateContactOptions;
 import com.resend.services.contacts.model.CreateContactResponseSuccess;
 import com.resend.services.contacts.model.UpdateContactOptions;
+import com.resend.services.segments.model.Segment;
 import io.github.cdimascio.dotenv.Dotenv;
 
-public class Audiences {
+public class Segments {
     public static void main(String[] args) {
         Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
 
@@ -20,20 +21,19 @@ public class Audiences {
 
         Resend resend = new Resend(apiKey);
 
-        String audienceId = dotenv.get("RESEND_AUDIENCE_ID", "your-audience-id");
+        String segmentId = dotenv.get("RESEND_SEGMENT_ID", "your-segment-id");
 
         try {
-            // 1. List audiences
-            System.out.println("=== Listing Audiences ===");
-            var audiences = resend.audiences().list();
-            for (Audience audience : audiences.getData()) {
-                System.out.println("  - " + audience.getName() + " (" + audience.getId() + ")");
+            // 1. List segments
+            System.out.println("=== Listing Segments ===");
+            var segments = resend.segments().list();
+            for (Segment segment : segments.getData()) {
+                System.out.println("  - " + segment.getName() + " (" + segment.getId() + ")");
             }
 
             // 2. Create a contact
             System.out.println("\n=== Creating Contact ===");
             CreateContactOptions createParams = CreateContactOptions.builder()
-                    .audienceId(audienceId)
                     .email("clicked@resend.dev")
                     .firstName("Jane")
                     .lastName("Doe")
@@ -43,18 +43,25 @@ public class Audiences {
             CreateContactResponseSuccess contact = resend.contacts().create(createParams);
             System.out.println("Contact created: " + contact.getId());
 
-            // 3. List contacts
+            // 3. Add the contact to the segment
+            System.out.println("\n=== Adding Contact to Segment ===");
+            resend.contacts().segments().add(AddContactToSegmentOptions.builder()
+                    .id(contact.getId())
+                    .segmentId(segmentId)
+                    .build());
+            System.out.println("Contact added to segment: " + segmentId);
+
+            // 4. List contacts
             System.out.println("\n=== Listing Contacts ===");
-            var contacts = resend.contacts().list(audienceId);
+            var contacts = resend.contacts().list(segmentId);
             for (Contact c : contacts.getData()) {
                 System.out.println("  - " + c.getFirstName() + " " + c.getLastName()
                         + " <" + c.getEmail() + "> (unsubscribed: " + c.getUnsubscribed() + ")");
             }
 
-            // 4. Update the contact
+            // 5. Update the contact
             System.out.println("\n=== Updating Contact ===");
             UpdateContactOptions updateParams = UpdateContactOptions.builder()
-                    .audienceId(audienceId)
                     .id(contact.getId())
                     .firstName("Janet")
                     .unsubscribed(false)
@@ -63,12 +70,12 @@ public class Audiences {
             resend.contacts().update(updateParams);
             System.out.println("Contact updated: Jane -> Janet");
 
-            // 5. Remove the contact
+            // 6. Remove the contact
             System.out.println("\n=== Removing Contact ===");
             resend.contacts().remove(contact.getId());
             System.out.println("Contact removed: " + contact.getId());
 
-            System.out.println("\nDone! Full audience/contact lifecycle complete.");
+            System.out.println("\nDone! Full segment/contact lifecycle complete.");
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
             System.exit(1);

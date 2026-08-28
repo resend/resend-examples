@@ -15,7 +15,7 @@ import java.util.Map;
 public class DoubleOptinWebhook {
 
     public static Map<String, Object> processDoubleOptinWebhook(
-            Resend resend, String audienceId, Map<String, Object> event) throws Exception {
+            Resend resend, String segmentId, Map<String, Object> event) throws Exception {
 
         String eventType = (String) event.get("type");
 
@@ -41,7 +41,7 @@ public class DoubleOptinWebhook {
         String recipientEmail = toList.get(0);
 
         // Find the contact by email
-        var contacts = resend.contacts().list(audienceId);
+        var contacts = resend.contacts().list(segmentId);
         String contactId = null;
 
         for (Contact c : contacts.getData()) {
@@ -57,7 +57,6 @@ public class DoubleOptinWebhook {
 
         // Update contact: confirm subscription
         UpdateContactOptions updateParams = UpdateContactOptions.builder()
-                .audienceId(audienceId)
                 .id(contactId)
                 .unsubscribed(false)
                 .build();
@@ -82,9 +81,9 @@ public class DoubleOptinWebhook {
             System.exit(1);
         }
 
-        String audienceId = dotenv.get("RESEND_AUDIENCE_ID");
-        if (audienceId == null || audienceId.isEmpty()) {
-            System.err.println("RESEND_AUDIENCE_ID environment variable is required");
+        String segmentId = dotenv.get("RESEND_SEGMENT_ID");
+        if (segmentId == null || segmentId.isEmpty()) {
+            System.err.println("RESEND_SEGMENT_ID environment variable is required");
             System.exit(1);
         }
 
@@ -98,7 +97,7 @@ public class DoubleOptinWebhook {
 
         try {
             System.out.println("Processing double opt-in webhook event...");
-            Map<String, Object> result = processDoubleOptinWebhook(resend, audienceId, sampleEvent);
+            Map<String, Object> result = processDoubleOptinWebhook(resend, segmentId, sampleEvent);
             System.out.println(result);
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
