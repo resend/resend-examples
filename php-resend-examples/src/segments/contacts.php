@@ -1,8 +1,8 @@
 <?php
 /**
- * Audiences & Contacts Example
+ * Segments & Contacts Example
  *
- * Demonstrates managing contacts in an audience.
+ * Demonstrates managing contacts in a segment.
  *
  * @see https://resend.com/docs/api-reference/contacts/list-contacts
  */
@@ -12,23 +12,21 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../..');
 $dotenv->load();
 
-use Resend\Resend;
-
 $resend = Resend::client($_ENV['RESEND_API_KEY']);
 
-$audienceId = $_ENV['RESEND_AUDIENCE_ID'] ?? null;
+$segmentId = $_ENV['RESEND_SEGMENT_ID'] ?? null;
 
-if (!$audienceId) {
-    echo "Error: RESEND_AUDIENCE_ID not configured in .env\n";
-    echo "Create an audience at https://resend.com/audiences\n";
+if (!$segmentId) {
+    echo "Error: RESEND_SEGMENT_ID not configured in .env\n";
+    echo "Create a segment at https://resend.com/audiences\n";
     exit(1);
 }
 
 try {
-    // List all contacts in the audience
+    // List all contacts in the segment
     echo "=== Listing Contacts ===\n\n";
 
-    $contacts = $resend->contacts->list($audienceId);
+    $contacts = $resend->contacts->list(['segment_id' => $segmentId]);
 
     foreach ($contacts->data as $contact) {
         echo "Email: " . $contact->email . "\n";
@@ -42,11 +40,12 @@ try {
     echo "Total contacts: " . count($contacts->data) . "\n";
 
     // Create a new contact (example)
-    // $newContact = $resend->contacts->create($audienceId, [
+    // $newContact = $resend->contacts->create([
     //     'email' => 'newdelivered@resend.dev',
     //     'first_name' => 'John',
     //     'last_name' => 'Doe',
     //     'unsubscribed' => false,
+    //     'segments' => [['id' => $segmentId]],
     // ]);
     // echo "Created contact: " . $newContact->id . "\n";
 

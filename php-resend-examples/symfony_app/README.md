@@ -26,7 +26,7 @@ php -S localhost:8080 public/index.php
 - `POST /send-template` — Send email using a Resend template
 - `GET /domains` — List all domains
 - `POST /domains` — Create a domain
-- `GET /audiences/contacts` — List contacts in an audience
+- `GET /segments/contacts` — List contacts in a segment
 - `POST /webhook` — Handle Resend webhook events
 - `POST /double-optin/subscribe` — Subscribe with confirmation
 - `POST /double-optin/webhook` — Confirm subscription on click

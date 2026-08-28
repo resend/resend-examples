@@ -290,17 +290,17 @@ class EmailController
 
     public function listContacts(): JsonResponse
     {
-        $audienceId = $_ENV['RESEND_AUDIENCE_ID'] ?? null;
+        $segmentId = $_ENV['RESEND_SEGMENT_ID'] ?? null;
 
-        if (!$audienceId) {
+        if (!$segmentId) {
             return new JsonResponse(
-                ['error' => 'RESEND_AUDIENCE_ID not configured', 'contacts' => []],
+                ['error' => 'RESEND_SEGMENT_ID not configured', 'contacts' => []],
                 400
             );
         }
 
         try {
-            $result = $this->resend->contacts->list($audienceId);
+            $result = $this->resend->contacts->list(['segment_id' => $segmentId]);
             $contacts = $result->data ?? [];
             return new JsonResponse(['contacts' => $contacts, 'total' => count($contacts)]);
         } catch (\Exception $e) {
@@ -319,20 +319,21 @@ class EmailController
             return new JsonResponse(['error' => 'Missing required field: email'], 400);
         }
 
-        $audienceId = $_ENV['RESEND_AUDIENCE_ID'] ?? null;
-        if (!$audienceId) {
-            return new JsonResponse(['error' => 'RESEND_AUDIENCE_ID not configured'], 500);
+        $segmentId = $_ENV['RESEND_SEGMENT_ID'] ?? null;
+        if (!$segmentId) {
+            return new JsonResponse(['error' => 'RESEND_SEGMENT_ID not configured'], 500);
         }
 
         $confirmUrl = $_ENV['CONFIRM_REDIRECT_URL'] ?? 'https://example.com/confirmed';
         $from = $_ENV['EMAIL_FROM'] ?? 'Acme <onboarding@resend.dev>';
 
         try {
-            // Create contact with unsubscribed=true
-            $contact = $this->resend->contacts->create($audienceId, [
+            // Create contact with unsubscribed=true, assigned to the segment inline
+            $contact = $this->resend->contacts->create([
                 'email' => $email,
                 'first_name' => $name,
                 'unsubscribed' => true,
+                'segments' => [['id' => $segmentId]],
             ]);
 
             // Send confirmation email

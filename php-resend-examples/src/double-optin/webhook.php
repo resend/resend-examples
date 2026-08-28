@@ -16,8 +16,6 @@
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-use Resend\Resend;
-
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../..');
 $dotenv->load();
 
@@ -74,10 +72,10 @@ try {
         exit;
     }
 
-    $audienceId = $_ENV['RESEND_AUDIENCE_ID'] ?? null;
-    if (!$audienceId) {
+    $segmentId = $_ENV['RESEND_SEGMENT_ID'] ?? null;
+    if (!$segmentId) {
         http_response_code(500);
-        echo json_encode(['error' => 'RESEND_AUDIENCE_ID not configured']);
+        echo json_encode(['error' => 'RESEND_SEGMENT_ID not configured']);
         exit;
     }
 
@@ -92,7 +90,7 @@ try {
     error_log("Confirmation click received for: {$recipientEmail}");
 
     // Find contact by email
-    $contacts = $resend->contacts->list($audienceId);
+    $contacts = $resend->contacts->list(['segment_id' => $segmentId]);
     $contact = null;
     foreach ($contacts->data as $c) {
         if ($c->email === $recipientEmail) {
@@ -108,7 +106,7 @@ try {
     }
 
     // Update contact to confirmed (unsubscribed: false)
-    $resend->contacts->update($audienceId, $contact->id, [
+    $resend->contacts->update($contact->id, [
         'unsubscribed' => false,
     ]);
 

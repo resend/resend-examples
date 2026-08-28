@@ -57,9 +57,9 @@ php src/scheduling/send.php
 php src/templates/send.php
 ```
 
-### Audiences & Contacts
+### Segments & Contacts
 ```bash
-php src/audiences/contacts.php
+php src/segments/contacts.php
 ```
 
 ### Domain Management
@@ -145,7 +145,7 @@ php-resend-examples/
 │   │   └── send.php            # Future delivery
 │   ├── templates/
 │   │   └── send.php            # Using Resend templates
-│   ├── audiences/
+│   ├── segments/
 │   │   └── contacts.php        # Manage contacts
 │   ├── domains/
 │   │   └── create.php          # Manage domains

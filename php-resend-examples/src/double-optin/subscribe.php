@@ -15,8 +15,6 @@
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-use Resend\Resend;
-
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../..');
 $dotenv->load();
 
@@ -30,9 +28,9 @@ if (!$email) {
     exit(1);
 }
 
-$audienceId = $_ENV['RESEND_AUDIENCE_ID'] ?? null;
-if (!$audienceId) {
-    echo "Error: RESEND_AUDIENCE_ID environment variable is required\n";
+$segmentId = $_ENV['RESEND_SEGMENT_ID'] ?? null;
+if (!$segmentId) {
+    echo "Error: RESEND_SEGMENT_ID environment variable is required\n";
     exit(1);
 }
 
@@ -44,10 +42,10 @@ try {
     // Step 1: Create contact with unsubscribed: true (pending confirmation)
     echo "Creating contact: {$email}...\n";
     $contact = $resend->contacts->create([
-        'audience_id' => $audienceId,
         'email' => $email,
         'first_name' => $name,
         'unsubscribed' => true, // Will be set to false when they confirm
+        'segments' => [['id' => $segmentId]],
     ]);
     echo "Contact created: {$contact->id}\n";
     echo "Status: Pending confirmation (unsubscribed: true)\n\n";
