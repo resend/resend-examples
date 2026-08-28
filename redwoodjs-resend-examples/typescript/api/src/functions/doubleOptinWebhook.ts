@@ -76,7 +76,6 @@ export const handler = async (event: APIGatewayEvent, _context: Context) => {
 
     // Update contact: confirm subscription
     await resend.contacts.update({
-      segmentId,
       id: contact.id,
       unsubscribed: false,
     });

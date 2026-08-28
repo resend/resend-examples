@@ -57,9 +57,9 @@ const { data, error } = await resend.contacts.list({
 
 // Create a contact
 const { data: contact } = await resend.contacts.create({
-  segmentId: "seg_xxxxxxxxx",
   email: "user@example.com",
   firstName: "John",
+  segments: [{ id: "seg_xxxxxxxxx" }],
 });`}</pre>
       </div>
     </>

@@ -72,7 +72,6 @@ export const handler = async (event, _context) => {
 
     // Update contact: confirm subscription
     await resend.contacts.update({
-      segmentId,
       id: contact.id,
       unsubscribed: false,
     });

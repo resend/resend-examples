@@ -28,10 +28,10 @@ export const handler = async (event, _context) => {
 
   // Step 1: Create contact with unsubscribed=true (pending confirmation)
   const { data: contact, error: contactError } = await resend.contacts.create({
-    segmentId,
     email,
     firstName: name || "",
     unsubscribed: true,
+    segments: [{ id: segmentId }],
   });
 
   if (contactError) {
