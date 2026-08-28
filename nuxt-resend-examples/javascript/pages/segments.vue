@@ -1,26 +1,18 @@
-<script setup lang="ts">
-interface Contact {
-  id: string;
-  email: string;
-  first_name: string;
-  last_name: string;
-  unsubscribed: boolean;
-}
-
-const contacts = ref<Contact[]>([]);
+<script setup>
+const contacts = ref([]);
 const loading = ref(false);
-const success = ref<string | null>(null);
-const error = ref<string | null>(null);
+const success = ref(null);
+const error = ref(null);
 
 async function loadContacts() {
   loading.value = true;
   error.value = null;
 
   try {
-    const data = await $fetch("/api/audiences/contacts");
+    const data = await $fetch("/api/segments/contacts");
     contacts.value = data.contacts;
     success.value = `Loaded ${data.contacts.length} contact(s)`;
-  } catch (err: any) {
+  } catch (err) {
     error.value = err.data?.message || err.message || "Failed to load contacts";
   } finally {
     loading.value = false;
@@ -31,8 +23,8 @@ async function loadContacts() {
 <template>
   <div>
     <PageHeader
-      title="Audiences"
-      description="Manage audiences and contacts with Resend. Set RESEND_AUDIENCE_ID in your environment."
+      title="Segments"
+      description="Manage segments and contacts with Resend. Set RESEND_SEGMENT_ID in your environment."
     />
 
     <div class="actions">
@@ -67,7 +59,7 @@ async function loadContacts() {
 
     <div class="code-example">
       <h3>Code Example</h3>
-      <pre><code>// server/api/audiences/contacts.get.ts
+      <pre><code>// server/api/segments/contacts.get.js
 import { Resend } from "resend";
 
 export default defineEventHandler(async (event) => {
@@ -75,8 +67,8 @@ export default defineEventHandler(async (event) => {
   const resend = new Resend(config.resendApiKey);
   const query = getQuery(event);
 
-  const audienceId = query.audienceId || config.resendAudienceId;
-  const { data, error } = await resend.contacts.list({ audienceId });
+  const segmentId = query.segmentId || config.resendSegmentId;
+  const { data, error } = await resend.contacts.list({ segmentId });
 
   return { contacts: data?.data || [] };
 });</code></pre>

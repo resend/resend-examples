@@ -8,7 +8,7 @@
         <NuxtLink to="/scheduling">Scheduling</NuxtLink>
         <NuxtLink to="/templates">Templates</NuxtLink>
         <NuxtLink to="/domains">Domains</NuxtLink>
-        <NuxtLink to="/audiences">Audiences</NuxtLink>
+        <NuxtLink to="/segments">Segments</NuxtLink>
       </div>
     </nav>
     <main class="main">

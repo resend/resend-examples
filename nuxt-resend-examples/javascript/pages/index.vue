@@ -31,9 +31,9 @@ const examples = [
     path: "/prevent-threading",
   },
   {
-    title: "Audiences",
-    description: "Manage audiences and contacts",
-    path: "/audiences",
+    title: "Segments",
+    description: "Manage segments and contacts",
+    path: "/segments",
   },
   {
     title: "Domains",

@@ -67,10 +67,10 @@ async function subscribe() {
       <h3>Code Example</h3>
       <pre><code>// Step 1: Create contact (pending)
 const { data: contact } = await resend.contacts.create({
-  audienceId,
   email,
   firstName: name,
   unsubscribed: true, // pending confirmation
+  segments: [{ id: segmentId }],
 });
 
 // Step 2: Send confirmation email
@@ -83,7 +83,6 @@ const { data: sent } = await resend.emails.send({
 
 // Step 3: In webhook handler (email.clicked event)
 await resend.contacts.update({
-  audienceId,
   id: contact.id,
   unsubscribed: false, // confirmed!
 });</code></pre>
