@@ -53,7 +53,7 @@ npm run dev
 | Scheduling | Schedule emails for later delivery |
 | Templates | Send using Resend templates |
 | Prevent Threading | Prevent email client threading |
-| Audiences | Manage contacts and audiences |
+| Segments | Manage contacts and segments |
 | Domains | List and manage domains |
 | Double Opt-in | Subscription with confirmation |
 | Inbound | Receive and process inbound emails |

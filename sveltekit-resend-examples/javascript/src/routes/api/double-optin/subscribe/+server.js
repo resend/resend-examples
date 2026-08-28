@@ -2,18 +2,18 @@ import { json } from "@sveltejs/kit";
 import { resend } from "$lib/server/resend";
 import {
   EMAIL_FROM,
-  RESEND_AUDIENCE_ID,
+  RESEND_SEGMENT_ID,
   CONFIRM_REDIRECT_URL,
 } from "$env/static/private";
 
 export async function POST({ request }) {
   const { email } = await request.json();
 
-  // Add unsubscribed contact to audience
+  // Add unsubscribed contact to segment
   const { error: contactError } = await resend.contacts.create({
-    audienceId: RESEND_AUDIENCE_ID,
     email,
     unsubscribed: true,
+    segments: [{ id: RESEND_SEGMENT_ID }],
   });
 
   if (contactError) {

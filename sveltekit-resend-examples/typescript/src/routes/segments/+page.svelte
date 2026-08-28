@@ -14,7 +14,7 @@
     error = null;
 
     try {
-      const response = await fetch("/api/audiences/contacts");
+      const response = await fetch("/api/segments/contacts");
       const result = await response.json();
 
       if (!response.ok) {
@@ -41,7 +41,7 @@
     data = null;
 
     try {
-      const response = await fetch("/api/audiences/contacts", {
+      const response = await fetch("/api/segments/contacts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, firstName, lastName }),
@@ -69,8 +69,8 @@
 </script>
 
 <PageHeader
-  title="Audiences"
-  description="Manage contacts and audiences with the Resend API."
+  title="Segments"
+  description="Manage contacts and segments with the Resend API."
 />
 
 <div class="sections">
@@ -118,15 +118,15 @@
 
 <details class="code-example">
   <summary>View example code</summary>
-  <pre><code>{`// src/routes/api/audiences/contacts/+server.ts
+  <pre><code>{`// src/routes/api/segments/contacts/+server.ts
 import { json } from '@sveltejs/kit';
 import { resend } from '$lib/server/resend';
-import { RESEND_AUDIENCE_ID } from '$env/static/private';
+import { RESEND_SEGMENT_ID } from '$env/static/private';
 import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = async () => {
   const { data, error } = await resend.contacts.list({
-    audienceId: RESEND_AUDIENCE_ID,
+    segmentId: RESEND_SEGMENT_ID,
   });
 
   if (error) {
@@ -140,10 +140,10 @@ export const POST: RequestHandler = async ({ request }) => {
   const { email, firstName, lastName } = await request.json();
 
   const { data, error } = await resend.contacts.create({
-    audienceId: RESEND_AUDIENCE_ID,
     email,
     firstName,
     lastName,
+    segments: [{ id: RESEND_SEGMENT_ID }],
   });
 
   if (error) {

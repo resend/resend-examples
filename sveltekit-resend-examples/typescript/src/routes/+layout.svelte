@@ -17,7 +17,7 @@
         <a href="/attachments">Attachments</a>
         <a href="/scheduling">Schedule</a>
         <a href="/templates">Templates</a>
-        <a href="/audiences">Audiences</a>
+        <a href="/segments">Segments</a>
         <a href="/domains">Domains</a>
       </div>
     </div>

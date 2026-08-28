@@ -73,18 +73,18 @@ import { json } from '@sveltejs/kit';
 import { resend } from '$lib/server/resend';
 import {
   EMAIL_FROM,
-  RESEND_AUDIENCE_ID,
+  RESEND_SEGMENT_ID,
   CONFIRM_REDIRECT_URL,
 } from '$env/static/private';
 
 export async function POST({ request }) {
   const { email } = await request.json();
 
-  // Add unsubscribed contact to audience
+  // Add unsubscribed contact to segment
   const { error: contactError } = await resend.contacts.create({
-    audienceId: RESEND_AUDIENCE_ID,
     email,
     unsubscribed: true,
+    segments: [{ id: RESEND_SEGMENT_ID }],
   });
 
   if (contactError) {
@@ -103,6 +103,22 @@ export async function POST({ request }) {
       <p>Click the link below to confirm:</p>
       <a href="\${confirmUrl}">Confirm Subscription</a>
     \`,
+  });
+
+  if (error) {
+    return json({ error: error.message }, { status: 400 });
+  }
+
+  return json(data);
+}
+
+// src/routes/api/double-optin/confirm/+server.js
+export async function POST({ request }) {
+  const { email } = await request.json();
+
+  const { data, error } = await resend.contacts.update({
+    id: email,
+    unsubscribed: false,
   });
 
   if (error) {
