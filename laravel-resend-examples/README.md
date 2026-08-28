@@ -58,18 +58,18 @@ MAIL_FROM_NAME=Acme
 |--------|----------|-------------|
 | POST | `/api/webhook` | Handle Resend webhook events |
 
-### Audiences & Contacts
+### Segments & Contacts
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| GET | `/api/audiences` | List all audiences |
-| POST | `/api/audiences` | Create audience |
-| GET | `/api/audiences/{id}` | Get audience |
-| DELETE | `/api/audiences/{id}` | Delete audience |
-| GET | `/api/audiences/{id}/contacts` | List contacts |
-| POST | `/api/audiences/{id}/contacts` | Add contact |
-| PATCH | `/api/audiences/{id}/contacts/{contactId}` | Update contact |
-| DELETE | `/api/audiences/{id}/contacts/{contactId}` | Remove contact |
+| GET | `/api/segments` | List all segments |
+| POST | `/api/segments` | Create segment |
+| GET | `/api/segments/{id}` | Get segment |
+| DELETE | `/api/segments/{id}` | Delete segment |
+| GET | `/api/segments/{id}/contacts` | List contacts |
+| POST | `/api/segments/{id}/contacts` | Add contact |
+| PATCH | `/api/segments/{id}/contacts/{contactId}` | Update contact |
+| DELETE | `/api/segments/{id}/contacts/{contactId}` | Remove contact |
 
 ### Domains
 
@@ -133,7 +133,7 @@ laravel-resend-examples/
 │   ├── Http/Controllers/
 │   │   ├── EmailController.php
 │   │   ├── WebhookController.php
-│   │   ├── AudienceController.php
+│   │   ├── SegmentController.php
 │   │   └── DomainController.php
 │   └── Mail/
 │       ├── WelcomeMail.php

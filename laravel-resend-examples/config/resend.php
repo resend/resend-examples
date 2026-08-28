@@ -32,14 +32,14 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Audience ID
+    | Segment ID
     |--------------------------------------------------------------------------
     |
-    | Default audience ID for contacts management.
-    | Get it from https://resend.com/audiences
+    | Default segment ID for contacts management.
+    | Get it from https://resend.com/segments
     |
     */
-    'audience_id' => env('RESEND_AUDIENCE_ID'),
+    'segment_id' => env('RESEND_SEGMENT_ID'),
 
     /*
     |--------------------------------------------------------------------------

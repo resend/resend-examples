@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\AudienceController;
 use App\Http\Controllers\DomainController;
 use App\Http\Controllers\DoubleOptinController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\InboundController;
+use App\Http\Controllers\SegmentController;
 use App\Http\Controllers\WebhookController;
 use Illuminate\Support\Facades\Route;
 
@@ -50,18 +50,18 @@ Route::post('/contact', [EmailController::class, 'submitContactForm']);
 // Webhook handler
 Route::post('/webhook', [WebhookController::class, 'handle']);
 
-// Audiences & Contacts
-Route::prefix('audiences')->group(function () {
-    Route::get('/', [AudienceController::class, 'index']);
-    Route::post('/', [AudienceController::class, 'store']);
-    Route::get('/{id}', [AudienceController::class, 'show']);
-    Route::delete('/{id}', [AudienceController::class, 'destroy']);
+// Segments & Contacts
+Route::prefix('segments')->group(function () {
+    Route::get('/', [SegmentController::class, 'index']);
+    Route::post('/', [SegmentController::class, 'store']);
+    Route::get('/{id}', [SegmentController::class, 'show']);
+    Route::delete('/{id}', [SegmentController::class, 'destroy']);
 
-    // Contacts within an audience
-    Route::get('/{audienceId}/contacts', [AudienceController::class, 'contacts']);
-    Route::post('/{audienceId}/contacts', [AudienceController::class, 'addContact']);
-    Route::patch('/{audienceId}/contacts/{contactId}', [AudienceController::class, 'updateContact']);
-    Route::delete('/{audienceId}/contacts/{contactId}', [AudienceController::class, 'removeContact']);
+    // Contacts within a segment
+    Route::get('/{segmentId}/contacts', [SegmentController::class, 'contacts']);
+    Route::post('/{segmentId}/contacts', [SegmentController::class, 'addContact']);
+    Route::patch('/{segmentId}/contacts/{contactId}', [SegmentController::class, 'updateContact']);
+    Route::delete('/{segmentId}/contacts/{contactId}', [SegmentController::class, 'removeContact']);
 });
 
 // Domains
