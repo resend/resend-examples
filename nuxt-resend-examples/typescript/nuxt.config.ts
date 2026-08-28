@@ -4,7 +4,7 @@ export default defineNuxtConfig({
     resendApiKey: process.env.RESEND_API_KEY || "",
     emailFrom: process.env.EMAIL_FROM || "Acme <onboarding@resend.dev>",
     resendWebhookSecret: process.env.RESEND_WEBHOOK_SECRET || "",
-    resendAudienceId: process.env.RESEND_AUDIENCE_ID || "",
+    resendSegmentId: process.env.RESEND_SEGMENT_ID || "",
     resendTemplateId: process.env.RESEND_TEMPLATE_ID || "",
     confirmRedirectUrl:
       process.env.CONFIRM_REDIRECT_URL || "https://example.com/confirmed",
