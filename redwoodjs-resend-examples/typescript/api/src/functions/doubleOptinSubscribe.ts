@@ -16,11 +16,11 @@ export const handler = async (event: APIGatewayEvent, _context: Context) => {
     };
   }
 
-  const audienceId = process.env.RESEND_AUDIENCE_ID;
-  if (!audienceId) {
+  const segmentId = process.env.RESEND_SEGMENT_ID;
+  if (!segmentId) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: "RESEND_AUDIENCE_ID not configured" }),
+      body: JSON.stringify({ error: "RESEND_SEGMENT_ID not configured" }),
     };
   }
 
@@ -29,7 +29,7 @@ export const handler = async (event: APIGatewayEvent, _context: Context) => {
 
   // Step 1: Create contact with unsubscribed=true (pending confirmation)
   const { data: contact, error: contactError } = await resend.contacts.create({
-    audienceId,
+    segmentId,
     email,
     firstName: name || "",
     unsubscribed: true,

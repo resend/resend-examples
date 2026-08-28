@@ -81,7 +81,7 @@ const DoubleOptinPage = () => {
         <h3 style={{ margin: "0 0 12px 0", fontSize: "14px" }}>API Code</h3>
         <pre style={preStyle}>{`// Step 1: Create contact (pending)
 const { data: contact } = await resend.contacts.create({
-  audienceId: "aud_xxx",
+  segmentId: "seg_xxx",
   email: "user@example.com",
   unsubscribed: true,
 });
@@ -96,7 +96,7 @@ await resend.emails.send({
 
 // Step 3: On email.clicked webhook, confirm
 await resend.contacts.update({
-  audienceId: "aud_xxx",
+  segmentId: "seg_xxx",
   id: contact.id,
   unsubscribed: false,
 });`}</pre>

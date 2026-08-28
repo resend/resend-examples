@@ -25,11 +25,11 @@ export const handler = async (event, _context) => {
     };
   }
 
-  const audienceId = process.env.RESEND_AUDIENCE_ID;
-  if (!audienceId) {
+  const segmentId = process.env.RESEND_SEGMENT_ID;
+  if (!segmentId) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: "RESEND_AUDIENCE_ID not configured" }),
+      body: JSON.stringify({ error: "RESEND_SEGMENT_ID not configured" }),
     };
   }
 
@@ -60,7 +60,7 @@ export const handler = async (event, _context) => {
     }
 
     // Find the contact by email
-    const { data: contacts } = await resend.contacts.list({ audienceId });
+    const { data: contacts } = await resend.contacts.list({ segmentId });
     const contact = contacts?.data.find((c) => c.email === recipientEmail);
 
     if (!contact) {
@@ -72,7 +72,7 @@ export const handler = async (event, _context) => {
 
     // Update contact: confirm subscription
     await resend.contacts.update({
-      audienceId,
+      segmentId,
       id: contact.id,
       unsubscribed: false,
     });

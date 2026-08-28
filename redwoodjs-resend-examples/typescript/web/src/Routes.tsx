@@ -12,7 +12,7 @@ const Routes = () => {
         <Route path="/scheduling" page={SchedulingPage} name="scheduling" />
         <Route path="/templates" page={TemplatesPage} name="templates" />
         <Route path="/prevent-threading" page={PreventThreadingPage} name="preventThreading" />
-        <Route path="/audiences" page={AudiencesPage} name="audiences" />
+        <Route path="/segments" page={SegmentsPage} name="segments" />
         <Route path="/domains" page={DomainsPage} name="domains" />
         <Route path="/double-optin" page={DoubleOptinPage} name="doubleOptin" />
         <Route path="/inbound" page={InboundPage} name="inbound" />
