@@ -26,7 +26,7 @@ npx tsx examples/with-cid-attachments.ts
 npx tsx examples/scheduled-send.ts
 npx tsx examples/with-template.ts
 npx tsx examples/prevent-threading.ts
-npx tsx examples/audiences.ts
+npx tsx examples/segments.ts
 npx tsx examples/domains.ts
 npx tsx examples/inbound.ts
 npx tsx examples/double-optin-subscribe.ts user@example.com "Jane Doe"
@@ -50,7 +50,7 @@ node examples/with-cid-attachments.js
 node examples/scheduled-send.js
 node examples/with-template.js
 node examples/prevent-threading.js
-node examples/audiences.js
+node examples/segments.js
 node examples/domains.js
 node examples/inbound.js
 node examples/double-optin-subscribe.js user@example.com "Jane Doe"

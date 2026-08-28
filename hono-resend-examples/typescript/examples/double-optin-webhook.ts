@@ -3,9 +3,9 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-const audienceId = process.env.RESEND_AUDIENCE_ID;
-if (!audienceId) {
-  console.error("RESEND_AUDIENCE_ID environment variable is required");
+const segmentId = process.env.RESEND_SEGMENT_ID;
+if (!segmentId) {
+  console.error("RESEND_SEGMENT_ID environment variable is required");
   process.exit(1);
 }
 
@@ -22,13 +22,12 @@ async function processDoubleOptinWebhook(event: Record<string, any>) {
   if (!recipientEmail) throw new Error("No recipient email in webhook data");
 
   // Find the contact by email
-  const { data: contacts } = await resend.contacts.list({ audienceId: audienceId! });
+  const { data: contacts } = await resend.contacts.list({ segmentId: segmentId! });
   const contact = contacts?.data.find((c) => c.email === recipientEmail);
   if (!contact) throw new Error(`Contact not found: ${recipientEmail}`);
 
   // Update contact: confirm subscription
   await resend.contacts.update({
-    audienceId: audienceId!,
     id: contact.id,
     unsubscribed: false,
   });
