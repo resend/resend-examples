@@ -13,7 +13,7 @@ import (
 // ProcessDoubleOptinWebhook handles the email.clicked webhook event
 // to confirm a double opt-in subscription.
 // In production, this runs inside your web framework's webhook handler.
-func ProcessDoubleOptinWebhook(client *resend.Client, audienceID string, event map[string]interface{}) (map[string]interface{}, error) {
+func ProcessDoubleOptinWebhook(client *resend.Client, segmentID string, event map[string]interface{}) (map[string]interface{}, error) {
 	eventType, _ := event["type"].(string)
 
 	// Only process email.clicked events
@@ -34,7 +34,7 @@ func ProcessDoubleOptinWebhook(client *resend.Client, audienceID string, event m
 	recipientEmail, _ := toList[0].(string)
 
 	// Find the contact by email
-	contacts, err := client.Contacts.List(&resend.ListContactsOptions{AudienceId: audienceID})
+	contacts, err := client.Contacts.List(&resend.ListContactsOptions{SegmentId: segmentID})
 	if err != nil {
 		return nil, fmt.Errorf("error listing contacts: %v", err)
 	}
@@ -53,7 +53,6 @@ func ProcessDoubleOptinWebhook(client *resend.Client, audienceID string, event m
 
 	// Update contact: confirm subscription
 	updateParams := &resend.UpdateContactRequest{
-		AudienceId:   audienceID,
 		Id:           contactID,
 		Unsubscribed: false,
 	}
@@ -80,9 +79,9 @@ func main() {
 		log.Fatal("RESEND_API_KEY environment variable is required")
 	}
 
-	audienceID := os.Getenv("RESEND_AUDIENCE_ID")
-	if audienceID == "" {
-		log.Fatal("RESEND_AUDIENCE_ID environment variable is required")
+	segmentID := os.Getenv("RESEND_SEGMENT_ID")
+	if segmentID == "" {
+		log.Fatal("RESEND_SEGMENT_ID environment variable is required")
 	}
 
 	client := resend.NewClient(apiKey)
@@ -96,7 +95,7 @@ func main() {
 	}
 
 	fmt.Println("Processing double opt-in webhook event...")
-	result, err := ProcessDoubleOptinWebhook(client, audienceID, sampleEvent)
+	result, err := ProcessDoubleOptinWebhook(client, segmentID, sampleEvent)
 	if err != nil {
 		log.Fatalf("Error: %v", err)
 	}

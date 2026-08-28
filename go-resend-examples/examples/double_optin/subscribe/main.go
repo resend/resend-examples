@@ -28,9 +28,9 @@ func main() {
 		log.Fatal("RESEND_API_KEY environment variable is required")
 	}
 
-	audienceID := os.Getenv("RESEND_AUDIENCE_ID")
-	if audienceID == "" {
-		log.Fatal("RESEND_AUDIENCE_ID environment variable is required")
+	segmentID := os.Getenv("RESEND_SEGMENT_ID")
+	if segmentID == "" {
+		log.Fatal("RESEND_SEGMENT_ID environment variable is required")
 	}
 
 	confirmURL := os.Getenv("CONFIRM_REDIRECT_URL")
@@ -48,10 +48,10 @@ func main() {
 	// Step 1: Create contact with unsubscribed=true (pending confirmation)
 	fmt.Println("Step 1: Creating contact (pending confirmation)...")
 	contactParams := &resend.CreateContactRequest{
-		AudienceId:   audienceID,
 		Email:        email,
 		FirstName:    name,
 		Unsubscribed: true,
+		Segments:     []resend.ContactSegmentRef{{Id: segmentID}},
 	}
 
 	contact, err := client.Contacts.Create(contactParams)
