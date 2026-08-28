@@ -39,7 +39,7 @@ bun run examples/with-cid-attachments.ts
 bun run examples/scheduled-send.ts
 bun run examples/with-template.ts
 bun run examples/prevent-threading.ts
-bun run examples/audiences.ts
+bun run examples/segments.ts
 bun run examples/domains.ts
 bun run examples/inbound.ts
 bun run examples/double-optin-subscribe.ts user@example.com "Jane Doe"
@@ -54,7 +54,7 @@ bun run examples/with-cid-attachments.js
 bun run examples/scheduled-send.js
 bun run examples/with-template.js
 bun run examples/prevent-threading.js
-bun run examples/audiences.js
+bun run examples/segments.js
 bun run examples/domains.js
 bun run examples/inbound.js
 bun run examples/double-optin-subscribe.js user@example.com "Jane Doe"

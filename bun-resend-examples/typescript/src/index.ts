@@ -98,19 +98,19 @@ Bun.serve({
         return json({ error: "Missing required field: email" }, 400);
       }
 
-      const audienceId = process.env.RESEND_AUDIENCE_ID;
-      if (!audienceId) {
-        return json({ error: "RESEND_AUDIENCE_ID not configured" }, 500);
+      const segmentId = process.env.RESEND_SEGMENT_ID;
+      if (!segmentId) {
+        return json({ error: "RESEND_SEGMENT_ID not configured" }, 500);
       }
 
       const confirmUrl = process.env.CONFIRM_REDIRECT_URL || "https://example.com/confirmed";
       const from = process.env.EMAIL_FROM || "Acme <onboarding@resend.dev>";
 
       const { data: contact, error: contactError } = await resend.contacts.create({
-        audienceId,
         email,
         firstName: name,
         unsubscribed: true,
+        segments: [{ id: segmentId }],
       });
 
       if (contactError) {
@@ -166,10 +166,10 @@ Bun.serve({
           return json({ received: true, type: event.type, message: "Event type ignored" });
         }
 
-        const audienceId = process.env.RESEND_AUDIENCE_ID!;
+        const segmentId = process.env.RESEND_SEGMENT_ID!;
         const recipientEmail = event.data?.to?.[0];
 
-        const { data: contacts } = await resend.contacts.list({ audienceId });
+        const { data: contacts } = await resend.contacts.list({ segmentId });
         const contact = contacts?.data.find((c: { email: string }) => c.email === recipientEmail);
 
         if (!contact) {
@@ -177,7 +177,6 @@ Bun.serve({
         }
 
         await resend.contacts.update({
-          audienceId,
           id: contact.id,
           unsubscribed: false,
         });
