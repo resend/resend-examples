@@ -68,8 +68,8 @@ MAIL_FROM_NAME=Acme
 | DELETE | `/api/segments/{id}` | Delete segment |
 | GET | `/api/segments/{id}/contacts` | List contacts |
 | POST | `/api/segments/{id}/contacts` | Add contact |
-| PATCH | `/api/segments/{id}/contacts/{contactId}` | Update contact |
-| DELETE | `/api/segments/{id}/contacts/{contactId}` | Remove contact |
+| PATCH | `/api/segments/contacts/{contactId}` | Update contact |
+| DELETE | `/api/segments/contacts/{contactId}` | Remove contact |
 
 ### Domains
 

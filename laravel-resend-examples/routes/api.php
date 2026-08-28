@@ -60,8 +60,10 @@ Route::prefix('segments')->group(function () {
     // Contacts within a segment
     Route::get('/{segmentId}/contacts', [SegmentController::class, 'contacts']);
     Route::post('/{segmentId}/contacts', [SegmentController::class, 'addContact']);
-    Route::patch('/{segmentId}/contacts/{contactId}', [SegmentController::class, 'updateContact']);
-    Route::delete('/{segmentId}/contacts/{contactId}', [SegmentController::class, 'removeContact']);
+
+    // Update/remove address the contact directly — no segment scoping needed
+    Route::patch('/contacts/{contactId}', [SegmentController::class, 'updateContact']);
+    Route::delete('/contacts/{contactId}', [SegmentController::class, 'removeContact']);
 });
 
 // Domains
