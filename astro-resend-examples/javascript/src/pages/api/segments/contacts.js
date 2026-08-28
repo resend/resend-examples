@@ -1,35 +1,35 @@
 /**
  * List Contacts API Route
  *
- * GET /api/audiences/contacts
+ * GET /api/segments/contacts
  *
- * Lists all contacts in your Resend audience.
- * Requires RESEND_AUDIENCE_ID environment variable.
+ * Lists all contacts in your Resend segment.
+ * Requires RESEND_SEGMENT_ID environment variable.
  *
  * @see https://resend.com/docs/api-reference/contacts/list-contacts
  */
 
-import type { APIRoute } from 'astro';
+
 import { resend } from '../../../lib/resend';
 
-export const GET: APIRoute = async () => {
+export const GET = async () => {
   try {
-    // Get audience ID from environment
-    const audienceId = import.meta.env.RESEND_AUDIENCE_ID;
+    // Get segment ID from environment
+    const segmentId = import.meta.env.RESEND_SEGMENT_ID;
 
-    if (!audienceId) {
+    if (!segmentId) {
       return new Response(
         JSON.stringify({
-          error: 'RESEND_AUDIENCE_ID not configured',
+          error: 'RESEND_SEGMENT_ID not configured',
           contacts: [],
         }),
         { status: 400, headers: { 'Content-Type': 'application/json' } },
       );
     }
 
-    // Fetch contacts from the audience
+    // Fetch contacts from the segment
     const { data, error } = await resend.contacts.list({
-      audienceId,
+      segmentId,
     });
 
     if (error) {

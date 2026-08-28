@@ -38,7 +38,7 @@ Once the dev server is running, visit `http://localhost:4321`:
 - `/scheduling` - Schedule an email for later delivery
 - `/templates` - Send email using a template
 - `/prevent-threading` - Send emails that avoid Gmail threading
-- `/audiences` - Manage audiences and contacts
+- `/segments` - Manage segments and contacts
 - `/domains` - Manage domains
 - `/double-optin` - Double opt-in subscription flow
 - `/inbound` - Inbound email information
@@ -53,7 +53,7 @@ Once the dev server is running, visit `http://localhost:4321`:
 - `POST /api/webhook` - Receive Resend webhook events
 - `GET /api/domains` - List domains
 - `POST /api/domains` - Create a domain
-- `GET /api/audiences/contacts` - List contacts in an audience
+- `GET /api/segments/contacts` - List contacts in a segment
 
 ## Contributing
 

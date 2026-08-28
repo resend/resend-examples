@@ -1,28 +1,28 @@
 ---
 /**
- * Audiences (Contacts & Segments) Example
+ * Segments (Contacts & Segments) Example
  *
- * Demonstrates managing contacts and segments using Resend's Audiences API.
+ * Demonstrates managing contacts and segments using Resend's Segments API.
  *
- * @see https://resend.com/docs/dashboard/audiences/introduction
+ * @see https://resend.com/docs/dashboard/segments/introduction
  */
 
 import Layout from '../layouts/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
 ---
 
-<Layout title="Audiences">
+<Layout title="Segments">
   <PageHeader
-    title="Audiences"
+    title="Segments"
     description="Manage contacts and segments for newsletters and marketing."
   />
 
   <div class="setup-notice">
     <h3>Setup Required</h3>
     <p>
-      Create an audience in the
-      <a href="https://resend.com/audiences" target="_blank" rel="noopener noreferrer">Resend dashboard</a>
-      first. Then add the audience ID to your environment variables.
+      Create a segment in the
+      <a href="https://resend.com/segments" target="_blank" rel="noopener noreferrer">Resend dashboard</a>
+      first. Then add the segment ID to your environment variables.
     </p>
   </div>
 
@@ -34,36 +34,37 @@ import PageHeader from '../components/PageHeader.astro';
 
   <div class="code-example">
     <h2>Contacts API</h2>
-    <pre><code>{`// List contacts in an audience
+    <pre><code>{`// List all segments
+const { data: segments } = await resend.segments.list();
+
+// List contacts in a segment
 const { data: contacts } = await resend.contacts.list({
-  audienceId: 'aud_123',
+  segmentId: 'seg_123',
 });
 
-// Create a new contact
+// Create a new contact assigned to a segment
 const { data: contact } = await resend.contacts.create({
-  audienceId: 'aud_123',
   email: 'delivered@resend.dev',
   firstName: 'John',
   lastName: 'Doe',
   unsubscribed: false,
+  segments: [{ id: 'seg_123' }],
 });
 
 // Update a contact
 await resend.contacts.update({
-  audienceId: 'aud_123',
   id: contact.id,
   firstName: 'Jane',
 });
 
 // Remove a contact
 await resend.contacts.remove({
-  audienceId: 'aud_123',
   id: contact.id,
 });`}</code></pre>
   </div>
 
   <div class="info-box">
-    <h3>Audiences Features</h3>
+    <h3>Segments Features</h3>
     <ul>
       <li><strong>Contacts:</strong> Store email addresses with optional first/last name and custom properties</li>
       <li><strong>Segments:</strong> Automatically group contacts based on rules</li>
@@ -83,7 +84,7 @@ await resend.contacts.remove({
     listDiv.innerHTML = '';
 
     try {
-      const response = await fetch('/api/audiences/contacts');
+      const response = await fetch('/api/segments/contacts');
       const data = await response.json();
 
       if (!response.ok) {
