@@ -30,10 +30,10 @@ class DoubleOptinController extends Controller
             'name' => 'nullable|string|max:255',
         ]);
 
-        $audienceId = config('resend.audience_id');
-        if (!$audienceId) {
+        $segmentId = config('resend.segment_id');
+        if (!$segmentId) {
             return response()->json([
-                'error' => 'RESEND_AUDIENCE_ID not configured',
+                'error' => 'RESEND_SEGMENT_ID not configured',
             ], 500);
         }
 
@@ -42,10 +42,12 @@ class DoubleOptinController extends Controller
         try {
             // Step 1: Create contact with unsubscribed: true (pending confirmation)
             $contact = Resend::contacts()->create([
-                'audience_id' => $audienceId,
                 'email' => $request->email,
                 'first_name' => $request->name,
                 'unsubscribed' => true, // Will be set to false when they confirm
+                'segments' => [
+                    ['id' => $segmentId],
+                ],
             ]);
 
             // Step 2: Send confirmation email with trackable link
@@ -126,10 +128,10 @@ class DoubleOptinController extends Controller
                 ]);
             }
 
-            $audienceId = config('resend.audience_id');
-            if (!$audienceId) {
+            $segmentId = config('resend.segment_id');
+            if (!$segmentId) {
                 return response()->json([
-                    'error' => 'RESEND_AUDIENCE_ID not configured',
+                    'error' => 'RESEND_SEGMENT_ID not configured',
                 ], 500);
             }
 
@@ -144,7 +146,9 @@ class DoubleOptinController extends Controller
             Log::info("Confirmation click received for: {$recipientEmail}");
 
             // Find contact by email
-            $contacts = Resend::contacts()->list($audienceId);
+            $contacts = Resend::contacts()->list([
+                'segment_id' => $segmentId,
+            ]);
             $contact = collect($contacts->data)->firstWhere('email', $recipientEmail);
 
             if (!$contact) {
@@ -154,7 +158,7 @@ class DoubleOptinController extends Controller
             }
 
             // Update contact to confirmed (unsubscribed: false)
-            Resend::contacts()->update($audienceId, $contact->id, [
+            Resend::contacts()->update($contact->id, [
                 'unsubscribed' => false,
             ]);
 

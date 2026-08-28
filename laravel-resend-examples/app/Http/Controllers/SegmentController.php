@@ -6,42 +6,42 @@ use Illuminate\Http\Request;
 use Resend\Laravel\Facades\Resend;
 
 /**
- * Audience Controller
+ * Segment Controller
  *
- * Manages audiences (contact lists) and contacts using the Resend API.
+ * Manages segments (contact lists) and contacts using the Resend API.
  *
- * @see https://resend.com/docs/api-reference/audiences
+ * @see https://resend.com/docs/api-reference/segments
  */
-class AudienceController extends Controller
+class SegmentController extends Controller
 {
     /**
-     * List all audiences
+     * List all segments
      */
     public function index()
     {
-        $audiences = Resend::audiences()->list();
+        $segments = Resend::segments()->list();
 
         return response()->json([
             'success' => true,
-            'data' => $audiences->data,
+            'data' => $segments->data,
         ]);
     }
 
     /**
-     * Get a specific audience
+     * Get a specific segment
      */
     public function show(string $id)
     {
-        $audience = Resend::audiences()->get($id);
+        $segment = Resend::segments()->get($id);
 
         return response()->json([
             'success' => true,
-            'data' => $audience,
+            'data' => $segment,
         ]);
     }
 
     /**
-     * Create a new audience
+     * Create a new segment
      */
     public function store(Request $request)
     {
@@ -49,35 +49,37 @@ class AudienceController extends Controller
             'name' => 'required|string|max:255',
         ]);
 
-        $audience = Resend::audiences()->create([
+        $segment = Resend::segments()->create([
             'name' => $request->name,
         ]);
 
         return response()->json([
             'success' => true,
-            'id' => $audience->id,
+            'id' => $segment->id,
         ], 201);
     }
 
     /**
-     * Delete an audience
+     * Delete a segment
      */
     public function destroy(string $id)
     {
-        Resend::audiences()->delete($id);
+        Resend::segments()->remove($id);
 
         return response()->json([
             'success' => true,
-            'message' => 'Audience deleted',
+            'message' => 'Segment deleted',
         ]);
     }
 
     /**
-     * List contacts in an audience
+     * List contacts in a segment
      */
-    public function contacts(string $audienceId)
+    public function contacts(string $segmentId)
     {
-        $contacts = Resend::contacts()->list($audienceId);
+        $contacts = Resend::contacts()->list([
+            'segment_id' => $segmentId,
+        ]);
 
         return response()->json([
             'success' => true,
@@ -86,9 +88,9 @@ class AudienceController extends Controller
     }
 
     /**
-     * Add a contact to an audience
+     * Add a contact to a segment
      */
-    public function addContact(Request $request, string $audienceId)
+    public function addContact(Request $request, string $segmentId)
     {
         $request->validate([
             'email' => 'required|email',
@@ -98,11 +100,13 @@ class AudienceController extends Controller
         ]);
 
         $contact = Resend::contacts()->create([
-            'audience_id' => $audienceId,
             'email' => $request->email,
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'unsubscribed' => $request->boolean('unsubscribed', false),
+            'segments' => [
+                ['id' => $segmentId],
+            ],
         ]);
 
         return response()->json([
@@ -114,7 +118,7 @@ class AudienceController extends Controller
     /**
      * Update a contact
      */
-    public function updateContact(Request $request, string $audienceId, string $contactId)
+    public function updateContact(Request $request, string $contactId)
     {
         $request->validate([
             'first_name' => 'nullable|string',
@@ -122,9 +126,7 @@ class AudienceController extends Controller
             'unsubscribed' => 'nullable|boolean',
         ]);
 
-        $contact = Resend::contacts()->update([
-            'audience_id' => $audienceId,
-            'id' => $contactId,
+        $contact = Resend::contacts()->update($contactId, [
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'unsubscribed' => $request->boolean('unsubscribed'),
@@ -137,14 +139,11 @@ class AudienceController extends Controller
     }
 
     /**
-     * Remove a contact from an audience
+     * Remove a contact
      */
-    public function removeContact(string $audienceId, string $contactId)
+    public function removeContact(string $contactId)
     {
-        Resend::contacts()->remove([
-            'audience_id' => $audienceId,
-            'id' => $contactId,
-        ]);
+        Resend::contacts()->remove($contactId);
 
         return response()->json([
             'success' => true,
