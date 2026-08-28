@@ -7,7 +7,7 @@ DotNetEnv.Env.Load();
 var apiKey = Environment.GetEnvironmentVariable("RESEND_API_KEY")
     ?? throw new Exception("RESEND_API_KEY environment variable is required");
 
-var client = new ResendClient(apiKey);
+var client = ResendClient.Create(apiKey);
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
@@ -40,7 +40,7 @@ app.MapPost("/send", async (HttpRequest request) =>
         };
 
         var response = await client.EmailSendAsync(email);
-        return Results.Ok(new { success = true, id = response.Id });
+        return Results.Ok(new { success = true, id = response.Content });
     }
     catch (Exception ex)
     {
@@ -70,7 +70,7 @@ app.MapPost("/webhook", async (HttpRequest request) =>
 
     try
     {
-        var wh = new Webhook(webhookSecret);
+        var wh = new Svix.Webhook(webhookSecret);
         var headers = new System.Net.WebHeaderCollection
         {
             { "svix-id", svixId },
@@ -105,10 +105,10 @@ app.MapPost("/double-optin/subscribe", async (HttpRequest request) =>
         return Results.BadRequest(new { error = "Missing required field: email" });
     }
 
-    var audienceId = Environment.GetEnvironmentVariable("RESEND_AUDIENCE_ID");
-    if (string.IsNullOrEmpty(audienceId))
+    var segmentIdValue = Environment.GetEnvironmentVariable("RESEND_SEGMENT_ID");
+    if (string.IsNullOrEmpty(segmentIdValue) || !Guid.TryParse(segmentIdValue, out var segmentId))
     {
-        return Results.Json(new { error = "RESEND_AUDIENCE_ID not configured" }, statusCode: 500);
+        return Results.Json(new { error = "RESEND_SEGMENT_ID not configured" }, statusCode: 500);
     }
 
     var confirmUrl = Environment.GetEnvironmentVariable("CONFIRM_REDIRECT_URL") ?? "https://example.com/confirmed";
@@ -116,12 +116,16 @@ app.MapPost("/double-optin/subscribe", async (HttpRequest request) =>
 
     try
     {
-        var contact = await client.ContactCreateAsync(audienceId, new ContactData
+        // Contacts are account-level in the .NET SDK, so creation is not
+        // segment-scoped. Assigning the contact to a segment is a separate call.
+        var contact = await client.ContactAddAsync(new ContactData
         {
             Email = email,
             FirstName = name,
-            Unsubscribed = true
+            IsUnsubscribed = true
         });
+
+        await client.ContactAddToSegmentAsync(contact.Content, segmentId);
 
         var greeting = string.IsNullOrEmpty(name) ? "Welcome!" : $"Welcome, {name}!";
         var html = $@"<div style=""text-align: center; padding: 40px 20px; font-family: Arial, sans-serif;"">
@@ -144,8 +148,8 @@ app.MapPost("/double-optin/subscribe", async (HttpRequest request) =>
         {
             success = true,
             message = "Confirmation email sent",
-            contact_id = contact.Id,
-            email_id = sent.Id
+            contact_id = contact.Content,
+            email_id = sent.Content
         });
     }
     catch (Exception ex)
@@ -167,7 +171,7 @@ app.MapPost("/double-optin/webhook", async (HttpRequest request) =>
 
     try
     {
-        var wh = new Webhook(webhookSecret);
+        var wh = new Svix.Webhook(webhookSecret);
         var headers = new System.Net.WebHeaderCollection
         {
             { "svix-id", request.Headers["svix-id"].FirstOrDefault()! },
@@ -185,12 +189,13 @@ app.MapPost("/double-optin/webhook", async (HttpRequest request) =>
             return Results.Ok(new { received = true, type = eventType, message = "Event type ignored" });
         }
 
-        var audienceId = Environment.GetEnvironmentVariable("RESEND_AUDIENCE_ID")!;
         var recipientEmail = eventData.GetProperty("data").GetProperty("to")[0].GetString()!;
 
-        var contacts = await client.ContactListAsync(audienceId);
-        string? contactId = null;
-        foreach (var c in contacts.Data)
+        // Contacts are account-level in the .NET SDK, so the listing is not
+        // segment-scoped.
+        var contacts = await client.ContactListAsync();
+        Guid? contactId = null;
+        foreach (var c in contacts.Content.Data)
         {
             if (c.Email == recipientEmail)
             {
@@ -204,7 +209,7 @@ app.MapPost("/double-optin/webhook", async (HttpRequest request) =>
             return Results.NotFound(new { error = "Contact not found" });
         }
 
-        await client.ContactUpdateAsync(audienceId, contactId, new ContactData { Unsubscribed = false });
+        await client.ContactUpdateAsync(contactId.Value, new ContactData { IsUnsubscribed = false });
 
         return Results.Ok(new
         {
