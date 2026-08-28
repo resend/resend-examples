@@ -1,55 +1,57 @@
-import { useFetcher, useLoaderData } from "@remix-run/react";
+import { useFetcher } from "@remix-run/react";
+import type { ActionFunctionArgs, LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 import { Resend } from "resend";
 import { PageHeader } from "~/components/PageHeader";
 import { ResultDisplay } from "~/components/ResultDisplay";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export const meta = () => {
-  return [{ title: "Audiences - Remix + Resend" }];
+export const meta: MetaFunction = () => {
+  return [{ title: "Segments - Remix + Resend" }];
 };
 
-export async function loader() {
-  const audienceId = process.env.RESEND_AUDIENCE_ID;
+export async function loader(_args: LoaderFunctionArgs) {
+  const segmentId = process.env.RESEND_SEGMENT_ID;
 
-  if (!audienceId) {
-    return json({ contacts: [], error: "RESEND_AUDIENCE_ID not configured" });
+  if (!segmentId) {
+    return json({ contacts: [], error: "RESEND_SEGMENT_ID not configured" });
   }
 
-  const { data: audiences } = await resend.audiences.list();
-  const { data: contacts } = await resend.contacts.list({ audienceId });
+  const { data: segments } = await resend.segments.list();
+  const { data: contacts } = await resend.contacts.list({ segmentId });
 
   return json({
-    audiences: audiences?.data || [],
+    segments: segments?.data || [],
     contacts: contacts?.data || [],
   });
 }
 
-export async function action({ request }) {
+export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
-  const intent = formData.get("intent");
+  const intent = formData.get("intent") as string;
 
-  const audienceId = process.env.RESEND_AUDIENCE_ID;
-  if (!audienceId) {
-    return json({ error: "RESEND_AUDIENCE_ID not configured" }, { status: 500 });
+  const segmentId = process.env.RESEND_SEGMENT_ID;
+  if (!segmentId) {
+    return json({ error: "RESEND_SEGMENT_ID not configured" }, { status: 500 });
   }
 
   if (intent === "create") {
-    const email = formData.get("email");
-    const firstName = formData.get("firstName");
-    const lastName = formData.get("lastName");
+    const email = formData.get("email") as string;
+    const firstName = formData.get("firstName") as string;
+    const lastName = formData.get("lastName") as string;
 
     if (!email) {
       return json({ error: "Missing required field: email" }, { status: 400 });
     }
 
     const { data, error } = await resend.contacts.create({
-      audienceId,
       email,
       firstName: firstName || undefined,
       lastName: lastName || undefined,
       unsubscribed: false,
+      segments: [{ id: segmentId }],
     });
 
     if (error) {
@@ -60,14 +62,13 @@ export async function action({ request }) {
   }
 
   if (intent === "remove") {
-    const contactId = formData.get("contactId");
+    const contactId = formData.get("contactId") as string;
 
     if (!contactId) {
       return json({ error: "Missing required field: contactId" }, { status: 400 });
     }
 
     const { error } = await resend.contacts.remove({
-      audienceId,
       id: contactId,
     });
 
@@ -81,22 +82,22 @@ export async function action({ request }) {
   return json({ error: "Unknown intent" }, { status: 400 });
 }
 
-export default function Audiences() {
-  const loaderData = useLoaderData();
-  const fetcher = useFetcher();
+export default function Segments() {
+  const loaderData = useLoaderData<typeof loader>();
+  const fetcher = useFetcher<typeof action>();
 
   return (
     <div>
       <PageHeader
-        title="Audiences"
-        description="Manage audiences and contacts. Set RESEND_AUDIENCE_ID in your .env file."
+        title="Segments"
+        description="Manage segments and contacts. Set RESEND_SEGMENT_ID in your .env file."
       />
 
       <div style={{ marginBottom: "32px" }}>
         <h2 style={{ fontSize: "20px", marginBottom: "12px" }}>Contacts</h2>
         {loaderData.contacts && loaderData.contacts.length > 0 ? (
           <ul style={{ listStyle: "none", padding: 0 }}>
-            {loaderData.contacts.map((contact) => (
+            {loaderData.contacts.map((contact: any) => (
               <li
                 key={contact.id}
                 style={{
@@ -185,21 +186,20 @@ export default function Audiences() {
         <h3 style={{ margin: "0 0 12px 0", fontSize: "14px" }}>API Code</h3>
         <pre style={preStyle}>{`// Create a contact
 const { data, error } = await resend.contacts.create({
-  audienceId: "aud_...",
   email: "jane@example.com",
   firstName: "Jane",
   lastName: "Doe",
   unsubscribed: false,
+  segments: [{ id: "seg_..." }],
 });
 
 // List contacts
 const { data: contacts } = await resend.contacts.list({
-  audienceId: "aud_...",
+  segmentId: "seg_...",
 });
 
 // Remove a contact
 await resend.contacts.remove({
-  audienceId: "aud_...",
   id: contact.id,
 });`}</pre>
       </div>
@@ -207,14 +207,14 @@ await resend.contacts.remove({
   );
 }
 
-const labelStyle = {
+const labelStyle: React.CSSProperties = {
   display: "block",
   marginBottom: "4px",
   fontSize: "14px",
   fontWeight: 500,
 };
 
-const inputStyle = {
+const inputStyle: React.CSSProperties = {
   width: "100%",
   padding: "8px 12px",
   border: "1px solid #d4d4d8",
@@ -223,7 +223,7 @@ const inputStyle = {
   boxSizing: "border-box",
 };
 
-const buttonStyle = {
+const buttonStyle: React.CSSProperties = {
   padding: "10px 20px",
   backgroundColor: "#18181b",
   color: "#fff",
@@ -234,7 +234,7 @@ const buttonStyle = {
   cursor: "pointer",
 };
 
-const codeBlockStyle = {
+const codeBlockStyle: React.CSSProperties = {
   marginTop: "32px",
   padding: "20px",
   backgroundColor: "#18181b",
@@ -242,7 +242,7 @@ const codeBlockStyle = {
   color: "#e4e4e7",
 };
 
-const preStyle = {
+const preStyle: React.CSSProperties = {
   margin: 0,
   fontSize: "13px",
   whiteSpace: "pre-wrap",

@@ -20,9 +20,9 @@ export async function action({ request }: ActionFunctionArgs) {
     return json({ error: "Missing required field: email" }, { status: 400 });
   }
 
-  const audienceId = process.env.RESEND_AUDIENCE_ID;
-  if (!audienceId) {
-    return json({ error: "RESEND_AUDIENCE_ID not configured" }, { status: 500 });
+  const segmentId = process.env.RESEND_SEGMENT_ID;
+  if (!segmentId) {
+    return json({ error: "RESEND_SEGMENT_ID not configured" }, { status: 500 });
   }
 
   const confirmUrl =
@@ -31,10 +31,10 @@ export async function action({ request }: ActionFunctionArgs) {
 
   // 1. Create the contact as unsubscribed
   const { data: contact, error: contactError } = await resend.contacts.create({
-    audienceId,
     email,
     firstName: name || undefined,
     unsubscribed: true,
+    segments: [{ id: segmentId }],
   });
 
   if (contactError) {
@@ -114,10 +114,10 @@ export default function DoubleOptin() {
         <h3 style={{ margin: "0 0 12px 0", fontSize: "14px" }}>How it works</h3>
         <pre style={preStyle}>{`// 1. Create contact as unsubscribed
 const { data: contact } = await resend.contacts.create({
-  audienceId,
   email,
   firstName: name,
   unsubscribed: true,
+  segments: [{ id: segmentId }],
 });
 
 // 2. Send confirmation email with a link
@@ -130,7 +130,6 @@ await resend.emails.send({
 
 // 3. In webhook handler (email.clicked event):
 await resend.contacts.update({
-  audienceId,
   id: contact.id,
   unsubscribed: false,
 });`}</pre>
