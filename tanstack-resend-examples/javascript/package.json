@@ -14,7 +14,7 @@
     "@tanstack/react-start": "^1.120.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "resend": "^4.5.0",
+    "resend": "^6.24.0",
     "vinxi": "^0.5.3"
   },
   "engines": {

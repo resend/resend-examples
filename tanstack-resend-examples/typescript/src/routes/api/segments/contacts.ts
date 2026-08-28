@@ -1,10 +1,10 @@
 /**
  * List Contacts API Route
  *
- * GET /api/audiences/contacts
+ * GET /api/segments/contacts
  *
- * Lists all contacts in your Resend audience.
- * Requires RESEND_AUDIENCE_ID environment variable.
+ * Lists all contacts in your Resend segment.
+ * Requires RESEND_SEGMENT_ID environment variable.
  *
  * @see https://resend.com/docs/api-reference/contacts/list-contacts
  */
@@ -12,22 +12,22 @@
 import { createAPIFileRoute } from '@tanstack/react-start/api';
 import { resend } from '~/lib/resend';
 
-export const APIRoute = createAPIFileRoute('/api/audiences/contacts')({
+export const APIRoute = createAPIFileRoute('/api/segments/contacts')({
   GET: async () => {
     try {
-      const audienceId = process.env.RESEND_AUDIENCE_ID;
+      const segmentId = process.env.RESEND_SEGMENT_ID;
 
-      if (!audienceId) {
+      if (!segmentId) {
         return new Response(
           JSON.stringify({
-            error: 'RESEND_AUDIENCE_ID not configured',
+            error: 'RESEND_SEGMENT_ID not configured',
             contacts: [],
           }),
           { status: 400, headers: { 'Content-Type': 'application/json' } },
         );
       }
 
-      const { data, error } = await resend.contacts.list({ audienceId });
+      const { data, error } = await resend.contacts.list({ segmentId });
 
       if (error) {
         console.error('Resend error:', error);
