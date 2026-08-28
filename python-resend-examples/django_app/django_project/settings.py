@@ -29,5 +29,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
 EMAIL_FROM = os.environ.get("EMAIL_FROM", "Acme <onboarding@resend.dev>")
 RESEND_WEBHOOK_SECRET = os.environ.get("RESEND_WEBHOOK_SECRET", "")
-RESEND_AUDIENCE_ID = os.environ.get("RESEND_AUDIENCE_ID", "")
+RESEND_SEGMENT_ID = os.environ.get("RESEND_SEGMENT_ID", "")
 CONFIRM_REDIRECT_URL = os.environ.get("CONFIRM_REDIRECT_URL", "https://example.com/confirmed")

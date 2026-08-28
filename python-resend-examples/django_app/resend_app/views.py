@@ -243,14 +243,14 @@ def create_domain(request):
 
 @require_GET
 def list_contacts(request):
-    audience_id = settings.RESEND_AUDIENCE_ID
-    if not audience_id:
+    segment_id = settings.RESEND_SEGMENT_ID
+    if not segment_id:
         return JsonResponse(
-            {"error": "RESEND_AUDIENCE_ID not configured", "contacts": []}, status=400
+            {"error": "RESEND_SEGMENT_ID not configured", "contacts": []}, status=400
         )
 
     try:
-        result = resend.Contacts.list(audience_id)
+        result = resend.Contacts.list(segment_id=segment_id)
         contacts = result.get("data", [])
         return JsonResponse({"contacts": contacts, "total": len(contacts)})
     except Exception:
@@ -314,20 +314,21 @@ def double_optin_subscribe(request):
     if not email:
         return JsonResponse({"error": "Missing required field: email"}, status=400)
 
-    audience_id = settings.RESEND_AUDIENCE_ID
-    if not audience_id:
-        return JsonResponse({"error": "RESEND_AUDIENCE_ID not configured"}, status=500)
+    segment_id = settings.RESEND_SEGMENT_ID
+    if not segment_id:
+        return JsonResponse({"error": "RESEND_SEGMENT_ID not configured"}, status=500)
 
     confirm_url = settings.CONFIRM_REDIRECT_URL
 
     try:
-        # Create contact with unsubscribed=True (pending confirmation)
+        # Create contact with unsubscribed=True (pending confirmation),
+        # assigned to the segment inline
         contact = resend.Contacts.create(
             {
-                "audience_id": audience_id,
                 "email": email,
                 "first_name": name,
                 "unsubscribed": True,
+                "segments": [{"id": segment_id}],
             }
         )
 
@@ -390,14 +391,14 @@ def double_optin_webhook(request):
             {"received": True, "type": event_type, "message": "Event type ignored"}
         )
 
-    audience_id = settings.RESEND_AUDIENCE_ID
+    segment_id = settings.RESEND_SEGMENT_ID
     recipient_email = event.get("data", {}).get("to", [None])[0]
 
     if not recipient_email:
         return JsonResponse({"error": "No recipient in webhook data"}, status=400)
 
     try:
-        contacts = resend.Contacts.list(audience_id)
+        contacts = resend.Contacts.list(segment_id=segment_id)
         contact = next(
             (c for c in contacts.get("data", []) if c["email"] == recipient_email),
             None,
@@ -408,7 +409,6 @@ def double_optin_webhook(request):
 
         resend.Contacts.update(
             {
-                "audience_id": audience_id,
                 "id": contact["id"],
                 "unsubscribed": False,
             }
