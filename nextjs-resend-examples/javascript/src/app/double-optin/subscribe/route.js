@@ -24,10 +24,10 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Email is required' }, { status: 400 });
     }
 
-    const audienceId = process.env.RESEND_AUDIENCE_ID;
-    if (!audienceId) {
+    const segmentId = process.env.RESEND_SEGMENT_ID;
+    if (!segmentId) {
       return NextResponse.json(
-        { error: 'RESEND_AUDIENCE_ID not configured' },
+        { error: 'RESEND_SEGMENT_ID not configured' },
         { status: 500 },
       );
     }
@@ -38,10 +38,10 @@ export async function POST(request) {
     // Step 1: Create contact with unsubscribed: true (pending confirmation)
     const { data: contact, error: contactError } = await resend.contacts.create(
       {
-        audienceId,
         email,
         firstName: name || undefined,
         unsubscribed: true, // Will be set to false when they confirm
+        segments: [{ id: segmentId }],
       },
     );
 

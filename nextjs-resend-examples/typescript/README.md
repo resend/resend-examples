@@ -21,7 +21,7 @@ This project includes examples for:
 - **Inbound Emails** - Receive and forward emails via webhooks
 
 ### Management
-- **Audiences** - Manage contacts and segments
+- **Segments** - Manage contacts and segments
 - **Domains** - Create domains and view DNS records
 - **Automations** - Build event-driven workflows and inspect their runs
 
@@ -63,7 +63,7 @@ RESEND_API_KEY=re_xxxxxxxxx
 RESEND_WEBHOOK_SECRET=whsec_xxxxxxxxx
 EMAIL_FROM=Acme <onboarding@yourdomain.com>
 CONTACT_EMAIL=team@yourdomain.com
-RESEND_AUDIENCE_ID=aud_xxxxxxxxx
+RESEND_SEGMENT_ID=seg_xxxxxxxxx
 ```
 
 Get your API key from [resend.com/api-keys](https://resend.com/api-keys).
@@ -96,7 +96,7 @@ src/
 │   │   ├── send-template/    # With templates
 │   │   ├── send-scheduled/   # Scheduled emails
 │   │   ├── webhook/          # Inbound webhook handler
-│   │   ├── audiences/        # Contacts management
+│   │   ├── segments/         # Contacts management
 │   │   └── domains/          # Domain management
 │   ├── contact-form/         # Server Action example
 │   ├── send-email/           # Basic send UI
@@ -106,7 +106,7 @@ src/
 │   ├── react-email/          # React Email UI
 │   ├── scheduling/           # Scheduling UI
 │   ├── inbound/              # Inbound docs
-│   ├── audiences/            # Audiences UI
+│   ├── segments/             # Segments UI
 │   ├── domains/              # Domains UI
 │   ├── automations/          # Automations UI
 │   ├── better-auth/          # Auth integration docs

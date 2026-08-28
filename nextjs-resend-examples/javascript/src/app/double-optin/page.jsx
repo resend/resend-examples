@@ -113,10 +113,10 @@ export default function DoubleOptinPage() {
         language="javascript"
         code={`// 1. Create contact (pending confirmation)
 const contact = await resend.contacts.create({
-  audienceId: AUDIENCE_ID,
   email,
   firstName: name,
   unsubscribed: true, // Not confirmed yet
+  segments: [{ id: SEGMENT_ID }],
 });
 
 // 2. Send confirmation email

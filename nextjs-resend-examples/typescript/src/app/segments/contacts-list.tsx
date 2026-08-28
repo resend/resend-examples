@@ -3,21 +3,30 @@
 /**
  * Contacts List Component
  *
- * Displays contacts from your Resend audience.
- * Demonstrates fetching and displaying audience data.
+ * Displays contacts from your Resend segment.
+ * Demonstrates fetching and displaying segment data.
  */
 
 import { useEffect, useState } from 'react';
 
+interface Contact {
+  id: string;
+  email: string;
+  first_name?: string;
+  last_name?: string;
+  created_at: string;
+  unsubscribed: boolean;
+}
+
 export function ContactsList() {
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState<Contact[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchContacts() {
       try {
-        const response = await fetch('/api/audiences/contacts');
+        const response = await fetch('/api/segments/contacts');
         const data = await response.json();
 
         if (!response.ok) {
@@ -50,7 +59,7 @@ export function ContactsList() {
       <div className="p-4 rounded-lg border border-red-200 bg-red-50">
         <p className="text-red-700">{error}</p>
         <p className="text-sm text-red-600 mt-2">
-          Make sure you have created an audience and added the ID to your
+          Make sure you have created a segment and added the ID to your
           environment variables.
         </p>
       </div>
@@ -61,7 +70,7 @@ export function ContactsList() {
     return (
       <div className="p-4 rounded-lg border border-[var(--border)] bg-[var(--muted)]">
         <p className="text-[var(--muted-foreground)]">
-          No contacts found. Add some contacts to your audience in the{' '}
+          No contacts found. Add some contacts to your segment in the{' '}
           <a
             href="https://resend.com/audiences"
             target="_blank"

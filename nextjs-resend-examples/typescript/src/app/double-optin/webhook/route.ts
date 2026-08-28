@@ -69,10 +69,10 @@ export async function POST(request: Request) {
       });
     }
 
-    const audienceId = process.env.RESEND_AUDIENCE_ID;
-    if (!audienceId) {
+    const segmentId = process.env.RESEND_SEGMENT_ID;
+    if (!segmentId) {
       return NextResponse.json(
-        { error: 'RESEND_AUDIENCE_ID not configured' },
+        { error: 'RESEND_SEGMENT_ID not configured' },
         { status: 500 },
       );
     }
@@ -91,7 +91,7 @@ export async function POST(request: Request) {
 
     // Find the contact by email
     const { data: contacts, error: listError } = await resend.contacts.list({
-      audienceId,
+      segmentId,
     });
 
     if (listError) {
@@ -110,7 +110,6 @@ export async function POST(request: Request) {
 
     // Update contact to confirmed (unsubscribed: false)
     const { error: updateError } = await resend.contacts.update({
-      audienceId,
       id: contact.id,
       unsubscribed: false,
     });
