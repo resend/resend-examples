@@ -155,9 +155,9 @@ func doubleOptinSubscribeHandler(c *gin.Context) {
 		return
 	}
 
-	audienceID := os.Getenv("RESEND_AUDIENCE_ID")
-	if audienceID == "" {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "RESEND_AUDIENCE_ID not configured"})
+	segmentID := os.Getenv("RESEND_SEGMENT_ID")
+	if segmentID == "" {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "RESEND_SEGMENT_ID not configured"})
 		return
 	}
 
@@ -172,10 +172,10 @@ func doubleOptinSubscribeHandler(c *gin.Context) {
 	}
 
 	contactParams := &resend.CreateContactRequest{
-		AudienceId:   audienceID,
 		Email:        body.Email,
 		FirstName:    body.Name,
 		Unsubscribed: true,
+		Segments:     []resend.ContactSegmentRef{{Id: segmentID}},
 	}
 
 	contact, err := client.Contacts.Create(contactParams)
@@ -254,7 +254,7 @@ func doubleOptinWebhookHandler(c *gin.Context) {
 		return
 	}
 
-	audienceID := os.Getenv("RESEND_AUDIENCE_ID")
+	segmentID := os.Getenv("RESEND_SEGMENT_ID")
 	data, _ := event["data"].(map[string]interface{})
 	toList, _ := data["to"].([]interface{})
 	if len(toList) == 0 {
@@ -263,7 +263,7 @@ func doubleOptinWebhookHandler(c *gin.Context) {
 	}
 	recipientEmail, _ := toList[0].(string)
 
-	contacts, err := client.Contacts.List(&resend.ListContactsOptions{AudienceId: audienceID})
+	contacts, err := client.Contacts.List(&resend.ListContactsOptions{SegmentId: segmentID})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -283,7 +283,6 @@ func doubleOptinWebhookHandler(c *gin.Context) {
 	}
 
 	updateParams := &resend.UpdateContactRequest{
-		AudienceId:   audienceID,
 		Id:           contactID,
 		Unsubscribed: false,
 	}

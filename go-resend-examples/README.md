@@ -56,9 +56,9 @@ go run ./examples/with_template/
 go run ./examples/prevent_threading/
 ```
 
-### Audiences & Contacts
+### Segments & Contacts
 ```bash
-go run ./examples/audiences/
+go run ./examples/segments/
 ```
 
 ### Domain Management
@@ -146,7 +146,7 @@ go-resend-examples/
 │   ├── scheduled_send/main.go      # Future delivery
 │   ├── with_template/main.go       # Using Resend templates
 │   ├── prevent_threading/main.go   # Prevent Gmail threading
-│   ├── audiences/main.go           # Manage contacts
+│   ├── segments/main.go            # Manage contacts
 │   ├── domains/main.go             # Manage domains
 │   ├── metrics/main.go             # Account-level email metrics
 │   ├── inbound/main.go             # Handle inbound emails

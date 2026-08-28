@@ -166,9 +166,9 @@ func doubleOptinSubscribeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	audienceID := os.Getenv("RESEND_AUDIENCE_ID")
-	if audienceID == "" {
-		jsonResponse(w, http.StatusInternalServerError, map[string]string{"error": "RESEND_AUDIENCE_ID not configured"})
+	segmentID := os.Getenv("RESEND_SEGMENT_ID")
+	if segmentID == "" {
+		jsonResponse(w, http.StatusInternalServerError, map[string]string{"error": "RESEND_SEGMENT_ID not configured"})
 		return
 	}
 
@@ -184,10 +184,10 @@ func doubleOptinSubscribeHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Create contact with unsubscribed=true
 	contactParams := &resend.CreateContactRequest{
-		AudienceId:   audienceID,
 		Email:        body.Email,
 		FirstName:    body.Name,
 		Unsubscribed: true,
+		Segments:     []resend.ContactSegmentRef{{Id: segmentID}},
 	}
 
 	contact, err := client.Contacts.Create(contactParams)
@@ -267,7 +267,7 @@ func doubleOptinWebhookHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	audienceID := os.Getenv("RESEND_AUDIENCE_ID")
+	segmentID := os.Getenv("RESEND_SEGMENT_ID")
 	data, _ := event["data"].(map[string]interface{})
 	toList, _ := data["to"].([]interface{})
 	if len(toList) == 0 {
@@ -277,7 +277,7 @@ func doubleOptinWebhookHandler(w http.ResponseWriter, r *http.Request) {
 	recipientEmail, _ := toList[0].(string)
 
 	// Find and update contact
-	contacts, err := client.Contacts.List(&resend.ListContactsOptions{AudienceId: audienceID})
+	contacts, err := client.Contacts.List(&resend.ListContactsOptions{SegmentId: segmentID})
 	if err != nil {
 		jsonResponse(w, http.StatusInternalServerError, map[string]string{"error": err.Error()})
 		return
@@ -297,7 +297,6 @@ func doubleOptinWebhookHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	updateParams := &resend.UpdateContactRequest{
-		AudienceId:   audienceID,
 		Id:           contactID,
 		Unsubscribed: false,
 	}
