@@ -64,7 +64,7 @@ const { data: segment } = await resend.segments.create({
         <p className="text-sm text-yellow-700">
           Create a segment in the{' '}
           <a
-            href="https://resend.com/audiences"
+            href="https://resend.com/segments"
             target="_blank"
             rel="noopener noreferrer"
             className="underline"

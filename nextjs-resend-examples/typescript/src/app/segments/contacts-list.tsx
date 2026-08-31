@@ -72,7 +72,7 @@ export function ContactsList() {
         <p className="text-[var(--muted-foreground)]">
           No contacts found. Add some contacts to your segment in the{' '}
           <a
-            href="https://resend.com/audiences"
+            href="https://resend.com/segments"
             target="_blank"
             rel="noopener noreferrer"
             className="underline"
