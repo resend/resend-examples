@@ -21,7 +21,7 @@ This project includes examples for:
 - **Inbound Emails** - Receive and forward emails via webhooks
 
 ### Management
-- **Audiences** - Manage contacts and segments
+- **Segments** - Manage contacts and segments
 - **Domains** - Create domains and view DNS records
 - **Automations** - Build event-driven workflows and inspect their runs
 

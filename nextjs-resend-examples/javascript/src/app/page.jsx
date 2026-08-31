@@ -83,9 +83,9 @@ const examples = [
     category: 'Management',
     items: [
       {
-        title: 'Audiences',
+        title: 'Segments',
         description: 'Manage contacts and segments',
-        href: '/audiences',
+        href: '/segments',
         type: 'page',
       },
       {

@@ -1,7 +1,7 @@
 /**
  * List Contacts API Route
  *
- * GET /api/audiences/contacts
+ * GET /api/segments/contacts
  *
  * @see https://resend.com/docs/api-reference/contacts/list-contacts
  */
@@ -11,16 +11,16 @@ import { resend } from '@/lib/resend';
 
 export async function GET() {
   try {
-    const audienceId = process.env.RESEND_AUDIENCE_ID;
+    const segmentId = process.env.RESEND_SEGMENT_ID;
 
-    if (!audienceId) {
+    if (!segmentId) {
       return NextResponse.json(
-        { error: 'RESEND_AUDIENCE_ID not configured', contacts: [] },
+        { error: 'RESEND_SEGMENT_ID not configured', contacts: [] },
         { status: 400 },
       );
     }
 
-    const { data, error } = await resend.contacts.list({ audienceId });
+    const { data, error } = await resend.contacts.list({ segmentId });
 
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 400 });
