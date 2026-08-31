@@ -89,7 +89,7 @@ class WebhookController
                 ]);
             }
 
-            $audienceId = $_ENV['RESEND_AUDIENCE_ID'] ?? '';
+            $segmentId = $_ENV['RESEND_SEGMENT_ID'] ?? '';
             $recipientEmail = $event['data']['to'][0] ?? null;
 
             if (!$recipientEmail) {
@@ -97,7 +97,7 @@ class WebhookController
             }
 
             // Find contact by email
-            $contacts = $this->resend->contacts->list($audienceId);
+            $contacts = $this->resend->contacts->list(['segment_id' => $segmentId]);
             $contact = null;
 
             foreach ($contacts->data as $c) {
@@ -112,7 +112,7 @@ class WebhookController
             }
 
             // Update contact: confirm subscription
-            $this->resend->contacts->update($audienceId, $contact->id, [
+            $this->resend->contacts->update($contact->id, [
                 'unsubscribed' => false,
             ]);
 

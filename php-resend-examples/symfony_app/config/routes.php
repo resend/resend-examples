@@ -46,7 +46,7 @@ return function (RoutingConfigurator $routes): void {
         ->controller([EmailController::class, 'createDomain'])
         ->methods(['POST']);
 
-    $routes->add('list_contacts', '/audiences/contacts')
+    $routes->add('list_contacts', '/segments/contacts')
         ->controller([EmailController::class, 'listContacts'])
         ->methods(['GET']);
 
