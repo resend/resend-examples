@@ -18,7 +18,7 @@ $segmentId = $_ENV['RESEND_SEGMENT_ID'] ?? null;
 
 if (!$segmentId) {
     echo "Error: RESEND_SEGMENT_ID not configured in .env\n";
-    echo "Create a segment at https://resend.com/audiences\n"; // resend.com/segments 404s as of this writing; /audiences is the current, working dashboard URL
+    echo "Create a segment at https://resend.com/segments\n";
     exit(1);
 }
 
