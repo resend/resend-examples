@@ -40,7 +40,7 @@
         <dependency>
             <groupId>com.resend</groupId>
             <artifactId>resend-java</artifactId>
-            <version>4.21.0</version>
+            <version>4.24.0</version>
         </dependency>
 
         <!-- Environment variables -->
