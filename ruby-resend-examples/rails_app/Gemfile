@@ -4,7 +4,7 @@ ruby ">= 3.1"
 
 # Rails API
 gem "rails", "~> 8.0"
-gem "puma", "~> 6.4"
+gem "puma", "~> 7.2", ">= 7.2.1"
 
 # Resend SDK
 gem "resend", "~> 1.0"
