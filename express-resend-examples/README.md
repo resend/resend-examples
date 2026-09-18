@@ -9,18 +9,32 @@ Comprehensive examples for sending emails with [Resend](https://resend.com) usin
 
 ## Installation
 
+Choose the TypeScript or JavaScript variant and install its dependencies:
+
 ```bash
-# Choose your variant
 cd typescript  # or javascript
-
-# Install dependencies
 npm install
-
-# Copy environment variables
-cp ../.env.example .env
-
-# Add your Resend API key to .env
 ```
+
+Copy the example environment file into the selected variant:
+
+```bash
+cp ../.env.example .env
+```
+
+Create an API key in the [Resend dashboard](https://resend.com/api-keys), then
+add it to `.env`:
+
+```env
+RESEND_API_KEY=re_xxxxxxxxx
+```
+
+The basic send example uses `onboarding@resend.dev` as the default sender when
+`EMAIL_FROM` is not configured, so you can run the example without first
+configuring your own domain.
+
+To send from your own domain, verify the domain in Resend and set `EMAIL_FROM`
+to an address on that domain.
 
 ## Standalone Examples
 
