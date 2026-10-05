@@ -57,14 +57,15 @@ export default function Inbound() {
         <pre style={preStyle}>{`// In app/routes/api.webhook.js
 export async function action({ request }) {
   const wh = new Webhook(process.env.RESEND_WEBHOOK_SECRET);
-  const body = await request.json();
-  const payload = JSON.stringify(body);
+  const payload = await request.text();
 
   wh.verify(payload, {
     "svix-id": request.headers.get("svix-id"),
     "svix-timestamp": request.headers.get("svix-timestamp"),
     "svix-signature": request.headers.get("svix-signature"),
   });
+
+  const body = JSON.parse(payload);
 
   if (body.type === "email.received") {
     console.log("New email from:", body.data?.from);

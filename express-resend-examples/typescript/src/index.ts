@@ -4,6 +4,9 @@ import { Resend } from "resend";
 import { Webhook } from "svix";
 
 const app = express();
+// Webhook routes need the raw body for signature verification,
+// so they get express.raw() before the app-wide JSON parser.
+app.use(["/webhook", "/double-optin/webhook"], express.raw({ type: "application/json" }));
 app.use(express.json());
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -59,14 +62,14 @@ app.post("/webhook", async (req: Request, res: Response) => {
 
   try {
     const wh = new Webhook(webhookSecret);
-    const payload = JSON.stringify(req.body);
+    const payload = req.body.toString();
     wh.verify(payload, {
       "svix-id": svixId,
       "svix-timestamp": svixTimestamp,
       "svix-signature": svixSignature,
     });
 
-    const event = req.body;
+    const event = JSON.parse(payload);
     console.log("Received webhook event:", sanitize(event.type));
 
     switch (event.type) {
@@ -152,14 +155,14 @@ app.post("/double-optin/webhook", async (req: Request, res: Response) => {
 
   try {
     const wh = new Webhook(webhookSecret);
-    const payload = JSON.stringify(req.body);
+    const payload = req.body.toString();
     wh.verify(payload, {
       "svix-id": req.headers["svix-id"] as string,
       "svix-timestamp": req.headers["svix-timestamp"] as string,
       "svix-signature": req.headers["svix-signature"] as string,
     });
 
-    const event = req.body;
+    const event = JSON.parse(payload);
 
     if (event.type !== "email.clicked") {
       res.json({ received: true, type: event.type, message: "Event type ignored" });

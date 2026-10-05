@@ -51,15 +51,14 @@ app.post("/webhook", async (c) => {
 
   try {
     const wh = new Webhook(webhookSecret);
-    const body = await c.req.json();
-    const payload = JSON.stringify(body);
+    const payload = await c.req.text();
     wh.verify(payload, {
       "svix-id": svixId,
       "svix-timestamp": svixTimestamp,
       "svix-signature": svixSignature,
     });
 
-    const event = body;
+    const event = JSON.parse(payload);
     console.log("Received webhook event:", event.type);
 
     switch (event.type) {
@@ -140,15 +139,14 @@ app.post("/double-optin/webhook", async (c) => {
 
   try {
     const wh = new Webhook(webhookSecret);
-    const body = await c.req.json();
-    const payload = JSON.stringify(body);
+    const payload = await c.req.text();
     wh.verify(payload, {
       "svix-id": c.req.header("svix-id") as string,
       "svix-timestamp": c.req.header("svix-timestamp") as string,
       "svix-signature": c.req.header("svix-signature") as string,
     });
 
-    const event = body;
+    const event = JSON.parse(payload);
 
     if (event.type !== "email.clicked") {
       return c.json({ received: true, type: event.type, message: "Event type ignored" });
