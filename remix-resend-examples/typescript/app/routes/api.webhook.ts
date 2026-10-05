@@ -18,15 +18,14 @@ export async function action({ request }: ActionFunctionArgs) {
 
   try {
     const wh = new Webhook(webhookSecret);
-    const body = await request.json();
-    const payload = JSON.stringify(body);
+    const payload = await request.text();
     wh.verify(payload, {
       "svix-id": svixId,
       "svix-timestamp": svixTimestamp,
       "svix-signature": svixSignature,
     });
 
-    const event = body as { type: string; data?: Record<string, unknown> };
+    const event = JSON.parse(payload) as { type: string; data?: Record<string, unknown> };
     console.log("Received webhook event:", event.type);
 
     switch (event.type) {

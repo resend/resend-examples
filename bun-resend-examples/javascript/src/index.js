@@ -61,15 +61,14 @@ Bun.serve({
 
       try {
         const wh = new Webhook(webhookSecret);
-        const body = await req.json();
-        const payload = JSON.stringify(body);
+        const payload = await req.text();
         wh.verify(payload, {
           "svix-id": svixId,
           "svix-timestamp": svixTimestamp,
           "svix-signature": svixSignature,
         });
 
-        const event = body;
+        const event = JSON.parse(payload);
         console.log("Received webhook event:", event.type);
 
         switch (event.type) {
@@ -152,15 +151,14 @@ Bun.serve({
 
       try {
         const wh = new Webhook(webhookSecret);
-        const body = await req.json();
-        const payload = JSON.stringify(body);
+        const payload = await req.text();
         wh.verify(payload, {
           "svix-id": req.headers.get("svix-id"),
           "svix-timestamp": req.headers.get("svix-timestamp"),
           "svix-signature": req.headers.get("svix-signature"),
         });
 
-        const event = body;
+        const event = JSON.parse(payload);
 
         if (event.type !== "email.clicked") {
           return json({ received: true, type: event.type, message: "Event type ignored" });
