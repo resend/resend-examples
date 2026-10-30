@@ -4,7 +4,7 @@ go 1.23
 
 require (
 	github.com/gin-gonic/gin v1.10.0
-	github.com/go-chi/chi/v5 v5.2.1
+	github.com/go-chi/chi/v5 v5.4.0
 	github.com/google/uuid v1.6.0
 	github.com/joho/godotenv v1.5.1
 	github.com/resend/resend-go/v4 v4.0.0
