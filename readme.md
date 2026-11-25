@@ -6,28 +6,29 @@ Comprehensive examples for sending emails with [Resend](https://resend.com) acro
 
 Choose your language/framework and follow the setup instructions in each folder:
 
-| Language | Folder | Framework |
-|----------|--------|-----------|
-| **Next.js (TypeScript)** | [`/nextjs-resend-examples/typescript`](/nextjs-resend-examples/typescript/) | Next.js 16, React 19 |
-| **Next.js (JavaScript)** | [`/nextjs-resend-examples/javascript`](/nextjs-resend-examples/javascript/) | Next.js 16, React 19 |
-| **PHP** | [`/php-resend-examples`](/php-resend-examples/) | Slim, Symfony |
-| **Laravel** | [`/laravel-resend-examples`](/laravel-resend-examples/) | Laravel 11 |
-| **Python** | [`/python-resend-examples`](/python-resend-examples/) | Flask, FastAPI, Django |
-| **Ruby** | [`/ruby-resend-examples`](/ruby-resend-examples/) | Sinatra, Rails |
-| **Go** | [`/go-resend-examples`](/go-resend-examples/) | Chi, Gin |
-| **Java** | [`/java-resend-examples`](/java-resend-examples/) | Javalin, Spring Boot |
-| **.NET (C#)** | [`/dotnet-resend-examples`](/dotnet-resend-examples/) | ASP.NET Minimal APIs, ASP.NET MVC |
-| **Rust** | [`/rust-resend-examples`](/rust-resend-examples/) | Axum |
-| **Elixir** | [`/elixir-resend-examples`](/elixir-resend-examples/) | Phoenix |
-| **Express** | [`/express-resend-examples`](/express-resend-examples/) | Express 5 |
-| **Hono** | [`/hono-resend-examples`](/hono-resend-examples/) | Hono |
-| **Bun** | [`/bun-resend-examples`](/bun-resend-examples/) | Bun.serve() |
-| **Remix** | [`/remix-resend-examples`](/remix-resend-examples/) | Remix |
-| **Nuxt** | [`/nuxt-resend-examples`](/nuxt-resend-examples/) | Nuxt 3 |
-| **SvelteKit** | [`/sveltekit-resend-examples`](/sveltekit-resend-examples/) | SvelteKit |
-| **Astro** | [`/astro-resend-examples`](/astro-resend-examples/) | Astro |
-| **RedwoodJS** | [`/redwoodjs-resend-examples`](/redwoodjs-resend-examples/) | RedwoodJS |
-| **TanStack Start** | [`/tanstack-resend-examples`](/tanstack-resend-examples/) | TanStack Start |
+| Language                 | Folder                                                                      | Framework                               |
+| ------------------------ | --------------------------------------------------------------------------- | --------------------------------------- |
+| **Next.js (TypeScript)** | [`/nextjs-resend-examples/typescript`](/nextjs-resend-examples/typescript/) | Next.js 16, React 19                    |
+| **Next.js (JavaScript)** | [`/nextjs-resend-examples/javascript`](/nextjs-resend-examples/javascript/) | Next.js 16, React 19                    |
+| **PHP**                  | [`/php-resend-examples`](/php-resend-examples/)                             | Slim, Symfony                           |
+| **Laravel**              | [`/laravel-resend-examples`](/laravel-resend-examples/)                     | Laravel 11                              |
+| **Python**               | [`/python-resend-examples`](/python-resend-examples/)                       | Flask, FastAPI, Django                  |
+| **Ruby**                 | [`/ruby-resend-examples`](/ruby-resend-examples/)                           | Sinatra, Rails                          |
+| **Go**                   | [`/go-resend-examples`](/go-resend-examples/)                               | Chi, Gin                                |
+| **Java**                 | [`/java-resend-examples`](/java-resend-examples/)                           | Javalin, Spring Boot                    |
+| **.NET (C#)**            | [`/dotnet-resend-examples`](/dotnet-resend-examples/)                       | ASP.NET Minimal APIs, ASP.NET MVC       |
+| **Rust**                 | [`/rust-resend-examples`](/rust-resend-examples/)                           | Axum                                    |
+| **Elixir**               | [`/elixir-resend-examples`](/elixir-resend-examples/)                       | Phoenix                                 |
+| **Express**              | [`/express-resend-examples`](/express-resend-examples/)                     | Express 5                               |
+| **Hono**                 | [`/hono-resend-examples`](/hono-resend-examples/)                           | Hono                                    |
+| **Bun**                  | [`/bun-resend-examples`](/bun-resend-examples/)                             | Bun.serve()                             |
+| **Remix**                | [`/remix-resend-examples`](/remix-resend-examples/)                         | Remix                                   |
+| **Nuxt**                 | [`/nuxt-resend-examples`](/nuxt-resend-examples/)                           | Nuxt 3                                  |
+| **SvelteKit**            | [`/sveltekit-resend-examples`](/sveltekit-resend-examples/)                 | SvelteKit                               |
+| **Astro**                | [`/astro-resend-examples`](/astro-resend-examples/)                         | Astro                                   |
+| **RedwoodJS**            | [`/redwoodjs-resend-examples`](/redwoodjs-resend-examples/)                 | RedwoodJS                               |
+| **TanStack Start**       | [`/tanstack-resend-examples`](/tanstack-resend-examples/)                   | TanStack Start                          |
+| **e2e**                  | [`/e2e-resend-examples/typescript`](/e2e-resend-examples/typescript/)       | End to end testing with Next.js and e2e |
 
 ## Examples Included
 
@@ -55,6 +56,8 @@ Each language folder includes examples for:
 ### Advanced
 - **Authentication** - Email verification with better-auth
 - **Prevent Threading** - Stop Gmail conversation grouping
+
+The e2e tests only have one example that shows how to test email verification with real email addresses.
 
 ## Getting Started
 
