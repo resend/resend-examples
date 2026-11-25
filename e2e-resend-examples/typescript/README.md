@@ -44,8 +44,8 @@ The project also has end-to-end tests written with [e2e](https://e2e.com). The t
 ### 2. Download and install
 
 ```sh
-git clone <this-repository-url> resend-e2e-example
-cd resend-e2e-example
+git clone https://github.com/resend/resend-examples.git
+cd resend-examples/e2e-resend-examples/typescript
 npm install
 ```
 
