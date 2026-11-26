@@ -38,16 +38,15 @@ export type Inbox = {
 };
 
 async function findReceivedEmailId(resend: Resend, address: string) {
-	const { data, error } = await resend.emails.receiving.list({ limit: 50 });
+	const { data, error } = await resend.emails.receiving.list({
+		to: [address],
+		limit: 1,
+	});
 	if (error) {
 		throw new Error(`Listing received emails failed: ${error.message}`);
 	}
 
-	return data.data.find((email) =>
-		[...email.to, ...(email.received_for ?? [])].some(
-			(to) => to.toLowerCase() === address,
-		),
-	)?.id;
+	return data.data[0]?.id;
 }
 
 export const inboxTest = test.extend<{ inbox: Inbox }>({

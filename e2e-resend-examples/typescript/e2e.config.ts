@@ -9,7 +9,7 @@ if (existsSync(".env")) {
 	process.loadEnvFile(".env");
 }
 
-export default {
+const config: E2EConfig = {
 	// Your ChatGPT subscription serves the model; sign in once with `e2e login openai`, `e2e models openai` lists the ids.
 	agents: {
 		default: {
@@ -35,4 +35,6 @@ export default {
 					},
 		},
 	],
-} satisfies E2EConfig;
+};
+
+export default config;
